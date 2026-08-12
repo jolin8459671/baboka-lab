@@ -1,0 +1,289 @@
+<svg viewBox="0 0 1600 900" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#141312"/>
+      <stop offset="55%" stop-color="#1c1a18"/>
+      <stop offset="100%" stop-color="#141312"/>
+    </linearGradient>
+    <linearGradient id="netGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#ff7a1a"/>
+      <stop offset="50%" stop-color="#ffb347"/>
+      <stop offset="100%" stop-color="#ff7a1a"/>
+    </linearGradient>
+    <linearGradient id="zoneFill" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#232019"/>
+      <stop offset="100%" stop-color="#1a1815"/>
+    </linearGradient>
+    <linearGradient id="utilFill" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#241a12"/>
+      <stop offset="100%" stop-color="#1a130d"/>
+    </linearGradient>
+    <pattern id="netMesh" width="18" height="18" patternUnits="userSpaceOnUse">
+      <path d="M0 0 L18 18 M18 0 L0 18" stroke="#3a3530" stroke-width="1"/>
+    </pattern>
+    <pattern id="courtDots" width="40" height="40" patternUnits="userSpaceOnUse">
+      <circle cx="1" cy="1" r="1" fill="#2b2823"/>
+    </pattern>
+    <filter id="softGlow" x="-50%" y="-50%" width="200%" height="200%">
+      <feGaussianBlur stdDeviation="6" result="blur"/>
+      <feMerge>
+        <feMergeNode in="blur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+  </defs>
+
+  <!-- ================= BACKGROUND ================= -->
+  <rect x="0" y="0" width="1600" height="900" fill="url(#bg)"/>
+  <rect x="0" y="0" width="1600" height="900" fill="url(#courtDots)"/>
+
+  <!-- corner diagonal accents -->
+  <polygon points="0,0 260,0 0,220" fill="#ff7a1a" opacity="0.12"/>
+  <polygon points="1600,900 1340,900 1600,680" fill="#ff7a1a" opacity="0.12"/>
+  <polygon points="0,900 0,700 200,900" fill="#ffffff" opacity="0.04"/>
+  <polygon points="1600,0 1600,200 1400,0" fill="#ffffff" opacity="0.04"/>
+
+  <!-- outer border -->
+  <rect x="14" y="14" width="1572" height="872" rx="18" fill="none" stroke="#ff7a1a" stroke-width="3" opacity="0.55"/>
+  <rect x="24" y="24" width="1552" height="852" rx="14" fill="none" stroke="#4a4640" stroke-width="1"/>
+
+  <!-- ================= REUSABLE HALF TEMPLATE (drawn twice) ================= -->
+  <!-- BOTTOM HALF = 自分 (你的場地) : local origin near-net at y=465, far edge at y=900 -->
+  <g id="bottomHalf">
+
+    <!-- main 5 court zones -->
+    <g font-family="'Noto Sans CJK TC','Noto Sans TC','Microsoft JhengHei',sans-serif">
+
+      <!-- 發球區 SERVE -->
+      <g transform="translate(40,490)">
+        <rect width="150" height="140" rx="10" fill="url(#zoneFill)" stroke="#ff7a1a" stroke-width="2"/>
+        <text x="75" y="26" text-anchor="middle" fill="#ff9d4d" font-size="20" font-weight="700">發球區</text>
+        <text x="75" y="44" text-anchor="middle" fill="#7a746a" font-size="11" letter-spacing="2">SERVE</text>
+        <rect x="35" y="60" width="80" height="60" rx="6" fill="none" stroke="#4a453d" stroke-width="1.5" stroke-dasharray="4 3"/>
+      </g>
+
+      <!-- 阻擋區 BLOCK (3 slots) -->
+      <g transform="translate(205,490)">
+        <rect width="150" height="140" rx="10" fill="url(#zoneFill)" stroke="#ff7a1a" stroke-width="2"/>
+        <text x="75" y="26" text-anchor="middle" fill="#ff9d4d" font-size="20" font-weight="700">阻擋區</text>
+        <text x="75" y="44" text-anchor="middle" fill="#7a746a" font-size="11" letter-spacing="2">BLOCK</text>
+        <rect x="55" y="54" width="40" height="34" rx="5" fill="none" stroke="#4a453d" stroke-width="1.5" stroke-dasharray="3 3"/>
+        <text x="75" y="75" text-anchor="middle" fill="#5a554d" font-size="9">主攔</text>
+        <rect x="14" y="96" width="40" height="34" rx="5" fill="none" stroke="#4a453d" stroke-width="1.5" stroke-dasharray="3 3"/>
+        <text x="34" y="117" text-anchor="middle" fill="#5a554d" font-size="9">副攔</text>
+        <rect x="96" y="96" width="40" height="34" rx="5" fill="none" stroke="#4a453d" stroke-width="1.5" stroke-dasharray="3 3"/>
+        <text x="116" y="117" text-anchor="middle" fill="#5a554d" font-size="9">副攔</text>
+      </g>
+
+      <!-- 接球區 RECEIVE -->
+      <g transform="translate(370,490)">
+        <rect width="150" height="140" rx="10" fill="url(#zoneFill)" stroke="#ff7a1a" stroke-width="2"/>
+        <text x="75" y="26" text-anchor="middle" fill="#ff9d4d" font-size="20" font-weight="700">接球區</text>
+        <text x="75" y="44" text-anchor="middle" fill="#7a746a" font-size="11" letter-spacing="2">RECEIVE</text>
+        <rect x="35" y="60" width="80" height="60" rx="6" fill="none" stroke="#4a453d" stroke-width="1.5" stroke-dasharray="4 3"/>
+      </g>
+
+      <!-- 舉球區 TOSS -->
+      <g transform="translate(535,490)">
+        <rect width="150" height="140" rx="10" fill="url(#zoneFill)" stroke="#ff7a1a" stroke-width="2"/>
+        <text x="75" y="26" text-anchor="middle" fill="#ff9d4d" font-size="20" font-weight="700">舉球區</text>
+        <text x="75" y="44" text-anchor="middle" fill="#7a746a" font-size="11" letter-spacing="2">TOSS</text>
+        <rect x="35" y="60" width="80" height="60" rx="6" fill="none" stroke="#4a453d" stroke-width="1.5" stroke-dasharray="4 3"/>
+      </g>
+
+      <!-- 攻擊區 ATTACK -->
+      <g transform="translate(700,490)">
+        <rect width="150" height="140" rx="10" fill="url(#zoneFill)" stroke="#ff7a1a" stroke-width="2.5"/>
+        <text x="75" y="26" text-anchor="middle" fill="#ffb347" font-size="20" font-weight="700">攻擊區</text>
+        <text x="75" y="44" text-anchor="middle" fill="#7a746a" font-size="11" letter-spacing="2">ATTACK</text>
+        <rect x="35" y="60" width="80" height="60" rx="6" fill="none" stroke="#4a453d" stroke-width="1.5" stroke-dasharray="4 3"/>
+      </g>
+    </g>
+
+    <!-- utility zones: 牌組 / 局數 / 棄牌 / 事件 -->
+    <g font-family="'Noto Sans CJK TC','Noto Sans TC','Microsoft JhengHei',sans-serif">
+
+      <!-- 牌組區 DECK -->
+      <g transform="translate(900,490)">
+        <rect width="150" height="140" rx="10" fill="url(#utilFill)" stroke="#6b6258" stroke-width="2"/>
+        <text x="75" y="26" text-anchor="middle" fill="#e8b784" font-size="18" font-weight="700">牌組區</text>
+        <text x="75" y="42" text-anchor="middle" fill="#7a746a" font-size="10" letter-spacing="1.5">DECK</text>
+        <rect x="48" y="52" width="54" height="72" rx="6" fill="#2a251e" stroke="#8a7f6f" stroke-width="1.5"/>
+        <rect x="44" y="48" width="54" height="72" rx="6" fill="#241f19" stroke="#8a7f6f" stroke-width="1.5"/>
+        <rect x="40" y="44" width="54" height="72" rx="6" fill="#1e1a15" stroke="#ff9d4d" stroke-width="1.5"/>
+        <circle cx="67" cy="80" r="14" fill="none" stroke="#ff9d4d" stroke-width="1.2" opacity="0.6"/>
+      </g>
+
+      <!-- 局數區 SET (2張) -->
+      <g transform="translate(1070,490)">
+        <rect width="150" height="140" rx="10" fill="url(#utilFill)" stroke="#6b6258" stroke-width="2"/>
+        <text x="75" y="26" text-anchor="middle" fill="#e8b784" font-size="18" font-weight="700">局數區</text>
+        <text x="75" y="42" text-anchor="middle" fill="#7a746a" font-size="10" letter-spacing="1.5">SET (x2)</text>
+        <rect x="22" y="55" width="45" height="62" rx="5" fill="#1e1a15" stroke="#8a7f6f" stroke-width="1.5" stroke-dasharray="3 3"/>
+        <rect x="83" y="55" width="45" height="62" rx="5" fill="#1e1a15" stroke="#8a7f6f" stroke-width="1.5" stroke-dasharray="3 3"/>
+      </g>
+
+      <!-- 棄牌區 DROP -->
+      <g transform="translate(1240,490)">
+        <rect width="150" height="140" rx="10" fill="url(#utilFill)" stroke="#6b6258" stroke-width="2"/>
+        <text x="75" y="26" text-anchor="middle" fill="#e8b784" font-size="18" font-weight="700">棄牌區</text>
+        <text x="75" y="42" text-anchor="middle" fill="#7a746a" font-size="10" letter-spacing="1.5">DROP</text>
+        <rect x="35" y="60" width="80" height="60" rx="6" fill="none" stroke="#4a453d" stroke-width="1.5" stroke-dasharray="4 3"/>
+      </g>
+
+      <!-- 事件區 EVENT -->
+      <g transform="translate(1410,490)">
+        <rect width="150" height="140" rx="10" fill="url(#utilFill)" stroke="#6b6258" stroke-width="2"/>
+        <text x="75" y="26" text-anchor="middle" fill="#e8b784" font-size="18" font-weight="700">事件區</text>
+        <text x="75" y="42" text-anchor="middle" fill="#7a746a" font-size="10" letter-spacing="1.5">EVENT</text>
+        <rect x="35" y="60" width="80" height="60" rx="6" fill="none" stroke="#4a453d" stroke-width="1.5" stroke-dasharray="4 3"/>
+      </g>
+    </g>
+
+    <!-- lower decorative half-court area -->
+    <g opacity="0.9">
+      <path d="M40 660 Q800 610 1560 660" stroke="#33302a" stroke-width="2" fill="none"/>
+      <text x="800" y="760" text-anchor="middle" fill="#2a2621" font-size="130" font-weight="800" font-family="'Noto Sans TC',sans-serif" opacity="0.5">MY COURT</text>
+      <text x="800" y="840" text-anchor="middle" fill="#4a453d" font-size="22" letter-spacing="6" font-family="'Noto Sans CJK TC','Noto Sans TC','Microsoft JhengHei',sans-serif">自　陣</text>
+    </g>
+  </g>
+
+  <!-- TOP HALF = 相手 (對手場地) : mirrored copy.
+       Each text keeps the SAME local x,y as the bottom half (so spacing matches exactly);
+       we only counter-rotate each text 180° around its own anchor point so the glyphs
+       stay upright once the whole outer group is rotated 180°. -->
+  <g transform="translate(1600,435) rotate(180)">
+    <g font-family="'Noto Sans CJK TC','Noto Sans TC','Microsoft JhengHei',sans-serif">
+
+      <!-- 發球區 -->
+      <g transform="translate(40,25)">
+        <rect width="150" height="140" rx="10" fill="url(#zoneFill)" stroke="#ff7a1a" stroke-width="2"/>
+        <text transform="rotate(180,75,26)" x="75" y="26" text-anchor="middle" fill="#ff9d4d" font-size="20" font-weight="700">發球區</text>
+        <text transform="rotate(180,75,44)" x="75" y="44" text-anchor="middle" fill="#7a746a" font-size="11" letter-spacing="2">SERVE</text>
+        <rect x="35" y="60" width="80" height="60" rx="6" fill="none" stroke="#4a453d" stroke-width="1.5" stroke-dasharray="4 3"/>
+      </g>
+
+      <!-- 阻擋區 -->
+      <g transform="translate(205,25)">
+        <rect width="150" height="140" rx="10" fill="url(#zoneFill)" stroke="#ff7a1a" stroke-width="2"/>
+        <text transform="rotate(180,75,26)" x="75" y="26" text-anchor="middle" fill="#ff9d4d" font-size="20" font-weight="700">阻擋區</text>
+        <text transform="rotate(180,75,44)" x="75" y="44" text-anchor="middle" fill="#7a746a" font-size="11" letter-spacing="2">BLOCK</text>
+        <rect x="55" y="54" width="40" height="34" rx="5" fill="none" stroke="#4a453d" stroke-width="1.5" stroke-dasharray="3 3"/>
+        <text transform="rotate(180,75,75)" x="75" y="75" text-anchor="middle" fill="#5a554d" font-size="9">主攔</text>
+        <rect x="14" y="96" width="40" height="34" rx="5" fill="none" stroke="#4a453d" stroke-width="1.5" stroke-dasharray="3 3"/>
+        <text transform="rotate(180,34,117)" x="34" y="117" text-anchor="middle" fill="#5a554d" font-size="9">副攔</text>
+        <rect x="96" y="96" width="40" height="34" rx="5" fill="none" stroke="#4a453d" stroke-width="1.5" stroke-dasharray="3 3"/>
+        <text transform="rotate(180,116,117)" x="116" y="117" text-anchor="middle" fill="#5a554d" font-size="9">副攔</text>
+      </g>
+
+      <!-- 接球區 -->
+      <g transform="translate(370,25)">
+        <rect width="150" height="140" rx="10" fill="url(#zoneFill)" stroke="#ff7a1a" stroke-width="2"/>
+        <text transform="rotate(180,75,26)" x="75" y="26" text-anchor="middle" fill="#ff9d4d" font-size="20" font-weight="700">接球區</text>
+        <text transform="rotate(180,75,44)" x="75" y="44" text-anchor="middle" fill="#7a746a" font-size="11" letter-spacing="2">RECEIVE</text>
+        <rect x="35" y="60" width="80" height="60" rx="6" fill="none" stroke="#4a453d" stroke-width="1.5" stroke-dasharray="4 3"/>
+      </g>
+
+      <!-- 舉球區 -->
+      <g transform="translate(535,25)">
+        <rect width="150" height="140" rx="10" fill="url(#zoneFill)" stroke="#ff7a1a" stroke-width="2"/>
+        <text transform="rotate(180,75,26)" x="75" y="26" text-anchor="middle" fill="#ff9d4d" font-size="20" font-weight="700">舉球區</text>
+        <text transform="rotate(180,75,44)" x="75" y="44" text-anchor="middle" fill="#7a746a" font-size="11" letter-spacing="2">TOSS</text>
+        <rect x="35" y="60" width="80" height="60" rx="6" fill="none" stroke="#4a453d" stroke-width="1.5" stroke-dasharray="4 3"/>
+      </g>
+
+      <!-- 攻擊區 -->
+      <g transform="translate(700,25)">
+        <rect width="150" height="140" rx="10" fill="url(#zoneFill)" stroke="#ff7a1a" stroke-width="2.5"/>
+        <text transform="rotate(180,75,26)" x="75" y="26" text-anchor="middle" fill="#ffb347" font-size="20" font-weight="700">攻擊區</text>
+        <text transform="rotate(180,75,44)" x="75" y="44" text-anchor="middle" fill="#7a746a" font-size="11" letter-spacing="2">ATTACK</text>
+        <rect x="35" y="60" width="80" height="60" rx="6" fill="none" stroke="#4a453d" stroke-width="1.5" stroke-dasharray="4 3"/>
+      </g>
+
+      <!-- 牌組區 -->
+      <g transform="translate(900,25)">
+        <rect width="150" height="140" rx="10" fill="url(#utilFill)" stroke="#6b6258" stroke-width="2"/>
+        <text transform="rotate(180,75,26)" x="75" y="26" text-anchor="middle" fill="#e8b784" font-size="18" font-weight="700">牌組區</text>
+        <text transform="rotate(180,75,42)" x="75" y="42" text-anchor="middle" fill="#7a746a" font-size="10" letter-spacing="1.5">DECK</text>
+        <rect x="48" y="52" width="54" height="72" rx="6" fill="#2a251e" stroke="#8a7f6f" stroke-width="1.5"/>
+        <rect x="44" y="48" width="54" height="72" rx="6" fill="#241f19" stroke="#8a7f6f" stroke-width="1.5"/>
+        <rect x="40" y="44" width="54" height="72" rx="6" fill="#1e1a15" stroke="#ff9d4d" stroke-width="1.5"/>
+      </g>
+
+      <!-- 局數區 -->
+      <g transform="translate(1070,25)">
+        <rect width="150" height="140" rx="10" fill="url(#utilFill)" stroke="#6b6258" stroke-width="2"/>
+        <text transform="rotate(180,75,26)" x="75" y="26" text-anchor="middle" fill="#e8b784" font-size="18" font-weight="700">局數區</text>
+        <text transform="rotate(180,75,42)" x="75" y="42" text-anchor="middle" fill="#7a746a" font-size="10" letter-spacing="1.5">SET (x2)</text>
+        <rect x="22" y="55" width="45" height="62" rx="5" fill="#1e1a15" stroke="#8a7f6f" stroke-width="1.5" stroke-dasharray="3 3"/>
+        <rect x="83" y="55" width="45" height="62" rx="5" fill="#1e1a15" stroke="#8a7f6f" stroke-width="1.5" stroke-dasharray="3 3"/>
+      </g>
+
+      <!-- 棄牌區 -->
+      <g transform="translate(1240,25)">
+        <rect width="150" height="140" rx="10" fill="url(#utilFill)" stroke="#6b6258" stroke-width="2"/>
+        <text transform="rotate(180,75,26)" x="75" y="26" text-anchor="middle" fill="#e8b784" font-size="18" font-weight="700">棄牌區</text>
+        <text transform="rotate(180,75,42)" x="75" y="42" text-anchor="middle" fill="#7a746a" font-size="10" letter-spacing="1.5">DROP</text>
+        <rect x="35" y="60" width="80" height="60" rx="6" fill="none" stroke="#4a453d" stroke-width="1.5" stroke-dasharray="4 3"/>
+      </g>
+
+      <!-- 事件區 -->
+      <g transform="translate(1410,25)">
+        <rect width="150" height="140" rx="10" fill="url(#utilFill)" stroke="#6b6258" stroke-width="2"/>
+        <text transform="rotate(180,75,26)" x="75" y="26" text-anchor="middle" fill="#e8b784" font-size="18" font-weight="700">事件區</text>
+        <text transform="rotate(180,75,42)" x="75" y="42" text-anchor="middle" fill="#7a746a" font-size="10" letter-spacing="1.5">EVENT</text>
+        <rect x="35" y="60" width="80" height="60" rx="6" fill="none" stroke="#4a453d" stroke-width="1.5" stroke-dasharray="4 3"/>
+      </g>
+    </g>
+
+    <!-- decorative watermark for opponent half — placed in local y 260-360 which,
+         after the translate(1600,435) rotate(180) wrapper, lands in the far-from-net
+         strip near the top canvas edge (mirrors "MY COURT" in the bottom half). -->
+    <g font-family="'Noto Sans CJK TC','Noto Sans TC','Microsoft JhengHei',sans-serif">
+      <text transform="rotate(180,800,300)" x="800" y="300" text-anchor="middle" fill="#2a2621" font-size="110" font-weight="800" opacity="0.5">OPPONENT</text>
+      <text transform="rotate(180,800,370)" x="800" y="370" text-anchor="middle" fill="#4a453d" font-size="22" letter-spacing="6">敵　陣</text>
+    </g>
+  </g>
+
+  <!-- ================= CENTER NET ================= -->
+  <g>
+    <rect x="24" y="430" width="1552" height="40" fill="url(#netMesh)" opacity="0.5"/>
+    <rect x="24" y="428" width="1552" height="4" fill="url(#netGrad)"/>
+    <rect x="24" y="468" width="1552" height="4" fill="url(#netGrad)"/>
+
+    <!-- center volleyball + title -->
+    <circle cx="800" cy="450" r="34" fill="#161412" stroke="#ff9d4d" stroke-width="2.5" filter="url(#softGlow)"/>
+    <path d="M778 432 Q800 450 778 468 M822 432 Q800 450 822 468 M772 450 L828 450" stroke="#ff9d4d" stroke-width="2" fill="none"/>
+
+    <g font-family="'Noto Sans CJK TC','Noto Sans TC','Microsoft JhengHei',sans-serif">
+      <text x="620" y="456" text-anchor="end" fill="#ffdcb0" font-size="26" font-weight="800" letter-spacing="4">排球卡牌對戰墊</text>
+      <text x="980" y="456" text-anchor="start" fill="#7a746a" font-size="13" letter-spacing="3">VOLLEYBALL TCG PLAYMAT · FAN-MADE</text>
+    </g>
+  </g>
+
+  <!-- set score trackers either side of the ball -->
+  <g font-family="'Noto Sans CJK TC','Noto Sans TC','Microsoft JhengHei',sans-serif">
+    <g transform="translate(90,435)">
+      <text x="0" y="-8" fill="#5a554d" font-size="11" letter-spacing="2">SET</text>
+      <rect x="0" y="0" width="26" height="26" rx="6" fill="none" stroke="#ff9d4d" stroke-width="1.5"/>
+      <rect x="34" y="0" width="26" height="26" rx="6" fill="none" stroke="#ff9d4d" stroke-width="1.5"/>
+      <rect x="68" y="0" width="26" height="26" rx="6" fill="none" stroke="#ff9d4d" stroke-width="1.5"/>
+    </g>
+    <g transform="translate(1410,435)">
+      <text x="94" y="-8" text-anchor="end" fill="#5a554d" font-size="11" letter-spacing="2">SET</text>
+      <rect x="0" y="0" width="26" height="26" rx="6" fill="none" stroke="#ff9d4d" stroke-width="1.5"/>
+      <rect x="34" y="0" width="26" height="26" rx="6" fill="none" stroke="#ff9d4d" stroke-width="1.5"/>
+      <rect x="68" y="0" width="26" height="26" rx="6" fill="none" stroke="#ff9d4d" stroke-width="1.5"/>
+    </g>
+  </g>
+
+  <!-- corner speed lines -->
+  <g stroke="#ff7a1a" stroke-width="2" opacity="0.25">
+    <line x1="0" y1="60" x2="120" y2="0"/>
+    <line x1="0" y1="90" x2="150" y2="0"/>
+    <line x1="0" y1="120" x2="180" y2="0"/>
+    <line x1="1600" y1="840" x2="1480" y2="900"/>
+    <line x1="1600" y1="810" x2="1450" y2="900"/>
+    <line x1="1600" y1="780" x2="1420" y2="900"/>
+  </g>
+</svg>

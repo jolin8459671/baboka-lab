@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>卡牌資料庫 ｜ バボカ研究所</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div class="scoreticker"><div class="scoreticker__track">
+　全站不重製官方卡片圖像,技能與數值皆以文字整理　･　稀有度標「未確認」代表尚未從實體卡辨識清楚　･　全站不重製官方卡片圖像,技能與數值皆以文字整理　
+</div></div>
+
+<nav class="nav">
+  <a href="index.html" class="nav__brand"><span class="dot"></span>バボカ研究所</a>
+  <button class="nav__toggle" id="navToggle">☰</button>
+  <div class="nav__links" id="navLinks">
+    <a href="index.html">首頁</a>
+    <a href="rules.html">玩法教學</a>
+    <a href="cards.html" class="active">卡牌資料庫</a>
+    <a href="playmat.html">桌墊下載</a>
+    <a href="about.html">關於</a>
+  </div>
+</nav>
+
+<section class="page-hero">
+  <div class="section__kicker">Card database</div>
+  <h1>卡牌資料庫</h1>
+  <p>數值、登場區域、技能翻譯，全部文字化整理，不放官方卡片圖像。點卡號可以複製，方便對照你手上的實體卡。</p>
+</section>
+
+<section class="section" style="padding-top:0;">
+  <div class="dbtools">
+    <input type="text" id="q" placeholder="搜尋卡名 / 卡號 / 技能關鍵字…">
+    <select id="fType">
+      <option value="">全部類型</option>
+      <option value="character">角色卡</option>
+      <option value="event">事件卡</option>
+    </select>
+    <select id="fSeries">
+      <option value="">全部系列</option>
+    </select>
+  </div>
+
+  <div class="cardgrid" id="grid"></div>
+  <div class="emptystate" id="empty">沒有符合條件的卡片，換個關鍵字試試。</div>
+</section>
+
+<footer>
+  <div class="disclaimer">
+    本站為玩家自製之非官方粉絲網站，內容為社群整理之規則說明與卡牌文字翻譯，不含官方卡片圖像重製。<br>
+    《ハイキュー!! バボカ!! BREAK》版權歸屬 古舘春一／集英社／株式会社タカラトミー 所有，本站與官方無隸屬關係，亦不代表官方立場。
+  </div>
+  <div class="footer__bottom">バボカ研究所 · 玩家自製 · 非商業性質</div>
+</footer>
+
+<script src="data/cards.js"></script>
+<script src="script.js"></script>
+</body>
+</html>

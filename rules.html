@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>玩法教學 ｜ バボカ研究所</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div class="scoreticker"><div class="scoreticker__track">
+　接球才抽牌、阻擋不抽牌　･　發球本身不抽牌　･　同一階段可疊加任意張數技能／事件卡　･　SET 區沒牌可拿＝直接輸掉整場　･　接球才抽牌、阻擋不抽牌　･　發球本身不抽牌　･　同一階段可疊加任意張數技能／事件卡　
+</div></div>
+
+<nav class="nav">
+  <a href="index.html" class="nav__brand"><span class="dot"></span>バボカ研究所</a>
+  <button class="nav__toggle" id="navToggle">☰</button>
+  <div class="nav__links" id="navLinks">
+    <a href="index.html">首頁</a>
+    <a href="rules.html" class="active">玩法教學</a>
+    <a href="cards.html">卡牌資料庫</a>
+    <a href="playmat.html">桌墊下載</a>
+    <a href="about.html">關於</a>
+  </div>
+</nav>
+
+<section class="page-hero">
+  <div class="section__kicker">How to play</div>
+  <h1>玩法教學</h1>
+  <p>從開局準備到一局怎麼結束，照順序整理。內容為玩家依規則書與實戰整理，若與官方正式規則有出入，一律以官方為準。</p>
+  <div class="toc">
+    <a href="#setup">開局準備</a>
+    <a href="#flow">回合流程</a>
+    <a href="#draw">抽牌時機</a>
+    <a href="#skills">技能與事件卡</a>
+    <a href="#interval">局末與補牌</a>
+    <a href="#win">勝負條件</a>
+  </div>
+</section>
+
+<section class="section">
+
+  <div id="setup" class="bracket rule-block">
+    <h3>開局準備</h3>
+    <span class="sub">SETUP</span>
+    <ol>
+      <li>雙方各自<b>洗牌</b>，牌組蓋著放在自己的牌組區。</li>
+      <li>猜拳等方式決定誰拿到<b>發球權</b>。</li>
+      <li>從牌組最上面抽<b>6張</b>當起始手牌。</li>
+      <li>起始手牌可以<b>重抽 1 次</b>——想換的牌放回牌組洗勻，再從最上面抽回等量的牌。</li>
+      <li>從牌組最上面拿 <b>2 張蓋著</b>放到 <b>SET 區</b>（這是你的「輸幾局才會輸掉整場」的緩衝額度）。</li>
+      <li>由拿到發球權的一方，從發球階段開始遊戲。</li>
+    </ol>
+  </div>
+
+  <div id="flow" class="bracket rule-block">
+    <h3>回合流程</h3>
+    <span class="sub">SERVE → RECEIVE / BLOCK → TOSS → ATTACK</span>
+    <table>
+      <tr><th>順序</th><th>階段</th><th>說明</th></tr>
+      <tr><td>1</td><td>發球</td><td>從手牌放 1 張角色卡到發球區，該角色的發球值＝這次的進攻點數（Offense Point）。</td></tr>
+      <tr><td>2</td><td>選擇應對</td><td>球來到你這邊時，二選一：<b>接球</b> 或 <b>阻擋</b>。對方的發球或阻擋回擊，只能選「接球」，不能選阻擋。</td></tr>
+      <tr><td>3a</td><td>接球分支</td><td>先經過<b>抽牌</b>，再放角色卡到接球區。接球值 ≥ 對方進攻點數＝接球成功，進入舉球階段。</td></tr>
+      <tr><td>3b</td><td>阻擋分支</td><td>從手牌放最多 3 名角色到阻擋區（<b>先放 1 名主攔，再最多加 2 名副攔</b>，同名角色不能一起登場）。阻擋值合計 ≥ 對方進攻點數＝阻擋成功，回擊給對方的進攻點數歸零；阻擋後副攔會被丟到棄牌區。</td></tr>
+      <tr><td>4</td><td>舉球</td><td>放 1 張角色卡到舉球區（不能跟接球區同名角色）。</td></tr>
+      <tr><td>5</td><td>攻擊</td><td>放 1 張角色卡到攻擊區（不能跟舉球區同名角色）。舉球值＋攻擊值＝這次扣球的進攻點數，換對方接招。</td></tr>
+    </table>
+    <div class="warn"><b>宣告「落球」：</b>角色卡放不出來、或接球／阻擋不成功時，要宣告「ロスト（落球）」，宣告的一方輸掉這一局（SET）。</div>
+  </div>
+
+  <div id="draw" class="bracket rule-block">
+    <h3>抽牌時機</h3>
+    <span class="sub">DRAW TIMING</span>
+    <ul>
+      <li>球來到你這邊、選擇 <b>接球</b> 時 → 先抽 1 張牌，再放角色卡接球。</li>
+      <li>選擇 <b>阻擋</b> 時 → <b>不抽牌</b>，直接進入阻擋階段。</li>
+      <li><b>發球</b>這個動作本身 → <b>不抽牌</b>。</li>
+    </ul>
+    <div class="warn">牌組抽完不會直接判輸，規則裡沒有「牌組空了就輸」這條——真正的敗北條件只有「無法繼續攻防」跟「SET 區沒牌可補」。</div>
+  </div>
+
+  <div id="skills" class="bracket rule-block">
+    <h3>技能與事件卡怎麼疊</h3>
+    <span class="sub">SKILLS & EVENTS STACKING</span>
+    <ul>
+      <li>每個階段都有<b>自由步驟</b>：只要符合該階段的時機圖示、付得起成本，同一階段可以<b>連續發動任意張數</b>的角色技能與事件卡。</li>
+      <li>角色技能只能在<b>卡片標示的登場區域</b>觸發——例如某張卡寫「登場：阻擋區」，就只能放進阻擋區、也只有在阻擋區才能用他的技能，不能改放別區。</li>
+      <li>發動成本通常是「支付 N 點資源（Guts／ガッツ）」——也就是<b>從這張角色卡下方疊著的卡拿出 N 張丟棄</b>，跟手牌是兩回事；少數卡片的成本明確寫「丟棄手牌」才會動到手牌。</li>
+      <li>標示「每回合限用一次」的技能／事件卡，同一回合內不能重複發動第二次。</li>
+    </ul>
+  </div>
+
+  <div id="interval" class="bracket rule-block">
+    <h3>局末與補牌</h3>
+    <span class="sub">END OF SET → INTERVAL</span>
+    <ol>
+      <li>一局結束（有人宣告落球）後進入<b>局間休息</b>。</li>
+      <li><b>雙方都先把手牌補到 6 張</b>（不夠的人從牌組抽牌補滿）。</li>
+      <li><b>輸掉這局的一方</b>，再從自己的 <b>SET 牌區</b> 額外拿 <b>1 張</b>加入手牌——所以輸的一方最終手牌是 <b>6+1＝7 張</b>，贏的一方維持 <b>6 張</b>。</li>
+      <li>贏的一方獲得<b>下一局的發球權</b>，由拿到發球權的人從發球階段開始下一局。</li>
+    </ol>
+    <div class="warn"><b>關鍵敗北條件：</b>如果輸掉一局時，自己的 SET 牌區已經沒有牌可以拿了，<b>直接判定輸掉整場遊戲</b>——這也是為什麼開局只給 2 張 SET 牌：等於「最多能輸 2 局的緩衝」，跟真實排球「輸 3 局就輸掉比賽」的設計互相呼應。</div>
+  </div>
+
+  <div id="win" class="bracket rule-block">
+    <h3>勝負條件</h3>
+    <span class="sub">WIN CONDITION</span>
+    <ul>
+      <li>先取得 <b>3 局（SET）</b>勝利的一方，獲得整場遊戲的勝利。</li>
+      <li>對手的 SET 牌區被拿光、又再輸一局時，直接判定敗北（不用真的打到 3 局全輸）。</li>
+    </ul>
+  </div>
+
+</section>
+
+<footer>
+  <div class="disclaimer">
+    本站為玩家自製之非官方粉絲網站，內容為社群整理之規則說明與卡牌文字翻譯，不含官方卡片圖像重製。<br>
+    《ハイキュー!! バボカ!! BREAK》版權歸屬 古舘春一／集英社／株式会社タカラトミー 所有，本站與官方無隸屬關係，亦不代表官方立場。
+  </div>
+  <div class="footer__bottom">バボカ研究所 · 玩家自製 · 非商業性質</div>
+</footer>
+
+<script src="script.js"></script>
+</body>
+</html>

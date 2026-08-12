@@ -1,0 +1,276 @@
+/* =========================================================
+   排球少年 TCG 玩家站 — 視覺系統
+   概念:深夜體育館記分板。木質地板的暗色調、記分板的橘紅光、
+   球場邊線的粉筆白、裁判哨音般的琥珀黃。
+   簽名元素:借用卡牌本身「登場區」那種轉角括號框 ⌐ ¬ 造型,
+   貫穿整個網站的卡片式區塊。
+   ========================================================= */
+
+@import url('https://fonts.googleapis.com/css2?family=Anton&family=Noto+Sans+TC:wght@400;500;700;900&family=JetBrains+Mono:wght@400;500;700&display=swap');
+
+:root{
+  --ink:        #15170f;
+  --floor:      #1d2018;
+  --floor-2:    #242719;
+  --chalk:      #f2ead9;
+  --chalk-dim:  #a89e88;
+  --score:      #ff4d2e;
+  --score-dim:  #7a2c1f;
+  --whistle:    #ffc93c;
+  --net:        #3b4a34;
+  --line:       #38392c;
+  --radius:     10px;
+  --display: 'Anton', 'Noto Sans TC', sans-serif;
+  --body:    'Noto Sans TC', -apple-system, sans-serif;
+  --mono:    'JetBrains Mono', monospace;
+}
+
+*{box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{
+  margin:0;
+  background:
+    radial-gradient(ellipse at 20% -10%, #2a2c1c 0%, transparent 55%),
+    var(--ink);
+  color:var(--chalk);
+  font-family:var(--body);
+  line-height:1.7;
+  -webkit-font-smoothing:antialiased;
+}
+
+::selection{background:var(--score);color:var(--ink);}
+
+a{color:inherit;text-decoration:none;}
+img{max-width:100%;display:block;}
+
+/* ---------- 頂端記分條 ---------- */
+.scoreticker{
+  background:var(--score);
+  color:var(--ink);
+  font-family:var(--mono);
+  font-size:12px;
+  font-weight:700;
+  letter-spacing:.12em;
+  padding:6px 0;
+  overflow:hidden;
+  white-space:nowrap;
+}
+.scoreticker__track{
+  display:inline-block;
+  padding-left:100%;
+  animation:ticker 26s linear infinite;
+}
+@keyframes ticker{
+  from{transform:translateX(0);}
+  to{transform:translateX(-100%);}
+}
+@media (prefers-reduced-motion: reduce){
+  .scoreticker__track{animation:none;padding-left:2rem;}
+}
+
+/* ---------- 導覽列 ---------- */
+.nav{
+  display:flex;align-items:center;justify-content:space-between;
+  padding:22px clamp(20px,5vw,64px);
+  border-bottom:1px solid var(--line);
+  position:sticky;top:0;z-index:50;
+  background:rgba(21,23,15,.88);
+  backdrop-filter:blur(8px);
+}
+.nav__brand{
+  font-family:var(--display);
+  font-size:22px;
+  letter-spacing:.03em;
+  display:flex;align-items:center;gap:10px;
+}
+.nav__brand .dot{width:10px;height:10px;border-radius:50%;background:var(--score);box-shadow:0 0 12px var(--score);}
+.nav__links{display:flex;gap:clamp(14px,2.4vw,34px);font-family:var(--mono);font-size:13px;letter-spacing:.06em;}
+.nav__links a{
+  color:var(--chalk-dim);
+  padding:6px 2px;
+  border-bottom:2px solid transparent;
+  transition:.15s;
+}
+.nav__links a:hover,.nav__links a.active{color:var(--chalk);border-color:var(--score);}
+.nav__toggle{display:none;background:none;border:1px solid var(--line);color:var(--chalk);width:38px;height:38px;border-radius:6px;font-size:18px;}
+
+@media (max-width:760px){
+  .nav__links{
+    position:fixed;inset:66px 0 auto 0;background:var(--floor);
+    flex-direction:column;padding:18px 24px;gap:16px;
+    border-bottom:1px solid var(--line);
+    transform:translateY(-140%);transition:transform .25s ease;
+  }
+  .nav__links.open{transform:translateY(0);}
+  .nav__toggle{display:block;}
+}
+
+/* ---------- 轉角括號卡片(全站簽名元素) ---------- */
+.bracket{
+  position:relative;
+  border:1px solid var(--line);
+  border-radius:var(--radius);
+  background:var(--floor);
+  padding:26px;
+}
+.bracket::before,.bracket::after,
+.bracket .bk-tl,.bracket .bk-br{
+  content:"";position:absolute;width:16px;height:16px;
+  border:2px solid var(--whistle);opacity:.85;
+}
+.bracket::before{top:-1px;left:-1px;border-right:none;border-bottom:none;border-top-left-radius:6px;}
+.bracket::after{bottom:-1px;right:-1px;border-left:none;border-top:none;border-bottom-right-radius:6px;}
+
+/* ---------- Hero ---------- */
+.hero{
+  padding:clamp(48px,9vw,110px) clamp(20px,5vw,64px) clamp(40px,6vw,70px);
+  max-width:1180px;margin:0 auto;
+}
+.hero__eyebrow{
+  font-family:var(--mono);font-size:13px;letter-spacing:.18em;
+  color:var(--whistle);text-transform:uppercase;
+  display:flex;align-items:center;gap:10px;margin-bottom:18px;
+}
+.hero__eyebrow::before{content:"";width:26px;height:1px;background:var(--whistle);}
+.hero h1{
+  font-family:var(--display);
+  font-size:clamp(40px,7vw,84px);
+  line-height:1.02;
+  margin:0 0 22px;
+  letter-spacing:.01em;
+}
+.hero h1 em{font-style:normal;color:var(--score);}
+.hero p.lead{
+  font-size:clamp(15px,2vw,18px);
+  color:var(--chalk-dim);
+  max-width:640px;
+  margin:0 0 34px;
+}
+.hero__stats{
+  display:grid;grid-template-columns:repeat(auto-fit,minmax(120px,1fr));
+  gap:1px;background:var(--line);
+  border:1px solid var(--line);border-radius:var(--radius);overflow:hidden;
+  max-width:640px;margin-bottom:40px;
+}
+.stat{background:var(--floor);padding:16px 18px;}
+.stat b{
+  display:block;font-family:var(--display);font-size:30px;color:var(--score);line-height:1;
+}
+.stat span{font-family:var(--mono);font-size:11px;color:var(--chalk-dim);letter-spacing:.06em;}
+
+.btnrow{display:flex;gap:14px;flex-wrap:wrap;}
+.btn{
+  font-family:var(--mono);font-size:13px;letter-spacing:.06em;
+  padding:13px 22px;border-radius:8px;font-weight:700;
+  display:inline-flex;align-items:center;gap:8px;
+  transition:.15s;
+}
+.btn--primary{background:var(--score);color:var(--ink);}
+.btn--primary:hover{background:#ff6a4d;}
+.btn--ghost{border:1px solid var(--line);color:var(--chalk);}
+.btn--ghost:hover{border-color:var(--whistle);color:var(--whistle);}
+
+/* ---------- Section 通用 ---------- */
+.section{padding:70px clamp(20px,5vw,64px);max-width:1180px;margin:0 auto;}
+.section__head{margin-bottom:36px;max-width:680px;}
+.section__kicker{font-family:var(--mono);font-size:12px;color:var(--score);letter-spacing:.16em;margin-bottom:10px;text-transform:uppercase;}
+.section__head h2{font-family:var(--display);font-size:clamp(28px,4vw,42px);margin:0 0 12px;}
+.section__head p{color:var(--chalk-dim);margin:0;}
+
+.grid3{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:20px;}
+.grid2{display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:20px;}
+
+.card{padding:26px;}
+.card .num{font-family:var(--mono);color:var(--score);font-size:13px;letter-spacing:.1em;margin-bottom:14px;display:block;}
+.card h3{font-family:var(--display);font-size:22px;margin:0 0 10px;letter-spacing:.01em;}
+.card p{color:var(--chalk-dim);font-size:14px;margin:0;}
+
+/* ---------- Footer ---------- */
+footer{
+  border-top:1px solid var(--line);
+  padding:34px clamp(20px,5vw,64px) 50px;
+  margin-top:60px;
+}
+.disclaimer{
+  font-family:var(--mono);font-size:12px;color:var(--chalk-dim);
+  line-height:1.9;max-width:820px;
+  border-left:2px solid var(--score-dim);padding-left:16px;
+}
+.footer__bottom{margin-top:22px;font-size:12px;color:#5c5844;font-family:var(--mono);}
+
+/* ---------- 內頁通用（規則 / 資料庫 / 桌墊） ---------- */
+.page-hero{
+  padding:56px clamp(20px,5vw,64px) 20px;max-width:1180px;margin:0 auto;
+}
+.page-hero .section__kicker{margin-bottom:14px;}
+.page-hero h1{font-family:var(--display);font-size:clamp(32px,5vw,54px);margin:0 0 14px;}
+.page-hero p{color:var(--chalk-dim);max-width:640px;}
+
+.toc{
+  display:flex;flex-wrap:wrap;gap:10px;margin:26px 0 0;
+}
+.toc a{
+  font-family:var(--mono);font-size:12px;letter-spacing:.05em;
+  padding:8px 14px;border:1px solid var(--line);border-radius:20px;color:var(--chalk-dim);
+}
+.toc a:hover{border-color:var(--score);color:var(--chalk);}
+
+.rule-block{padding:28px 30px;margin-bottom:22px;}
+.rule-block h3{font-family:var(--display);font-size:21px;margin:0 0 6px;color:var(--whistle);}
+.rule-block .sub{font-family:var(--mono);font-size:11px;color:var(--chalk-dim);letter-spacing:.08em;margin-bottom:16px;display:block;}
+.rule-block ul,.rule-block ol{margin:0;padding-left:20px;color:var(--chalk-dim);font-size:14.5px;}
+.rule-block li{margin-bottom:8px;}
+.rule-block li b{color:var(--chalk);}
+.rule-block table{width:100%;border-collapse:collapse;margin-top:10px;font-size:13.5px;}
+.rule-block th,.rule-block td{border:1px solid var(--line);padding:8px 10px;text-align:left;}
+.rule-block th{color:var(--whistle);font-family:var(--mono);font-size:11px;letter-spacing:.05em;}
+
+.warn{
+  border-left:3px solid var(--score);
+  background:rgba(255,77,46,.07);
+  padding:14px 18px;border-radius:6px;
+  font-size:13.5px;color:var(--chalk-dim);margin-top:14px;
+}
+.warn b{color:var(--score);}
+
+/* ---------- 卡牌資料庫 ---------- */
+.dbtools{
+  display:flex;gap:12px;flex-wrap:wrap;margin:26px 0 34px;
+  position:sticky;top:78px;z-index:30;
+  background:var(--ink);padding:14px 0;
+}
+.dbtools input[type=text]{
+  flex:1;min-width:200px;background:var(--floor);border:1px solid var(--line);
+  color:var(--chalk);padding:11px 14px;border-radius:8px;font-family:var(--body);font-size:14px;
+}
+.dbtools select{
+  background:var(--floor);border:1px solid var(--line);color:var(--chalk);
+  padding:11px 14px;border-radius:8px;font-family:var(--mono);font-size:12.5px;
+}
+.dbtools input:focus,.dbtools select:focus{outline:1px solid var(--score);}
+
+.cardgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:18px;}
+.ccard{padding:22px;}
+.ccard__top{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:10px;gap:10px;}
+.ccard__code{font-family:var(--mono);font-size:11px;color:var(--chalk-dim);}
+.ccard__rarity{
+  font-family:var(--mono);font-size:11px;font-weight:700;
+  padding:2px 8px;border-radius:20px;border:1px solid var(--whistle);color:var(--whistle);
+  white-space:nowrap;
+}
+.ccard h3{font-family:var(--display);font-size:22px;margin:2px 0 4px;}
+.ccard__type{font-family:var(--mono);font-size:11px;color:var(--score);letter-spacing:.06em;margin-bottom:12px;}
+.statsrow{display:flex;gap:14px;flex-wrap:wrap;margin-bottom:14px;font-family:var(--mono);font-size:12px;}
+.statsrow span b{color:var(--chalk);display:block;font-size:16px;font-family:var(--display);}
+.statsrow span{color:var(--chalk-dim);}
+.ccard__skill{font-size:13.5px;color:var(--chalk-dim);border-top:1px dashed var(--line);padding-top:12px;}
+.ccard__skill b{color:var(--chalk);}
+.emptystate{display:none;text-align:center;padding:60px 20px;color:var(--chalk-dim);font-family:var(--mono);font-size:13px;}
+
+/* ---------- 桌墊下載頁 ---------- */
+.matcard{padding:0;overflow:hidden;}
+.matcard__img{background:#0e0f0a;padding:18px;}
+.matcard__body{padding:22px 24px 26px;}
+.matcard__body h3{font-family:var(--display);font-size:22px;margin:0 0 8px;}
+.matcard__body p{color:var(--chalk-dim);font-size:13.5px;margin:0 0 18px;}
+.dlrow{display:flex;gap:10px;flex-wrap:wrap;}
