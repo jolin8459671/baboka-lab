@@ -16,6 +16,12 @@
   const qInput = document.getElementById('q');
   const fType = document.getElementById('fType');
   const fSeries = document.getElementById('fSeries');
+  const fSchool = document.getElementById('fTeam')
+
+    function school0f(c) {
+        if (!c.school) return null;
+        return c.school.split('.')[0];
+    }
 
   // 系列下拉選單動態產生
   const seriesSet = [...new Set(CARDS.map(c => c.series))];
@@ -23,6 +29,13 @@
     const opt = document.createElement('option');
     opt.value = s; opt.textContent = s;
     fSeries.appendChild(opt);
+  });
+
+  const schoolSet = [...new Set(CARDS.map(school0f).filter(Boolean))];
+    schoolSet.forEach(s => {
+        const opt = document.createElement('option');
+        opt.value = s; opt.textContent = s;
+        fSchool.appendChild(opt);
   });
 
   function statPill(label, val){
