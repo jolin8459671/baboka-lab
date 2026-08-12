@@ -221,9 +221,21 @@ footer{
 .rule-block ul,.rule-block ol{margin:0;padding-left:20px;color:var(--chalk-dim);font-size:14.5px;}
 .rule-block li{margin-bottom:8px;}
 .rule-block li b{color:var(--chalk);}
-.rule-block table{width:100%;border-collapse:collapse;margin-top:10px;font-size:13.5px;}
+    .rule-block table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-top: 10px;
+        font-size: 13.5px;
+        table-layout: auto;
+    }
 .rule-block th,.rule-block td{border:1px solid var(--line);padding:8px 10px;text-align:left;}
-.rule-block th{color:var(--whistle);font-family:var(--mono);font-size:11px;letter-spacing:.05em;}
+    .rule-block th {
+        color: var(--whistle);
+        font-family: var(--mono);
+        font-size: 11px;
+        letter-spacing: .05em;
+        white-space: nowrap;
+    }
 
 .warn{
   border-left:3px solid var(--score);
