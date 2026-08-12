@@ -36,7 +36,7 @@ const CARDS = [
     rarity: "Deck", position: "ウイングスパイカー", school: "鴨舞・2年",
     stats: { serve: 2, block: 1, receive: 2, toss: 0, attack: 3 },
     zone: "接球區域",
-    skill: "丟棄1張手牌(不是犧牲下方的資源卡),接球點數 +3(2→5)。成本來源是手牌,跟其他角色不一樣。"
+    skill: "丟棄1張手牌,接球點數 +3(2→5)。"
   },
   {
     code: "HV-P02-005", name: "西谷夕（PR版）", type: "character", series: "P02 宣傳卡",
