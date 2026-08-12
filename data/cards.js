@@ -33,7 +33,7 @@ const CARDS = [
   },
   {
     code: "HV-D01-007", name: "緣下力", type: "character", series: "D01 起始",
-    rarity: "Deck", position: "ウイングスパイカー", school: "鴨舞・2年",
+    rarity: "Deck", position: "ウイングスパイカー", school: "烏野・2年",
     stats: { serve: 2, block: 1, receive: 2, toss: 0, attack: 3 },
     zone: "接球區域",
     skill: "丟棄1張手牌,接球點數 +3(2→5)。"
