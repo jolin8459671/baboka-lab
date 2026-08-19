@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>線上對戰 ｜ バボカ研究所</title>
+<link rel="stylesheet" href="style.css">
+<link rel="stylesheet" href="online.css">
+</head>
+<body class="play-body">
+
+<nav class="nav">
+  <a href="index.html" class="nav__brand"><span class="dot"></span>バボカ研究所</a>
+  <button class="nav__toggle" id="navToggle">☰</button>
+  <div class="nav__links" id="navLinks">
+    <a href="index.html">首頁</a>
+    <a href="rules.html">玩法教學</a>
+    <a href="cards.html">卡牌資料庫</a>
+    <a href="playmat.html">桌墊下載</a>
+    <a href="play.html">本機雙人</a>
+    <a href="play-online.html" class="active">線上對戰</a>
+    <a href="about.html">關於</a>
+  </div>
+</nav>
+
+<section class="page-hero" style="padding-bottom:0;">
+  <div class="section__kicker">Online · 兩人各自裝置連線</div>
+  <h1>線上對戰</h1>
+  <p>
+    一人建立戰局拿到房號，另一人輸入房號加入。開局自動擲硬幣決定發球權，每回合有 15 秒參考倒數(目前只顯示，還不會自動放棄)。
+    角色技能一樣用手動加減值輔助套用。<b style="color:var(--chalk)">對戰途中請不要重新整理分頁</b>，手牌只存在自己瀏覽器記憶體，重整會遺失。
+  </p>
+</section>
+
+<div id="app"></div>
+
+<script src="https://www.gstatic.com/firebasejs/10.13.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.13.0/firebase-database-compat.js"></script>
+<script src="firebase-config.js"></script>
+<script src="data/cards.js"></script>
+<script src="online.js"></script>
+<script src="script.js"></script>
+</body>
+</html>

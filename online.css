@@ -1,0 +1,139 @@
+/* =========================================================
+   線上對戰 — 沿用主站視覺系統，新增：
+   - 原創風格卡面佔位插圖（色塊+姓名字首，非官方美術）
+   - 出牌飛入動畫
+   - 雙方對戰墊並排視角、倒數計時條
+   ========================================================= */
+
+.play-body{padding-bottom:60px;}
+#app{max-width:1180px;margin:0 auto;padding:26px clamp(16px,4vw,64px) 40px;display:flex;flex-direction:column;gap:18px;}
+
+.mini-btn{
+  font-family:var(--mono);font-size:12px;letter-spacing:.03em;
+  padding:8px 14px;border-radius:7px;border:1px solid var(--line);
+  background:var(--floor-2);color:var(--chalk);cursor:pointer;transition:.15s;
+}
+.mini-btn:hover{border-color:var(--whistle);color:var(--whistle);}
+.mini-btn:disabled{opacity:.35;cursor:not-allowed;}
+.mini-btn--primary{background:var(--score);color:var(--ink);border-color:var(--score);font-weight:700;}
+.mini-btn--primary:hover{background:#ff6a4d;color:var(--ink);}
+.mini-btn--danger{border-color:var(--score-dim);color:var(--score);}
+.mini-btn--danger:hover{border-color:var(--score);background:rgba(255,77,46,.1);}
+.btnrow-wrap{display:flex;gap:10px;flex-wrap:wrap;margin-top:10px;}
+
+/* ---------- 大廳 / 建立加入房間 ---------- */
+.lobby-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:18px;}
+.lobby-card{padding:26px;text-align:center;}
+.lobby-card h3{font-family:var(--display);font-size:20px;margin:0 0 10px;color:var(--whistle);}
+.lobby-card p{color:var(--chalk-dim);font-size:13px;margin:0 0 16px;}
+.codeinput{
+  font-family:var(--mono);font-size:22px;letter-spacing:.2em;text-align:center;
+  background:var(--ink);border:1px solid var(--line);color:var(--chalk);
+  padding:12px;border-radius:8px;width:100%;text-transform:uppercase;margin-bottom:12px;
+}
+.roomcode-display{
+  font-family:var(--mono);font-size:34px;letter-spacing:.25em;color:var(--score);
+  padding:14px;border:1px dashed var(--score);border-radius:10px;margin-bottom:12px;
+}
+.slotgrid{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin:18px 0;}
+.slotbox{border:1px solid var(--line);border-radius:8px;padding:14px;font-family:var(--mono);font-size:12px;}
+.slotbox b{display:block;font-family:var(--display);font-size:17px;color:var(--chalk);margin-bottom:4px;}
+.slotbox.ready{border-color:var(--whistle);}
+.slotbox .status{color:var(--chalk-dim);}
+.slotbox.ready .status{color:var(--whistle);}
+
+/* ---------- 記分列 + 倒數計時 ---------- */
+.matchbar{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px;padding:16px 22px;}
+.matchbar__score{font-family:var(--display);font-size:26px;display:flex;align-items:center;gap:14px;}
+.matchbar__score .vs{font-family:var(--mono);font-size:12px;color:var(--chalk-dim);}
+.matchbar__score b{color:var(--score);}
+.matchbar__phase{font-family:var(--mono);font-size:12px;color:var(--whistle);letter-spacing:.08em;text-align:right;}
+.matchbar__phase small{display:block;color:var(--chalk-dim);margin-top:2px;font-size:11px;}
+.timerpill{
+  font-family:var(--mono);font-weight:700;font-size:16px;padding:6px 14px;border-radius:20px;
+  border:1px solid var(--line);color:var(--chalk-dim);
+}
+.timerpill.urgent{border-color:var(--score);color:var(--score);background:rgba(255,77,46,.08);}
+
+/* ---------- 場地 ---------- */
+.board{display:flex;flex-direction:column;gap:2px;}
+.panel{padding:20px 22px;position:relative;}
+.panel--acting{border-color:var(--score);}
+.panel--acting::before,.panel--acting::after{border-color:var(--score);}
+.panel--me .panel__name{color:var(--whistle);}
+.panel__head{display:flex;align-items:center;justify-content:space-between;margin-bottom:14px;flex-wrap:wrap;gap:8px;}
+.panel__name{font-family:var(--display);font-size:19px;display:flex;align-items:center;gap:8px;}
+.panel__name .tag{font-family:var(--mono);font-size:10px;background:var(--score);color:var(--ink);padding:2px 8px;border-radius:20px;letter-spacing:.05em;}
+.panel__meta{display:flex;gap:14px;font-family:var(--mono);font-size:11px;color:var(--chalk-dim);flex-wrap:wrap;}
+.panel__meta b{color:var(--chalk);}
+
+.zonerow{display:grid;grid-template-columns:repeat(auto-fit,minmax(120px,1fr));gap:10px;}
+.zone{border:1px dashed var(--line);border-radius:8px;padding:8px;min-height:118px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;}
+.zone__label{font-family:var(--mono);font-size:10px;color:var(--chalk-dim);letter-spacing:.06em;align-self:flex-start;}
+.zone__empty{font-size:12px;color:#5c5844;}
+
+/* ---------- 卡面(佔位插圖) ---------- */
+.cardface{
+  width:78px;aspect-ratio:5/7;border-radius:8px;position:relative;overflow:hidden;
+  border:2px solid var(--line);display:flex;flex-direction:column;align-items:center;justify-content:center;
+  background:linear-gradient(160deg,var(--cf-bg1),var(--cf-bg2));
+}
+.cardface--A{--cf-bg1:#3a1712;--cf-bg2:#1d2018;border-color:var(--score-dim);}
+.cardface--B{--cf-bg1:#0f2a2a;--cf-bg2:#1d2018;border-color:#1f5c5c;}
+.cardface__mono{font-family:var(--display);font-size:26px;color:rgba(255,255,255,.9);text-shadow:0 2px 6px rgba(0,0,0,.4);}
+.cardface__val{position:absolute;bottom:4px;right:6px;font-family:var(--display);font-size:15px;color:var(--whistle);}
+.cardface__pos{position:absolute;top:4px;left:6px;font-family:var(--mono);font-size:8px;color:rgba(255,255,255,.55);letter-spacing:.05em;}
+.zone__cardname{font-family:var(--body);font-size:11px;font-weight:700;text-align:center;max-width:90px;}
+
+@keyframes flyIn{
+  0%{transform:translateY(24px) scale(.7);opacity:0;}
+  60%{transform:translateY(-4px) scale(1.05);opacity:1;}
+  100%{transform:translateY(0) scale(1);opacity:1;}
+}
+.cardface.just-played{animation:flyIn .38s cubic-bezier(.2,.9,.3,1.2);}
+
+/* ---------- 球況 ---------- */
+.ballbar{padding:14px 22px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px;border-left:3px solid var(--score);background:rgba(255,77,46,.06);border-radius:8px;}
+.ballbar b{font-family:var(--display);font-size:22px;color:var(--score);}
+
+/* ---------- 手牌 / 行動區 ---------- */
+.actionzone{padding:20px 22px;}
+.actionzone__title{font-family:var(--mono);font-size:12px;color:var(--whistle);letter-spacing:.08em;margin-bottom:12px;}
+.handgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:10px;margin-bottom:6px;}
+.handcard{border:1px solid var(--line);border-radius:8px;padding:10px;cursor:pointer;background:var(--floor-2);transition:.15s;display:flex;gap:10px;align-items:center;}
+.handcard:hover{border-color:var(--whistle);}
+.handcard.disabled{opacity:.3;cursor:not-allowed;}
+.handcard.selected{border-color:var(--score);background:rgba(255,77,46,.12);}
+.handcard__info{flex:1;min-width:0;}
+.handcard__name{font-weight:700;font-size:13px;margin-bottom:4px;}
+.handcard__statlabel{font-family:var(--mono);font-size:10px;color:var(--chalk-dim);}
+.handcard__stat{font-family:var(--display);color:var(--score);font-size:15px;}
+.handcard__skill{font-size:11px;color:var(--chalk-dim);margin-top:6px;padding-top:6px;border-top:1px dashed var(--line);display:none;}
+.handcard__toggle{font-family:var(--mono);font-size:10px;color:var(--whistle);margin-top:4px;cursor:pointer;}
+.handcard.expanded .handcard__skill{display:block;}
+.handcard--mini .cardface{width:50px;}
+
+.modrow{display:flex;align-items:center;gap:10px;margin-top:14px;font-family:var(--mono);font-size:12px;color:var(--chalk-dim);flex-wrap:wrap;}
+.modrow input[type=number]{width:70px;background:var(--ink);border:1px solid var(--line);color:var(--chalk);padding:6px 8px;border-radius:6px;font-family:var(--mono);}
+
+/* ---------- Log ---------- */
+.logpanel{padding:16px 20px;max-height:220px;overflow-y:auto;}
+.logpanel__title{font-family:var(--mono);font-size:11px;color:var(--chalk-dim);letter-spacing:.08em;margin-bottom:10px;}
+.logline{font-family:var(--mono);font-size:12px;color:var(--chalk-dim);padding:4px 0;border-bottom:1px dashed var(--line);}
+.logline:last-child{border-bottom:none;}
+.logline b{color:var(--chalk);}
+.logline.win{color:var(--whistle);}
+.logline.lost{color:var(--score);}
+
+/* ---------- 局末 / 賽末 ---------- */
+.resultcard{padding:34px;text-align:center;}
+.resultcard h2{font-family:var(--display);font-size:32px;margin:0 0 10px;color:var(--score);}
+.resultcard p{color:var(--chalk-dim);margin:0 0 20px;}
+
+.errorbox{border-left:3px solid var(--score);background:rgba(255,77,46,.08);padding:12px 16px;border-radius:6px;font-size:13px;color:var(--score);margin-bottom:14px;}
+
+@media (max-width:640px){
+  .matchbar{flex-direction:column;align-items:flex-start;}
+  .matchbar__phase{text-align:left;}
+  .slotgrid{grid-template-columns:1fr;}
+}

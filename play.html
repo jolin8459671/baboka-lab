@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>對戰雛型 ｜ バボカ研究所</title>
+<link rel="stylesheet" href="style.css">
+<link rel="stylesheet" href="play.css">
+</head>
+<body class="play-body">
+
+<nav class="nav">
+  <a href="index.html" class="nav__brand"><span class="dot"></span>バボカ研究所</a>
+  <button class="nav__toggle" id="navToggle">☰</button>
+  <div class="nav__links" id="navLinks">
+    <a href="index.html">首頁</a>
+    <a href="rules.html">玩法教學</a>
+    <a href="cards.html">卡牌資料庫</a>
+    <a href="playmat.html">桌墊下載</a>
+    <a href="play.html" class="active">本機雙人</a>
+    <a href="play-online.html">線上對戰</a>
+    <a href="about.html">關於</a>
+  </div>
+</nav>
+
+<section class="page-hero" style="padding-bottom:0;">
+  <div class="section__kicker">Prototype · 僅供兩人面對面遊玩</div>
+  <h1>對戰雛型</h1>
+  <p>
+    規則流程(發球／接球／阻擋／舉球／攻擊／局末補牌)已自動化；角色技能目前用<b style="color:var(--chalk)">手動加減值</b>輔助——
+    出牌時可展開技能文字，自己判斷是否符合條件、要不要套用，數值自己填。這頁只給你跟你弟兩人同一台裝置輪流操作，沒有連線、沒有帳號、關掉分頁就重置。
+  </p>
+</section>
+
+<div id="app"></div>
+
+<script src="data/cards.js"></script>
+<script src="play.js"></script>
+<script src="script.js"></script>
+</body>
+</html>
