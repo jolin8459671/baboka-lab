@@ -90,14 +90,34 @@
     deck: [], hand: [], setZone: [], discard: [],
     mulliganUsed: false, setupDone: false,
     blockPicks: [],
+    zonePile: {},        // 每區「目前疊了幾張可當資源花」的計數，一局(SET)開始時歸零
+    pendingPlay: null,    // { uid, rule } —— 選到有自動化技能的牌時，先跳確認面板
   };
   let processedIntervalFor = null; // 避免同一局間休息重複處理
-  let lastPlayedZone = { key: null, side: null }; // 給飛入動畫用
+  let pileResetForSet = null;      // 避免同一局內重複把資源計數歸零
+  let pendingFlip = null;          // 手牌飛到場上的動畫來源座標
 
   let timerInterval = null;
   let timerDeadline = null;
 
   const db = getDB();
+
+  // ---------------------------------------------------------
+  // 技能自動化規則表 —— 只涵蓋烏野／音駒起始套牌裡「效果單純可判定」的技能：
+  // 需要花「場上資源(疊在該區下方的牌)」或「丟1張手牌」當成本、
+  // 效果是固定加值／抽卡的。其餘技能(結算複雜、跨區、影響下回合等)
+  // 還是用手動加減值輸入框處理，牌片上照樣看得到完整技能文字。
+  // ---------------------------------------------------------
+  const SKILL_RULES = {
+    '日向翔陽': { zone: 'attack', cost: { type: 'pile', amount: 2 }, effect: { statBonus: 2 } },
+    '影山飛雄': { zone: 'toss', cost: { type: 'pile', amount: 2 }, effect: { statBonus: 2 } },
+    '西谷夕':   { zone: 'receive', cost: { type: 'pile', amount: 3 }, effect: { statBonus: 2, draw: 1 } },
+    '緣下力':   { zone: 'receive', cost: { type: 'hand', amount: 1 }, effect: { statBonus: 3 } },
+    '孤爪研磨': { zone: 'toss', cost: { type: 'pile', amount: 2 }, effect: { statBonus: 1 } },
+    '夜久衛輔': { zone: 'receive', cost: { type: 'hand', amount: 1 }, effect: { statBonus: 2 } },
+    '芝山優生': { zone: 'receive', cost: { type: 'pile', amount: 2 }, effect: { statBonus: 0, draw: 1 } },
+  };
+  const PHASE_TO_ZONE = { SERVE_CHOOSE: 'serve', RECEIVE_PLAY: 'receive', TOSS_PLAY: 'toss', ATTACK_PLAY: 'attack' };
 
   // ---------------------------------------------------------
   // 建立 / 加入房間
@@ -181,7 +201,8 @@
   function resetLocalForNewMatch() {
     local.deck = []; local.hand = []; local.setZone = []; local.discard = [];
     local.mulliganUsed = false; local.setupDone = false; local.blockPicks = [];
-    processedIntervalFor = null;
+    local.zonePile = {}; local.pendingPlay = null;
+    processedIntervalFor = null; pileResetForSet = null;
   }
 
   function reactToRoom() {
@@ -190,6 +211,12 @@
     // 剛回到大廳（重新開一場）：清掉上一場殘留的本地私有資料
     if (room.stage === 'lobby' && (local.hand.length > 0 || local.deck.length > 0)) {
       resetLocalForNewMatch();
+    }
+
+    // 每一局(SET)開始時，場上資源計數歸零(只做一次)
+    if (room.stage === 'playing' && pileResetForSet !== room.setNumber) {
+      pileResetForSet = room.setNumber;
+      local.zonePile = {};
     }
 
     // lobby -> presetup：雙方都 present + ready，由 A 負責觸發（單一寫入者）
@@ -310,6 +337,7 @@
     const pts = card.stats.serve + (mod || 0);
     card._finalVal = pts;
     writeZone('serve', card);
+    local.zonePile.serve = (local.zonePile.serve || 0) + 1;
     publishCounts();
     const nextActing = other(me.key);
     db.update(`rooms/${roomCode}`, {
@@ -341,6 +369,7 @@
     const val = card.stats.receive + (mod || 0);
     card._finalVal = val;
     writeZone('receive', card);
+    local.zonePile.receive = (local.zonePile.receive || 0) + 1;
     publishCounts();
     const need = room.ball.points;
     if (val >= need) {
@@ -374,6 +403,7 @@
     mainCard._finalVal = total;
     subs.forEach(c => local.discard.push(c));
     writeZone('block', mainCard);
+    local.zonePile.block = (local.zonePile.block || 0) + 1;
     publishCounts();
     const names = local.blockPicks.map(c => `〔${c.name}〕`).join('');
     const need = room.ball.points;
@@ -401,6 +431,7 @@
     card._finalVal = val;
     myTossVal = val;
     writeZone('toss', card);
+    local.zonePile.toss = (local.zonePile.toss || 0) + 1;
     publishCounts();
     writeLog(`${slotLabel(me.key)} 舉球：〔${card.name}〕舉球值 ${val}。`);
     db.update(`rooms/${roomCode}`, { phase: 'ATTACK_PLAY', 'excludeName/attack': card.name, turnDeadline: Date.now() + TURN_SECONDS * 1000 });
@@ -415,6 +446,7 @@
     const attackVal = card.stats.attack + (mod || 0);
     card._finalVal = attackVal;
     writeZone('attack', card);
+    local.zonePile.attack = (local.zonePile.attack || 0) + 1;
     publishCounts();
     const pts = myTossVal + attackVal;
     writeLog(`${slotLabel(me.key)} 攻擊：〔${card.name}〕攻擊值 ${attackVal} ＋ 舉球值 ${myTossVal} → 進攻點數 ${pts}。`);
@@ -422,6 +454,101 @@
       ball: { points: pts, fromKey: me.key, mustReceiveOnly: false },
       actingKey: other(me.key), phase: 'RESPOND', turnDeadline: Date.now() + TURN_SECONDS * 1000,
     });
+  }
+
+  const PHASE_TO_HANDLER = { SERVE_CHOOSE: playServe, RECEIVE_PLAY: playReceive, TOSS_PLAY: playToss, ATTACK_PLAY: playAttack };
+
+  // 手牌被點擊時的統一入口：先抓飛入動畫的起點座標，再判斷這張牌
+  // 在目前階段有沒有自動化技能規則 —— 有就跳確認面板，沒有就照舊直接出牌。
+  function handleCardTap(evt, uid) {
+    captureFlipSource(evt);
+    const card = local.hand.find(c => c.uid === uid);
+    if (!card) return;
+    const zoneKey = PHASE_TO_ZONE[room.phase];
+    const rule = SKILL_RULES[card.name];
+    if (rule && rule.zone === zoneKey && (!rule.condition || rule.condition({ ball: room.ball }))) {
+      pendingFlip = null; // 技能確認面板會先切畫面，飛入動畫的起點就對不上了，改用一般的浮現效果
+      local.pendingPlay = { uid, rule };
+      render();
+      return;
+    }
+    if (pendingFlip) pendingFlip.zoneKey = zoneKey, pendingFlip.side = me.key;
+    PHASE_TO_HANDLER[room.phase](uid, currentMod());
+  }
+
+  function captureFlipSource(evt) {
+    try {
+      const cardEl = evt && evt.currentTarget;
+      const faceEl = cardEl && cardEl.querySelector('.cardface');
+      if (faceEl) pendingFlip = { rect: faceEl.getBoundingClientRect() };
+    } catch (e) { pendingFlip = null; }
+  }
+
+  function runFlipAnimation(flip) {
+    try {
+      const target = app.querySelector(`.zone[data-owner="${flip.side}"][data-zone="${flip.zoneKey}"] .cardface`);
+      if (!target || !flip.rect || !flip.rect.width) return;
+      const newRect = target.getBoundingClientRect();
+      if (!newRect.width) return;
+      const dx = flip.rect.left - newRect.left;
+      const dy = flip.rect.top - newRect.top;
+      const scale = flip.rect.width / newRect.width;
+      target.style.transition = 'none';
+      target.style.opacity = '0.75';
+      target.style.transform = `translate(${dx}px,${dy}px) scale(${scale})`;
+      requestAnimationFrame(() => {
+        target.style.transition = 'transform .36s cubic-bezier(.2,.9,.3,1.1), opacity .2s';
+        target.style.transform = 'translate(0,0) scale(1)';
+        target.style.opacity = '1';
+      });
+    } catch (e) { /* 動畫失敗就算了，不影響對戰邏輯 */ }
+  }
+
+  function pendingSkillPanelHTML() {
+    const { uid, rule } = local.pendingPlay;
+    const card = local.hand.find(c => c.uid === uid);
+    if (!card) { local.pendingPlay = null; return ''; }
+    let costLine, canAfford;
+    if (rule.cost.type === 'pile') {
+      const avail = local.zonePile[rule.zone] || 0;
+      canAfford = avail >= rule.cost.amount;
+      costLine = `需要這區可用資源 ${rule.cost.amount} 張（目前 ${avail} 張）${canAfford ? '' : '——資源不夠，這次沒辦法用'}`;
+    } else {
+      canAfford = local.hand.filter(c => c.uid !== uid).length >= rule.cost.amount;
+      costLine = `需要丟棄手牌 ${rule.cost.amount} 張（會自動丟最後一張，不能用就直接出牌）`;
+    }
+    return `
+    <div class="bracket actionzone">
+      <div class="actionzone__title">〔${card.name}〕技能確認</div>
+      <p style="font-size:13px;color:var(--chalk-dim);margin:0 0 10px;">${card.skill}</p>
+      <p style="font-size:12px;color:var(--chalk-dim);margin:0 0 14px;">${costLine}</p>
+      <div class="btnrow-wrap">
+        <button class="mini-btn mini-btn--primary" ${canAfford ? '' : 'disabled'} onclick="handleUseSkill()">使用技能</button>
+        <button class="mini-btn" onclick="handlePlainPlay()">不使用技能，直接出牌</button>
+        <button class="mini-btn mini-btn--danger" onclick="handleCancelPending()">取消，選別張</button>
+      </div>
+    </div>`;
+  }
+
+  function applySkillAndPlay(uid, rule) {
+    let bonus = rule.effect.statBonus || 0;
+    if (rule.cost.type === 'pile') {
+      local.zonePile[rule.zone] = (local.zonePile[rule.zone] || 0) - rule.cost.amount;
+    } else if (rule.cost.type === 'hand') {
+      const others = local.hand.filter(c => c.uid !== uid);
+      const discardCard = others[others.length - 1];
+      if (discardCard) {
+        local.hand.splice(local.hand.indexOf(discardCard), 1);
+        local.discard.push(discardCard);
+        writeLog(`${slotLabel(me.key)} 技能成本：丟棄〔${discardCard.name}〕。`);
+      }
+    }
+    PHASE_TO_HANDLER[room.phase](uid, bonus);
+    if (rule.effect.draw) {
+      draw(local, rule.effect.draw);
+      publishCounts();
+      writeLog(`${slotLabel(me.key)} 技能：額外抽 ${rule.effect.draw} 張牌。`);
+    }
   }
 
   function declareLost() {
@@ -526,8 +653,9 @@
     opts = opts || {};
     const disabled = opts.disabled ? 'disabled' : '';
     const selected = opts.selected ? 'selected' : '';
+    const fanStyle = opts.fanStyle || '';
     return `
-    <div class="handcard ${disabled} ${selected}" data-uid="${c.uid}" onclick="${disabled ? '' : opts.onclick}">
+    <div class="handcard ${disabled} ${selected}" data-uid="${c.uid}" style="${fanStyle}" onclick="${disabled ? '' : opts.onclick}">
       ${cardFaceHTML(c, me.key, {})}
       <div class="handcard__info">
         <div class="handcard__name">${c.name}</div>
@@ -538,38 +666,59 @@
     </div>`;
   }
 
-  function zoneHTML(label, zoneData, side) {
-    if (!zoneData) return `<div class="zone"><div class="zone__label">${label}</div><div class="zone__empty">—</div></div>`;
-    return `<div class="zone">
-      <div class="zone__label">${label}</div>
-      ${cardFaceHTML({ name: zoneData.name }, side, { val: zoneData.val, justPlayed: true })}
-      <div class="zone__cardname">${zoneData.name}</div>
+  // 手牌扇形展開：依索引/總數算出旋轉角度、上抬高度與動畫延遲，讓每張牌錯開像真的手持一疊卡
+  function fanStyleFor(i, total) {
+    if (total <= 1) return 'z-index:100;';
+    const mid = (total - 1) / 2;
+    const offset = i - mid;
+    const maxAngle = Math.min(9, 30 / total);
+    const angle = (offset * maxAngle).toFixed(1);
+    const lift = Math.abs(offset) * 5;
+    const z = 100 - Math.round(Math.abs(offset) * 10);
+    const delay = (i * 0.12).toFixed(2);
+    return `transform:rotate(${angle}deg) translateY(${lift.toFixed(1)}px);z-index:${z};animation-delay:${delay}s;`;
+  }
+
+  function handFanHTML(cards, cardHtmlFn) {
+    return cards.map((c, i) => cardHtmlFn(c, fanStyleFor(i, cards.length))).join('');
+  }
+
+  function zoneHTML(label, zoneData, side, zoneKey) {
+    if (!zoneData) return `<div class="zone" data-owner="${side}" data-zone="${zoneKey}"><div class="zone__face"><div class="zone__label">${label}</div><div class="zone__empty">—</div></div></div>`;
+    return `<div class="zone" data-owner="${side}" data-zone="${zoneKey}">
+      <div class="zone__face">
+        <div class="zone__label">${label}</div>
+        ${cardFaceHTML({ name: zoneData.name }, side, { val: zoneData.val, justPlayed: true })}
+        <div class="zone__cardname">${zoneData.name}</div>
+      </div>
     </div>`;
   }
 
-  function panelHTML(key) {
+  function zonesRowHTML(key) {
+    const pub = room.public[key];
+    const z = (pub && pub.zones) || {};
+    return `
+      ${zoneHTML('發球', z.serve, key, 'serve')}
+      ${zoneHTML('接球', z.receive, key, 'receive')}
+      ${zoneHTML('阻擋(合計)', z.block, key, 'block')}
+      ${zoneHTML('舉球', z.toss, key, 'toss')}
+      ${zoneHTML('攻擊', z.attack, key, 'attack')}
+    `;
+  }
+
+  function metaStripHTML(key) {
     const pub = room.public[key];
     const isMe = key === me.key;
     const acting = room.stage === 'playing' && room.actingKey === key;
-    const z = pub.zones || {};
     return `
-    <div class="bracket panel ${acting ? 'panel--acting' : ''} ${isMe ? 'panel--me' : ''}">
-      <div class="panel__head">
-        <div class="panel__name">${slotLabel(key)}${isMe ? '（你）' : ''} ${acting ? '<span class="tag">行動中</span>' : ''}</div>
-        <div class="panel__meta">
-          <span>牌組 <b>${pub.deckCount}</b></span>
-          <span>手牌 <b>${pub.handCount}</b></span>
-          <span>SET區 <b>${pub.setZoneCount}</b></span>
-          <span>棄牌 <b>${pub.discardCount}</b></span>
-          <span>局數 <b style="color:var(--score);">${pub.setsWon}</b></span>
-        </div>
-      </div>
-      <div class="zonerow">
-        ${zoneHTML('發球', z.serve, key)}
-        ${zoneHTML('接球', z.receive, key)}
-        ${zoneHTML('阻擋(合計)', z.block, key)}
-        ${zoneHTML('舉球', z.toss, key)}
-        ${zoneHTML('攻擊', z.attack, key)}
+    <div class="bracket meta-strip ${isMe ? 'meta-strip--me' : 'meta-strip--opp'} ${acting ? 'acting' : ''}">
+      <div class="meta-strip__name">${slotLabel(key)}${isMe ? '（你）' : ''} ${acting ? '<span class="tag">行動中</span>' : ''}</div>
+      <div class="meta-strip__stats">
+        <span>牌組 <b>${pub.deckCount}</b></span>
+        <span>手牌 <b>${pub.handCount}</b></span>
+        <span>SET區 <b>${pub.setZoneCount}</b></span>
+        <span>棄牌 <b>${pub.discardCount}</b></span>
+        <span>局數 <b style="color:var(--score);">${pub.setsWon}</b></span>
       </div>
     </div>`;
   }
@@ -590,8 +739,8 @@
     return `
     <div class="bracket actionzone">
       <div class="actionzone__title">${title}</div>
-      <div class="handgrid">
-        ${cards.map(c => handCardHTML(c, { onclick: onclickFn(c.uid) })).join('') || '<div class="zone__empty">手上沒有符合條件的角色卡</div>'}
+      <div class="handfan">
+        ${cards.length ? handFanHTML(cards, (c, fanStyle) => handCardHTML(c, { onclick: onclickFn(c.uid), fanStyle })) : '<div class="zone__empty">手上沒有符合條件的角色卡</div>'}
       </div>
       ${modRow()}
       <div class="btnrow-wrap">
@@ -604,10 +753,11 @@
     if (!isMyTurn()) {
       return `<div class="bracket actionzone"><div class="actionzone__title">等待 ${slotLabel(room.actingKey)} 行動中…</div></div>`;
     }
+    if (local.pendingPlay) return pendingSkillPanelHTML();
     const phase = room.phase;
     if (phase === 'SERVE_CHOOSE') {
       const valid = local.hand.filter(c => c.type === 'character' && c.stats.serve != null);
-      return actionWrap('發球階段 — 選一張角色卡發球（不抽牌）', valid, uid => `handleServe('${uid}')`, valid.length === 0);
+      return actionWrap('發球階段 — 選一張角色卡發球（不抽牌）', valid, uid => `handleCardTap(event,'${uid}')`, valid.length === 0);
     }
     if (phase === 'RESPOND') {
       const canBlock = !room.ball.mustReceiveOnly;
@@ -623,7 +773,7 @@
     }
     if (phase === 'RECEIVE_PLAY') {
       const valid = local.hand.filter(c => c.type === 'character' && c.stats.receive != null);
-      return actionWrap(`接球階段 — 需要接球值 ≥ ${room.ball.points}`, valid, uid => `handleReceive('${uid}')`, valid.length === 0);
+      return actionWrap(`接球階段 — 需要接球值 ≥ ${room.ball.points}`, valid, uid => `handleCardTap(event,'${uid}')`, valid.length === 0);
     }
     if (phase === 'BLOCK_PLAY') {
       const valid = local.hand.filter(c => c.type === 'character' && c.stats.block != null);
@@ -632,12 +782,13 @@
       return `
       <div class="bracket actionzone">
         <div class="actionzone__title">阻擋階段 — 需要合計阻擋值 ≥ ${room.ball.points}（先選主攔，最多再加2名副攔，同名不可重複）</div>
-        <div class="handgrid">
-          ${valid.map(c => handCardHTML(c, {
+        <div class="handfan">
+          ${valid.length ? handFanHTML(valid, (c, fanStyle) => handCardHTML(c, {
             selected: picks.some(x => x.uid === c.uid),
             disabled: !picks.some(x => x.uid === c.uid) && picks.length >= 3,
-            onclick: `handleToggleBlock('${c.uid}')`
-          })).join('') || '<div class="zone__empty">手上沒有可上場阻擋的角色卡</div>'}
+            onclick: `handleToggleBlock('${c.uid}')`,
+            fanStyle
+          })) : '<div class="zone__empty">手上沒有可上場阻擋的角色卡</div>'}
         </div>
         <div style="margin-top:10px;font-family:var(--mono);font-size:13px;color:var(--chalk-dim);">
           已選：${picks.map(c => c.name).join('、') || '（尚未選擇）'}　合計阻擋值：<b style="color:var(--score);">${total}</b>
@@ -652,12 +803,12 @@
     if (phase === 'TOSS_PLAY') {
       const exToss = room.excludeName ? room.excludeName.toss : null;
       const valid = local.hand.filter(c => c.type === 'character' && c.stats.toss != null && c.name !== exToss);
-      return actionWrap(`舉球階段 — 不能跟接球區同名角色（${exToss || '—'}）`, valid, uid => `handleToss('${uid}')`, valid.length === 0);
+      return actionWrap(`舉球階段 — 不能跟接球區同名角色（${exToss || '—'}）`, valid, uid => `handleCardTap(event,'${uid}')`, valid.length === 0);
     }
     if (phase === 'ATTACK_PLAY') {
       const exAttack = room.excludeName ? room.excludeName.attack : null;
       const valid = local.hand.filter(c => c.type === 'character' && c.stats.attack != null && c.name !== exAttack);
-      return actionWrap(`攻擊階段 — 不能跟舉球區同名角色（${exAttack || '—'}）`, valid, uid => `handleAttack('${uid}')`, valid.length === 0);
+      return actionWrap(`攻擊階段 — 不能跟舉球區同名角色（${exAttack || '—'}）`, valid, uid => `handleCardTap(event,'${uid}')`, valid.length === 0);
     }
     return '';
   }
@@ -671,6 +822,7 @@
   }
 
   function render() {
+    if (screen !== 'playing' && pendingFlip) pendingFlip = null;
     if (errorMsg) {
       app.innerHTML = `<div class="errorbox">${errorMsg}</div>` + landingHTML();
       return;
@@ -712,7 +864,7 @@
         <h3>準備手牌</h3>
         <p>已抽 ${local.hand.length} 張起始手牌，可重抽一次。雙方都按下「準備完成」後自動擲硬幣開局。</p>
       </div>
-      <div class="handgrid">${local.hand.map(c => handCardHTML(c, { onclick: '' })).join('')}</div>
+      <div class="handfan">${handFanHTML(local.hand, (c, fanStyle) => handCardHTML(c, { onclick: '', fanStyle }))}</div>
       <div class="btnrow-wrap">
         <button class="mini-btn" ${local.mulliganUsed || local.setupDone ? 'disabled' : ''} onclick="handleMulligan()">${local.mulliganUsed ? '已重抽過' : '重抽起始手牌(限一次)'}</button>
         <button class="mini-btn mini-btn--primary" ${local.setupDone ? 'disabled' : ''} onclick="handleConfirmPresetup()">${local.setupDone ? '等待對方…' : '準備完成'}</button>
@@ -721,19 +873,25 @@
     }
 
     if (screen === 'playing') {
+      const oppKey = other(me.key);
       app.innerHTML = `
       <div class="bracket matchbar">
         <div class="matchbar__score">${slotLabel('A')} <b>${room.public.A.setsWon}</b> <span class="vs">SET</span> <b>${room.public.B.setsWon}</b> ${slotLabel('B')}</div>
         <div class="matchbar__phase">第 ${room.setNumber} 局<small>目前行動：${slotLabel(room.actingKey)}</small></div>
         ${timerHTML()}
       </div>
-      <div class="board">
-        ${panelHTML(other(me.key))}
-        ${ballBarHTML()}
-        ${panelHTML(me.key)}
+      ${metaStripHTML(oppKey)}
+      <div class="tablescene">
+        <div class="tablesurface">
+          <div class="tablerow tablerow--far">${zonesRowHTML(oppKey)}</div>
+          <div class="tablecenter">${ballBarHTML()}</div>
+          <div class="tablerow tablerow--near">${zonesRowHTML(me.key)}</div>
+        </div>
       </div>
+      ${metaStripHTML(me.key)}
       ${actionZoneHTML()}
       ${logHTML()}`;
+      if (pendingFlip) { runFlipAnimation(pendingFlip); pendingFlip = null; }
       return;
     }
 
@@ -800,6 +958,20 @@
   window.handleConfirmBlock = function () { confirmBlock(currentMod()); };
   window.handleToss = function (uid) { playToss(uid, currentMod()); };
   window.handleAttack = function (uid) { playAttack(uid, currentMod()); };
+  window.handleCardTap = function (evt, uid) { handleCardTap(evt, uid); };
+  window.handleUseSkill = function () {
+    if (!local.pendingPlay) return;
+    const { uid, rule } = local.pendingPlay;
+    local.pendingPlay = null;
+    applySkillAndPlay(uid, rule);
+  };
+  window.handlePlainPlay = function () {
+    if (!local.pendingPlay) return;
+    const { uid } = local.pendingPlay;
+    local.pendingPlay = null;
+    PHASE_TO_HANDLER[room.phase](uid, 0);
+  };
+  window.handleCancelPending = function () { local.pendingPlay = null; render(); };
   window.handleDeclareLost = function () { declareLost(); };
   window.handlePlayAgain = function () { playAgain(); };
 
