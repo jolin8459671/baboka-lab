@@ -30,5 +30,5 @@ const firebaseConfig = {
 if (typeof firebase !== 'undefined' && firebaseConfig.apiKey !== 'REPLACE_ME_API_KEY') {
   firebase.initializeApp(firebaseConfig);
 } else if (typeof firebase !== 'undefined') {
-  console.warn('firebase-config.js 裡的 firebaseConfig 還沒填，線上對戰無法連線。');
+  console.warn('未填firebase-config.js 裡的 firebaseConfig，線上對戰無法連線。');
 }
