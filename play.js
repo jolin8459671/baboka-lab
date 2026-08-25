@@ -372,8 +372,10 @@
     opts = opts || {};
     const disabled = opts.disabled ? 'disabled' : '';
     const selected = opts.selected ? 'selected' : '';
+    const imgHTML = c.image ? `<img class="handcard__img" src="${c.image}" alt="${c.name}">` : '';
     return `
     <div class="handcard ${disabled} ${selected}" data-uid="${c.uid}" onclick="${disabled ? '' : opts.onclick}">
+      ${imgHTML}
       <div class="handcard__name">${c.name} <span style="color:var(--chalk-dim);font-weight:400;font-size:11px;">${c.type === 'event' ? '(事件卡)' : ''}</span></div>
       <div>${c.type === 'character' ? statPillsForHandCard(c) : ''}</div>
       <div class="handcard__toggle" onclick="event.stopPropagation();this.parentElement.classList.toggle('expanded')">技能／效果 ▾</div>
@@ -390,7 +392,9 @@
       return `<div class="zone"><div class="zone__label">${label}</div><div class="zone__empty">—</div></div>`;
     }
     const pileNote = card.pile && card.pile.length ? `<div class="zone__pile">下方資源 ${card.pile.length} 張</div>` : '';
+    const imgHTML = card.image ? `<img class="zone__img" src="${card.image}" alt="${card.name}">` : '';
     return `<div class="zone has-card">
+      ${imgHTML}
       <div class="zone__label">${label}</div>
       <div class="zone__card">${card.name}</div>
       ${extraVal != null ? `<div class="zone__val">${extraVal}</div>` : ''}

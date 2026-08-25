@@ -635,9 +635,11 @@
     const mono = card.name ? card.name[0] : '?';
     const val = opts.val != null ? opts.val : '';
     const posLabel = card.position || card.category || '';
+    const imgHTML = card.image ? `<img class="cardface__img" src="${card.image}" alt="${card.name || ''}">` : '';
     return `<div class="cardface cardface--${side} ${opts.justPlayed ? 'just-played' : ''}">
+      ${imgHTML}
       <div class="cardface__pos">${posLabel}</div>
-      <div class="cardface__mono">${mono}</div>
+      <div class="cardface__mono" style="${card.image ? 'display:none;' : ''}">${mono}</div>
       ${val !== '' ? `<div class="cardface__val">${val}</div>` : ''}
     </div>`;
   }
