@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>抽卡包 ｜ バボカ研究所</title>
+<link rel="stylesheet" href="style.css">
+<link rel="stylesheet" href="packs.css">
+</head>
+<body class="play-body">
+
+<nav class="nav">
+  <a href="index.html" class="nav__brand"><span class="dot"></span>バボカ研究所</a>
+  <button class="nav__toggle" id="navToggle">☰</button>
+  <div class="nav__links" id="navLinks">
+    <a href="index.html">首頁</a>
+    <a href="rules.html">玩法教學</a>
+    <a href="cards.html">卡牌資料庫</a>
+    <a href="playmat.html">桌墊下載</a>
+    <a href="play.html">本機雙人</a>
+    <a href="play-online.html">線上對戰</a>
+    <a href="packs.html" class="active">抽卡包</a>
+    <a href="about.html">關於</a>
+  </div>
+</nav>
+
+<section class="page-hero" style="padding-bottom:0;">
+  <div class="section__kicker">Booster · 雛型版</div>
+  <h1>抽卡包</h1>
+  <p>
+    照稀有度加權抽卡，起始套牌本身的卡（Deck 稀有度）不會出現在卡包裡，只抽宣傳卡／未來的補充包卡。
+    目前卡池只有 <code>data/cards.js</code> 裡現有的幾張非起始卡，之後補完整的 N→R→S→頂→秘→極 補充包資料，
+    卡池會自動變多，不用改這頁的程式。收藏紀錄存在<b style="color:var(--chalk)">這台瀏覽器</b>裡，換裝置或清瀏覽器資料會不見。
+  </p>
+</section>
+
+<div id="app"></div>
+
+<script src="data/cards.js"></script>
+<script src="packs.js"></script>
+<script src="script.js"></script>
+</body>
+</html>
