@@ -192,3 +192,8 @@
   .matchbar__phase{text-align:left;}
   .slotgrid{grid-template-columns:1fr;}
 }
+.cardface__img{
+  position:absolute; inset:0; width:100%; height:100%;
+  object-fit:cover; z-index:0;
+}
+.cardface__pos,.cardface__mono,.cardface__val{ position:relative; z-index:1; }

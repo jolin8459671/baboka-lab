@@ -8,7 +8,8 @@ const CARDS = [
         rarity: "Deck", position: "アタック", school: "烏野・1年",
         stats: { serve: 2, block: 2, receive: 2, toss: 0, attack: 2 },
         zone: "攻擊區域",
-        skill: "支付2點資源(犧牲下方2張卡),攻擊點數 +2(2→4)。"
+        skill: "支付2點資源(犧牲下方2張卡),攻擊點數 +2(2→4)。",
+        image: "assets/cards/HV-D01-001.jpg"
     },
     {
         code: "HV-D01-002", name: "影山飛雄", type: "character", series: "D01 起始",

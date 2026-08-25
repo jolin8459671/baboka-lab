@@ -106,9 +106,12 @@
     const rarityClass = card.rarity || 'N';
     const glow = opts.revealed && isRareRarity(card.rarity) ? 'rare-glow' : '';
     const countBadge = opts.count != null ? `<div class="pcard__count">×${opts.count}</div>` : '';
+    const showImg = card.image && !opts.locked;
+    const imgHTML = showImg ? `<img class="pcard__img" src="${card.image}" alt="${card.name || ''}">` : '';
     return `<div class="pcard pcard--${rarityClass} ${opts.revealed ? 'revealed' : ''} ${glow} ${opts.locked ? 'locked' : ''}">
+      ${imgHTML}
       <div class="pcard__rarity">${opts.locked ? '？' : (card.rarity === 'Deck' ? '起始' : card.rarity)}</div>
-      <div class="pcard__mono">${opts.locked ? '？' : card.name[0]}</div>
+      <div class="pcard__mono" style="${showImg ? 'display:none;' : ''}">${opts.locked ? '？' : card.name[0]}</div>
       ${opts.showName ? `<div class="pcard__name">${opts.locked ? '未取得' : card.name}</div>` : ''}
       ${countBadge}
     </div>`;
