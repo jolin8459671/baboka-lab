@@ -2,6 +2,9 @@
 // 抽卡包 雛型版 —— 純前端，收藏紀錄存在 localStorage（這是真的
 // 部署網站，不是 Claude 的 artifact 沙盒，所以這裡用 localStorage
 // 沒問題，跟 online.js 那邊「不能用瀏覽器儲存」的限制無關）
+//
+// 互動流程參考 Pokemon TCG Pocket：選一包(功能上都一樣，純儀式感)
+// → 往上滑撕開卡包 → 卡片一張一張用滑動手勢翻開(或直接點一下)
 // =========================================================
 
 (function () {
@@ -10,6 +13,7 @@
 
   const PACK_SIZE = 5;
   const STORAGE_KEY = 'baboka_collection_v1';
+  const PACK_CHOICES = 3; // 選包畫面顯示幾個包給你挑（功能完全一樣，純選擇的儀式感）
 
   // 只有非「起始套牌」稀有度的卡才會出現在卡包裡（跟正式TCG一樣，
   // 起始套牌的牌不會混進補充包）。之後補完 N/R/S/頂/秘/極 的補充包
@@ -29,7 +33,7 @@
   }
 
   let collection = loadCollection(); // { cardCode: count }
-  let screen = 'home'; // home / revealing / dex
+  let screen = 'home'; // home / select / opening / revealing / dex
   let currentPack = []; // 本次開的5張
   let revealedCount = 0;
 
@@ -52,8 +56,18 @@
     return pool[Math.floor(Math.random() * pool.length)];
   }
 
-  function openPack() {
+  function goSelect() {
     if (BOOSTER_POOL.length === 0) return;
+    screen = 'select';
+    render();
+  }
+
+  function goOpening() {
+    screen = 'opening';
+    render();
+  }
+
+  function openPack() {
     currentPack = [];
     for (let i = 0; i < PACK_SIZE; i++) {
       const c = drawOneCard();
@@ -64,7 +78,7 @@
     render();
   }
 
-  function revealNext(idx) {
+  function revealOne(idx) {
     if (idx !== revealedCount) return; // 只能按順序翻，不能跳著翻
     const card = currentPack[idx];
     collection[card.code] = (collection[card.code] || 0) + 1;
@@ -75,9 +89,7 @@
 
   function revealAll() {
     currentPack.forEach((card, i) => {
-      if (i >= revealedCount) {
-        collection[card.code] = (collection[card.code] || 0) + 1;
-      }
+      if (i >= revealedCount) collection[card.code] = (collection[card.code] || 0) + 1;
     });
     saveCollection(collection);
     revealedCount = currentPack.length;
@@ -89,7 +101,7 @@
   function pcardHTML(card, opts) {
     opts = opts || {};
     if (opts.faceDown) {
-      return `<div class="pcard faceDown" onclick="${opts.onclick || ''}"><div class="pcard__back">?</div></div>`;
+      return `<div class="pcard faceDown"><div class="pcard__back">?</div></div>`;
     }
     const rarityClass = card.rarity || 'N';
     const glow = opts.revealed && isRareRarity(card.rarity) ? 'rare-glow' : '';
@@ -102,6 +114,9 @@
     </div>`;
   }
 
+  // ---------------------------------------------------------
+  // 畫面
+  // ---------------------------------------------------------
   function homeHTML() {
     const totalOwned = Object.keys(collection).filter(code => collection[code] > 0).length;
     return `
@@ -113,29 +128,81 @@
       <h2>バボカ補充包</h2>
       <p style="color:var(--chalk-dim);font-size:13px;margin:6px 0 0;">每包 ${PACK_SIZE} 張，稀有度機率：${RARITY_ORDER.filter(r => BOOSTER_POOL.some(c => c.rarity === r)).map(r => `${r} ${RARITY_WEIGHT[r]}%`).join('　')}（會依實際卡池自動重新正規化）</p>
       <div class="btnrow-wrap" style="justify-content:center;">
-        <button class="mini-btn mini-btn--primary" ${BOOSTER_POOL.length === 0 ? 'disabled' : ''} onclick="handleOpenPack()">開一包</button>
+        <button class="mini-btn mini-btn--primary" ${BOOSTER_POOL.length === 0 ? 'disabled' : ''} onclick="handleGoSelect()">去開卡包</button>
         <button class="mini-btn" onclick="handleShowDex()">查看圖鑑</button>
       </div>
       ${BOOSTER_POOL.length === 0 ? '<p style="color:var(--score);font-size:12px;margin-top:10px;">目前卡池是空的（所有卡都是起始套牌稀有度），先去 data/cards.js 補幾張非 Deck 稀有度的卡才能開包。</p>' : ''}
     </div>`;
   }
 
-  function revealingHTML() {
-    const allDone = revealedCount >= currentPack.length;
+  function selectHTML() {
     return `
     <div class="bracket packresult">
-      <h2>${allDone ? '開包結果' : '點卡片翻開'}</h2>
-      <div class="packgrid">
-        ${currentPack.map((card, i) => {
-          if (i < revealedCount) return pcardHTML(card, { revealed: true, showName: true });
-          return pcardHTML(card, { faceDown: true, onclick: `handleRevealNext(${i})` });
-        }).join('')}
+      <h2>選一包</h2>
+      <p style="color:var(--chalk-dim);font-size:13px;margin:4px 0 4px;">三包內容機率都一樣，純粹選個手感</p>
+      <div class="packcarousel">
+        ${Array.from({ length: PACK_CHOICES }).map(() => `
+          <div class="packobj" onclick="handleGoOpening()">
+            <div class="packobj__face">
+              <div class="packobj__logo">Vobaca</div>
+              <div class="packobj__spark"></div>
+            </div>
+          </div>`).join('')}
       </div>
+      <div class="btnrow-wrap" style="justify-content:center;"><button class="mini-btn" onclick="handleGoHome()">返回</button></div>
+    </div>`;
+  }
+
+  function openingHTML() {
+    return `
+    <div class="bracket packresult">
+      <h2>往上滑撕開卡包</h2>
+      <p style="color:var(--chalk-dim);font-size:13px;margin:4px 0 4px;">（滑鼠：按住往上拖曳；手機：手指往上滑；也可以直接點一下）</p>
+      <div class="openzone" id="openzone">
+        <div class="packobj packobj--big" id="dragpack" data-role="tearpack">
+          <div class="packobj__face">
+            <div class="packobj__logo">Vobaca</div>
+            <div class="packobj__spark"></div>
+            <div class="packobj__hint">↑</div>
+          </div>
+        </div>
+      </div>
+    </div>`;
+  }
+
+  function stackHTML() {
+    const remaining = currentPack.length - revealedCount;
+    const items = [];
+    for (let depth = Math.min(remaining, 4) - 1; depth >= 0; depth--) {
+      const idx = revealedCount + depth;
+      const isActive = depth === 0;
+      const style = `transform:translate(${depth * 3}px, ${depth * 5}px) scale(${1 - depth * 0.025}) rotate(${depth * 1.2}deg);z-index:${10 - depth};`;
+      items.push(`<div class="stackcard ${isActive ? 'active' : ''}" data-idx="${idx}" style="${style}">${pcardHTML(currentPack[idx], { faceDown: true })}</div>`);
+    }
+    return items.join('');
+  }
+
+  function revealingHTML() {
+    const allDone = revealedCount >= currentPack.length;
+    if (allDone) {
+      return `
+      <div class="bracket packresult">
+        <h2>開包結果</h2>
+        <div class="packgrid">${currentPack.map(c => pcardHTML(c, { revealed: true, showName: true })).join('')}</div>
+        <div class="btnrow-wrap" style="justify-content:center;">
+          <button class="mini-btn mini-btn--primary" onclick="handleGoSelect()">再開一包</button>
+          <button class="mini-btn" onclick="handleShowDex()">查看圖鑑</button>
+          <button class="mini-btn" onclick="handleGoHome()">回首頁</button>
+        </div>
+      </div>`;
+    }
+    return `
+    <div class="bracket packresult">
+      <h2>滑開每張卡（左右滑，或直接點一下）</h2>
+      <div class="packstack" id="packstack">${stackHTML()}</div>
+      <div class="collected-row">${currentPack.slice(0, revealedCount).map(c => pcardHTML(c, { revealed: true })).join('')}</div>
       <div class="btnrow-wrap" style="justify-content:center;">
-        ${!allDone ? `<button class="mini-btn" onclick="handleRevealAll()">全部翻開</button>` : ''}
-        ${allDone ? `<button class="mini-btn mini-btn--primary" onclick="handleOpenPack()">再開一包</button>
-                      <button class="mini-btn" onclick="handleShowDex()">查看圖鑑</button>
-                      <button class="mini-btn" onclick="handleGoHome()">回首頁</button>` : ''}
+        <button class="mini-btn" onclick="handleRevealAll()">全部翻開</button>
       </div>
     </div>`;
   }
@@ -167,12 +234,96 @@
 
   function render() {
     if (screen === 'home') app.innerHTML = homeHTML();
+    else if (screen === 'select') app.innerHTML = selectHTML();
+    else if (screen === 'opening') app.innerHTML = openingHTML();
     else if (screen === 'revealing') app.innerHTML = revealingHTML();
     else if (screen === 'dex') app.innerHTML = dexHTML();
   }
 
-  window.handleOpenPack = function () { openPack(); };
-  window.handleRevealNext = function (i) { revealNext(i); };
+  // ---------------------------------------------------------
+  // 手勢處理（Pointer Events，滑鼠/觸控通用），用事件代理掛在
+  // #app 上一次就好，畫面重繪不會失效
+  // ---------------------------------------------------------
+  let drag = null; // { el, kind:'tear'|'card', startX, startY, dx, dy, idx }
+
+  function onPointerDown(e) {
+    const tearEl = e.target.closest('[data-role="tearpack"]');
+    const cardEl = e.target.closest('.stackcard.active');
+    if (tearEl) {
+      drag = { el: tearEl, kind: 'tear', startX: e.clientX, startY: e.clientY, dx: 0, dy: 0 };
+    } else if (cardEl) {
+      drag = { el: cardEl, kind: 'card', startX: e.clientX, startY: e.clientY, dx: 0, dy: 0, idx: parseInt(cardEl.dataset.idx, 10) };
+    } else {
+      return;
+    }
+    drag.el.style.transition = 'none';
+    try { drag.el.setPointerCapture(e.pointerId); } catch (err) { /* 忽略不支援的環境 */ }
+    document.addEventListener('pointermove', onPointerMove);
+    document.addEventListener('pointerup', onPointerUp);
+  }
+
+  function onPointerMove(e) {
+    if (!drag) return;
+    drag.dx = e.clientX - drag.startX;
+    drag.dy = e.clientY - drag.startY;
+    if (drag.kind === 'tear') {
+      const lift = Math.min(0, drag.dy); // 只在意往上拖
+      drag.el.style.transform = `translateY(${lift}px) scale(${1 + Math.min(0, lift) * -0.0006})`;
+      drag.el.style.opacity = String(Math.max(0.3, 1 + lift / 220));
+    } else {
+      const rot = drag.dx / 14;
+      drag.el.style.transform = `translate(${drag.dx}px, ${drag.dy}px) rotate(${rot}deg)`;
+    }
+  }
+
+  function endDrag() {
+    document.removeEventListener('pointermove', onPointerMove);
+    document.removeEventListener('pointerup', onPointerUp);
+    drag = null;
+  }
+
+  function onPointerUp() {
+    if (!drag) return;
+    const { el, kind, dx, dy, idx } = drag;
+
+    if (kind === 'tear') {
+      const tornOpen = dy < -70 || (Math.abs(dx) < 6 && Math.abs(dy) < 6); // 往上拖夠遠，或單純點一下
+      if (tornOpen) {
+        el.style.transition = 'transform .3s ease-out, opacity .3s ease-out';
+        el.style.transform = 'translateY(-260px) scale(.7)';
+        el.style.opacity = '0';
+        endDrag();
+        setTimeout(() => openPack(), 260);
+        return;
+      }
+      el.style.transition = 'transform .25s ease';
+      el.style.transform = 'translateY(0) scale(1)';
+      el.style.opacity = '1';
+      endDrag();
+      return;
+    }
+
+    // kind === 'card'
+    const threshold = 70;
+    const isTap = Math.abs(dx) < 6 && Math.abs(dy) < 6;
+    if (Math.abs(dx) > threshold || isTap) {
+      const dir = isTap ? 1 : (dx > 0 ? 1 : -1);
+      el.style.transition = 'transform .35s ease-out, opacity .35s ease-out';
+      el.style.transform = `translate(${dir * 500}px, ${dy}px) rotate(${dir * 35}deg)`;
+      el.style.opacity = '0';
+      endDrag();
+      setTimeout(() => revealOne(idx), 300);
+      return;
+    }
+    el.style.transition = 'transform .22s ease';
+    el.style.transform = 'translate(0,0) rotate(0)';
+    endDrag();
+  }
+
+  app.addEventListener('pointerdown', onPointerDown);
+
+  window.handleGoSelect = function () { goSelect(); };
+  window.handleGoOpening = function () { goOpening(); };
   window.handleRevealAll = function () { revealAll(); };
   window.handleShowDex = function () { screen = 'dex'; render(); };
   window.handleGoHome = function () { screen = 'home'; render(); };

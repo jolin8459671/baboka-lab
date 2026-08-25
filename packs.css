@@ -63,6 +63,45 @@
 .dexcard-wrap .pcard{width:100%;}
 .dexcard-wrap .pcard__name{font-size:11px;}
 
+/* ---------- 選包轉盤 ---------- */
+.packcarousel{display:flex;justify-content:center;gap:20px;flex-wrap:wrap;padding:20px 0;}
+.packobj{width:120px;aspect-ratio:3/4;cursor:pointer;transition:transform .2s;}
+.packobj:hover{transform:translateY(-6px) scale(1.03);}
+.packobj__face{
+  width:100%;height:100%;border-radius:14px;
+  background:linear-gradient(155deg,#3a1712,#1d2018 60%,#0f2a2a);
+  border:2px solid var(--score-dim);position:relative;overflow:hidden;
+  display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;
+  box-shadow:0 12px 24px -8px rgba(0,0,0,.6);
+}
+.packobj__logo{font-family:var(--display);font-size:16px;color:var(--whistle);letter-spacing:.05em;}
+.packobj__spark{
+  position:absolute;inset:-50%;
+  background:conic-gradient(from 90deg, transparent, rgba(255,255,255,.18), transparent 40%);
+  animation:packSparkSpin 5s linear infinite;pointer-events:none;
+}
+@keyframes packSparkSpin{ to{ transform:rotate(360deg); } }
+
+/* ---------- 撕開卡包區 ---------- */
+.openzone{display:flex;justify-content:center;padding:30px 0;touch-action:none;}
+.packobj--big{width:180px;cursor:grab;}
+.packobj--big .packobj__hint{
+  position:absolute;bottom:14px;left:50%;transform:translateX(-50%);
+  font-family:var(--display);font-size:22px;color:rgba(255,255,255,.6);
+  animation:hintBounce 1.4s ease-in-out infinite;
+}
+@keyframes hintBounce{ 0%,100%{transform:translate(-50%,0);} 50%{transform:translate(-50%,-10px);} }
+
+/* ---------- 卡片堆疊(滑動翻牌) ---------- */
+.packstack{position:relative;height:230px;display:flex;justify-content:center;align-items:flex-start;margin:16px 0 6px;touch-action:none;}
+.stackcard{position:absolute;transition:none;}
+.stackcard.active{cursor:grab;}
+.stackcard.active:active{cursor:grabbing;}
+.collected-row{display:flex;justify-content:center;gap:8px;flex-wrap:wrap;padding:10px 0;min-height:70px;}
+.collected-row .pcard{width:70px;}
+
 @media (max-width:640px){
   .pcard{width:104px;}
+  .packobj{width:100px;}
+  .packobj--big{width:150px;}
 }
