@@ -121,5 +121,26 @@ const CARDS = [
         code: "HV-D02-012", name: "用物理攻擊揍下去就好了吧", type: "event", series: "D02 起始",
         rarity: "Deck", category: "抽牌類",
         skill: "抽1張卡。接著看自己牌組最上面3張，從中選〔灰羽利耶夫〕或〔犬岡走〕最多1張公開加入手牌，沒被選中的卡以任意順序放回牌組最下面。"
+    },
+    {
+    code: "HV-P02-011", name: "成田一仁", type: "character", series: "P02 宣傳卡",
+    rarity: "N", position: "ミドルブロッカー", school: "烏野・2年",
+    stats: { serve: 0, block: 2, receive: 0, toss: 0, attack: 0 },
+    zone: "阻擋區域",
+    skill: "【從手牌丟棄這張卡】：自己場上1名烏野角色的1項數值 +1。發動時機：阻擋階段／接球階段中，只要這張卡仍在手牌，就能像事件卡一樣的時機發動此效果。"
+    },
+    {
+    code: "HV-P02-078", name: "澤村・黑尾", type: "character", series: "P02 宣傳卡",
+    rarity: "R", position: "ウイングスパイカー／ミドルブロッカー（雙面聯名卡）",
+    school: "烏野・3年（澤村大地）／音駒・3年（黑尾鉄朗）",
+    stats: { serve: 0, block: 1, receive: 5, toss: 0, attack: 0 },
+    zone: "接球區域",
+    skill: "這張卡登場時，可以把卡片名稱從「澤村・黑尾」改成「澤村大地」或「黑尾鉄朗」其中一個。登場時選擇的名稱，在該回合結束前皆有效。此卡在計算場上角色人數時，算作1人。"
+    },
+    {
+    code: "HV-P02-100", name: "灰羽アリサ", type: "event", series: "P02 宣傳卡",
+    rarity: "N", category: "阻擋／接球／攻擊（皆可用）",
+    school: "音駒", position: "應援團",
+    skill: "【回合1次】抽1張卡，並讓自己場上1名「灰羽リエーフ」角色的1項數值 +1。【回合1次】這個回合中，無效化自己場上「與這張卡同名卡片」的技能。"
     }
 ];
