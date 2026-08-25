@@ -32,7 +32,8 @@ const CARDS = [
         rarity: "Deck", position: "ミドルブロッカー", school: "烏野・1年",
         stats: { serve: 5, block: 3, receive: 3, toss: 0, attack: 1 },
         zone: "阻擋區域",
-        skill: "無特殊技能。"
+        skill: "無特殊技能。",
+        image: "assets/cards/HV-D01-004.webp"
     },
     {
         code: "HV-D01-005", name: "西谷夕", type: "character", series: "D01 起始",
@@ -47,7 +48,8 @@ const CARDS = [
         rarity: "Deck", position: "ウイングスパイカー", school: "烏野・2年",
         stats: { serve: 1, block: 2, receive: 2, toss: 1, attack: 3 },
         zone: "攻擊區域",
-        skill: "無特殊技能。"
+        skill: "無特殊技能。",
+        image: "assets/cards/HV-D01-006.webp"
     },
     {
         code: "HV-D01-007", name: "緣下力", type: "character", series: "D01 起始",
@@ -62,21 +64,24 @@ const CARDS = [
         rarity: "Deck", position: "ウイングスパイカー", school: "烏野・3年",
         stats: { serve: 3, block: 1, receive: 5, toss: 0, attack: 2 },
         zone: "接球區域",
-        skill: "無特殊技能。"
+        skill: "無特殊技能。",
+        image: "assets/cards/HV-D01-008.webp"
     },
     {
         code: "HV-D01-009", name: "菅原孝支", type: "character", series: "D01 起始",
         rarity: "Deck", position: "トス", school: "烏野・3年",
         stats: { serve: 1, block: 1, receive: 2, toss: 2, attack: 3 },
         zone: "攻擊區域",
-        skill: "無特殊技能。"
+        skill: "無特殊技能。",
+        image: "assets/cards/HV-D01-009.webp"
     },
     {
         code: "HV-D01-010", name: "東峰旭", type: "character", series: "D01 起始",
         rarity: "Deck", position: "ウイングスパイカー", school: "烏野・3年",
         stats: { serve: 2, block: 2, receive: 4, toss: 0, attack: 3 },
         zone: "攻擊區域",
-        skill: "無特殊技能。"
+        skill: "無特殊技能。",
+        image: "assets/cards/HV-D01-010.webp"
     },
     {
         code: "HV-P02-005", name: "西谷夕（PR版）", type: "character", series: "P02 宣傳卡",
