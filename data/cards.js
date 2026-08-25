@@ -28,7 +28,6 @@ const CARDS = [
         image: "assets/cards/HV-D01-003.webp"
     },
     {
-<<<<<<< HEAD
         code: "HV-D01-004", name: "山口忠", type: "character", series: "D01 起始",
         rarity: "Deck", position: "ミドルブロッカー", school: "烏野・1年",
         stats: { serve: 5, block: 3, receive: 3, toss: 0, attack: 1 },
@@ -36,8 +35,6 @@ const CARDS = [
         skill: "無特殊技能。"
     },
     {
-=======
->>>>>>> 3d848198b2eafe81dcdbd0c15f22789cc4f66b3c
         code: "HV-D01-005", name: "西谷夕", type: "character", series: "D01 起始",
         rarity: "Deck", position: "リベロ", school: "烏野・2年",
         stats: { serve: null, block: null, receive: 5, toss: 0, attack: 0 },
