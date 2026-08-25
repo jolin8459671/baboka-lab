@@ -13,7 +13,7 @@ const CARDS = [
     },
     {
         code: "HV-D01-002", name: "影山飛雄", type: "character", series: "D01 起始",
-        rarity: "Deck", position: "トス", school: "烏野・1年",
+        rarity: "Deck", position: "セッター", school: "烏野・1年",
         stats: { serve: 1, block: 1, receive: 2, toss: 1, attack: 1 },
         zone: "舉球區域",
         skill: "支付2點資源(犧牲下方2張卡),舉球點數 +2(1→3)。",
@@ -69,7 +69,7 @@ const CARDS = [
     },
     {
         code: "HV-D01-009", name: "菅原孝支", type: "character", series: "D01 起始",
-        rarity: "Deck", position: "トス", school: "烏野・3年",
+        rarity: "Deck", position: "セッター", school: "烏野・3年",
         stats: { serve: 1, block: 1, receive: 2, toss: 2, attack: 3 },
         zone: "攻擊區域",
         skill: "無特殊技能。",
@@ -93,7 +93,7 @@ const CARDS = [
     },
     {
         code: "HV-P03-067", name: "牛島若利", type: "character", series: "P03 宣傳卡",
-        rarity: "R", position: "エーススパイカー", school: "白鳥澤・3年",
+        rarity: "R", position: "ウイングスパイカー", school: "白鳥澤・3年",
         stats: { serve: 3, block: 0, receive: 2, toss: 0, attack: 3 },
         zone: "接球區域",
         skill: "技能一：支付2點資源,接球點數 +4(2→6)。技能二：若對方攻擊角色原始攻擊點數≤1,可犧牲場上另一名白鳥澤阻擋角色,讓對方這次進攻點數 -2。",
@@ -162,12 +162,52 @@ const CARDS = [
         image: "assets/cards/HV-D02-004.webp"
     },
     {
+        code: "HV-D02-005", name: "海信行", type: "character", series: "D02 起始",
+        rarity: "Deck", position: "ウイングスパイカー", school: "音駒・3年",
+        stats: { serve: 1, block: 2, receive: 5, toss: 0, attack: 2 },
+        zone: "接球區域",
+        skill: "無特殊技能。",
+        image: "assets/cards/HV-D02-005.webp"
+    },
+    {
+        code: "HV-D02-006", name: "山本猛虎", type: "character", series: "D02 起始",
+        rarity: "Deck", position: "ウイングスパイカー", school: "音駒・2年",
+        stats: { serve: 5, block: 2, receive: 2, toss: 0, attack: 3 },
+        zone: "攻擊區域",
+        skill: "無特殊技能。",
+        image: "assets/cards/HV-D02-006.webp"
+    },
+    {
+        code: "HV-D02-007", name: "福永招平", type: "character", series: "D02 起始",
+        rarity: "Deck", position: "ウイングスパイカー", school: "音駒・2年",
+        stats: { serve: 1, block: 0, receive: 4, toss: 1, attack: 3 },
+        zone: "接球區域",
+        skill: "無特殊技能。",
+        image: "assets/cards/HV-D02-007.webp"
+    },
+    {
+        code: "HV-D02-008", name: "犬岡走", type: "character", series: "D02 起始",
+        rarity: "Deck", position: "ウイングスパイカー", school: "音駒・1年",
+        stats: { serve: 2, block: 3, receive: 3, toss: 0, attack: 3 },
+        zone: "攻擊區域",
+        skill: "無特殊技能。",
+        image: "assets/cards/HV-D02-008.webp"
+    },
+    {
         code: "HV-D02-009", name: "芝山優生", type: "character", series: "D02 起始",
         rarity: "Deck", position: "リベロ", school: "音駒・1年",
         stats: { serve: null, block: null, receive: 5, toss: 0, attack: 0 },
         zone: "接球區域",
         skill: "支付2點資源(犧牲下方2張卡),抽1張卡。",
         image: "assets/cards/HV-D02-009.webp"
+    },
+    {
+        code: "HV-D02-010", name: "手白球彦", type: "character", series: "D02 起始",
+        rarity: "Deck", position: "セッター", school: "音駒・1年",
+        stats: { serve: 4, block: 1, receive: 4, toss: 1, attack: 0 },
+        zone: "舉球區域",
+        skill: "無特殊技能。",
+        image: "assets/cards/HV-D02-010.webp"
     },
     {
         code: "HV-D02-011", name: "不是說了手要往前伸嗎，信勝君", type: "event", series: "D02 起始",
