@@ -11,7 +11,7 @@
   if (!app || typeof CARDS === 'undefined') return;
 
   const STAT_LABEL = { serve: '發球', receive: '接球', block: '阻擋', toss: '舉球', attack: '攻擊' };
-  const COPIES_PER_CARD = 3;
+  const COPIES_PER_CARD = 3; // 備援值：卡片資料裡沒填 copies 欄位時才會用到（目前只有音駒還沒確認正式張數）
   const START_HAND = 6;
   const SET_ZONE_SIZE = 2;
   const SETS_TO_WIN = 3;
@@ -56,9 +56,10 @@
   function buildDeck(poolKey) {
     const base = POOLS[poolKey].cards;
     let pile = [];
-    for (let i = 0; i < COPIES_PER_CARD; i++) {
-      base.forEach(c => pile.push(Object.assign({}, c, { uid: 'c' + (uidSeed++), pile: [] })));
-    }
+    base.forEach(c => {
+      const n = c.copies != null ? c.copies : COPIES_PER_CARD;
+      for (let i = 0; i < n; i++) pile.push(Object.assign({}, c, { uid: 'c' + (uidSeed++), pile: [] }));
+    });
     return shuffle(pile);
   }
   function draw(who, n) {

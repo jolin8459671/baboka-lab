@@ -1,7 +1,8 @@
 // =========================================================
-// 抽卡包 雛型版 —— 純前端，收藏紀錄存在 localStorage（這是真的
-// 部署網站，不是 Claude 的 artifact 沙盒，所以這裡用 localStorage
-// 沒問題，跟 online.js 那邊「不能用瀏覽器儲存」的限制無關）
+// 抽卡包 雛型版 —— 收藏紀錄存在 Firebase Realtime Database（跟線上
+// 對戰共用同一個 Firebase 專案，走獨立路徑 packsCollection，不會
+// 跟 rooms/ 底下的對戰房間資料衝突）。目前只有 Jolin 自己用，換
+// 裝置、清瀏覽器資料都不會遺失，方便她之後拿收藏資料繼續開發。
 //
 // 互動流程參考 Pokemon TCG Pocket：選一包(功能上都一樣，純儀式感)
 // → 往上滑撕開卡包 → 卡片一張一張用滑動手勢翻開(或直接點一下)
@@ -12,7 +13,7 @@
   if (!app || typeof CARDS === 'undefined') return;
 
   const PACK_SIZE = 5;
-  const STORAGE_KEY = 'baboka_collection_v1';
+  const DB_PATH = 'packsCollection';
   const PACK_CHOICES = 3; // 選包畫面顯示幾個包給你挑（功能完全一樣，純選擇的儀式感）
 
   // 只有非「起始套牌」稀有度的卡才會出現在卡包裡（跟正式TCG一樣，
@@ -22,20 +23,40 @@
   const RARITY_WEIGHT = { N: 60, R: 27, S: 10, '頂': 2, '秘': 0.7, '極': 0.3 };
   const RARITY_ORDER = ['N', 'R', 'S', '頂', '秘', '極'];
 
-  function loadCollection() {
-    try {
-      const raw = localStorage.getItem(STORAGE_KEY);
-      return raw ? JSON.parse(raw) : {};
-    } catch (e) { return {}; }
-  }
-  function saveCollection(col) {
-    try { localStorage.setItem(STORAGE_KEY, JSON.stringify(col)); } catch (e) { /* 存不進去就算了，不影響本次開包結果顯示 */ }
+  // ---------------------------------------------------------
+  // 資料庫轉接層：跟 online.js 同一套寫法（有 window.__mockDB 就用
+  // 它方便測試，否則用 Firebase compat SDK）
+  // ---------------------------------------------------------
+  function getDB() {
+    if (window.__mockDB) return window.__mockDB;
+    if (typeof firebase === 'undefined' || !firebase.apps || !firebase.apps.length) return null;
+    const dbRef = firebase.database();
+    return {
+      onValue(path, cb) {
+        const ref = dbRef.ref(path);
+        const handler = snap => cb(snap.val());
+        ref.on('value', handler);
+        return () => ref.off('value', handler);
+      },
+      update(path, obj) { return dbRef.ref(path).update(obj); },
+    };
   }
 
-  let collection = loadCollection(); // { cardCode: count }
+  const db = getDB();
+  let collection = {}; // { cardCode: count }，由 Firebase onValue 同步
+  let dbReady = false;
+  let dbError = db ? null : '尚未連上資料庫，請確認 firebase-config.js 已填好金鑰。';
   let screen = 'home'; // home / select / opening / revealing / dex
   let currentPack = []; // 本次開的5張
   let revealedCount = 0;
+
+  if (db) {
+    db.onValue(DB_PATH, val => {
+      collection = val || {};
+      dbReady = true;
+      render();
+    });
+  }
 
   function weightedRandomRarity() {
     const present = RARITY_ORDER.filter(r => BOOSTER_POOL.some(c => c.rarity === r));
@@ -82,36 +103,45 @@
     if (idx !== revealedCount) return; // 只能按順序翻，不能跳著翻
     const card = currentPack[idx];
     collection[card.code] = (collection[card.code] || 0) + 1;
-    saveCollection(collection);
+    if (db) db.update(DB_PATH, { [card.code]: collection[card.code] });
     revealedCount++;
     render();
   }
 
   function revealAll() {
+    const changed = {};
     currentPack.forEach((card, i) => {
-      if (i >= revealedCount) collection[card.code] = (collection[card.code] || 0) + 1;
+      if (i >= revealedCount) {
+        collection[card.code] = (collection[card.code] || 0) + 1;
+        changed[card.code] = collection[card.code];
+      }
     });
-    saveCollection(collection);
+    if (db) db.update(DB_PATH, changed);
     revealedCount = currentPack.length;
     render();
   }
 
   function isRareRarity(r) { return r === 'S' || r === '頂' || r === '秘' || r === '極'; }
 
+  const CARD_BACK = 'assets/cards/back.webp';
+
   function pcardHTML(card, opts) {
     opts = opts || {};
     if (opts.faceDown) {
-      return `<div class="pcard faceDown"><div class="pcard__back">?</div></div>`;
+      return `<div class="pcard faceDown"><img class="pcard__backimg" src="${CARD_BACK}" alt="卡背"></div>`;
     }
     const rarityClass = card.rarity || 'N';
     const glow = opts.revealed && isRareRarity(card.rarity) ? 'rare-glow' : '';
     const countBadge = opts.count != null ? `<div class="pcard__count">×${opts.count}</div>` : '';
     const showImg = card.image && !opts.locked;
-    const imgHTML = showImg ? `<img class="pcard__img" src="${card.image}" alt="${card.name || ''}">` : '';
-    return `<div class="pcard pcard--${rarityClass} ${opts.revealed ? 'revealed' : ''} ${glow} ${opts.locked ? 'locked' : ''}">
+    const imgHTML = showImg
+      ? `<img class="pcard__img" src="${card.image}" alt="${card.name || ''}">`
+      : (opts.locked ? `<img class="pcard__img pcard__img--back" src="${CARD_BACK}" alt="未取得">` : '');
+    const zoomAttr = showImg ? `data-fullimg="${card.image}" data-fullname="${card.name || ''}"` : '';
+    return `<div class="pcard pcard--${rarityClass} ${opts.revealed ? 'revealed' : ''} ${glow} ${opts.locked ? 'locked' : ''} ${showImg ? 'zoomable' : ''}" ${zoomAttr}>
       ${imgHTML}
       <div class="pcard__rarity">${opts.locked ? '？' : (card.rarity === 'Deck' ? '起始' : card.rarity)}</div>
-      <div class="pcard__mono" style="${showImg ? 'display:none;' : ''}">${opts.locked ? '？' : card.name[0]}</div>
+      <div class="pcard__mono" style="${(showImg || opts.locked) ? 'display:none;' : ''}">${card.name ? card.name[0] : ''}</div>
       ${opts.showName ? `<div class="pcard__name">${opts.locked ? '未取得' : card.name}</div>` : ''}
       ${countBadge}
     </div>`;
@@ -236,6 +266,8 @@
   }
 
   function render() {
+    if (dbError) { app.innerHTML = `<div class="errorbox">${dbError}</div>`; return; }
+    if (!dbReady) { app.innerHTML = `<div class="bracket setup-card" style="padding:26px;">連線中…</div>`; return; }
     if (screen === 'home') app.innerHTML = homeHTML();
     else if (screen === 'select') app.innerHTML = selectHTML();
     else if (screen === 'opening') app.innerHTML = openingHTML();
@@ -324,6 +356,28 @@
   }
 
   app.addEventListener('pointerdown', onPointerDown);
+
+  // ---------------------------------------------------------
+  // 點卡面放大看圖：只有真的顯示圖片的卡（不是鎖住的？卡、也不是
+  // 正在滑動翻牌的那張背面卡，pcardHTML 沒給那兩種 data-fullimg）
+  // 才會被這個代理事件抓到，不會跟撕包/翻牌的拖曳手勢衝突。
+  // ---------------------------------------------------------
+  function openLightbox(src, name) {
+    const box = document.createElement('div');
+    box.className = 'imglightbox';
+    box.innerHTML = `<img src="${src}" alt="${name}"><div class="imglightbox__name">${name}</div><button class="imglightbox__close" aria-label="關閉">✕</button>`;
+    box.addEventListener('click', () => box.remove());
+    document.addEventListener('keydown', function onKey(e) {
+      if (e.key === 'Escape') { box.remove(); document.removeEventListener('keydown', onKey); }
+    });
+    document.body.appendChild(box);
+  }
+
+  app.addEventListener('click', (e) => {
+    const el = e.target.closest('.pcard[data-fullimg]');
+    if (!el) return;
+    openLightbox(el.dataset.fullimg, el.dataset.fullname || '');
+  });
 
   window.handleGoSelect = function () { goSelect(); };
   window.handleGoOpening = function () { goOpening(); };

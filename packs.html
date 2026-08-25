@@ -30,12 +30,15 @@
   <p>
     照稀有度加權抽卡，起始套牌本身的卡（Deck 稀有度）不會出現在卡包裡，只抽宣傳卡／未來的補充包卡。
     目前卡池只有 <code>data/cards.js</code> 裡現有的幾張非起始卡，之後補完整的 N→R→S→頂→秘→極 補充包資料，
-    卡池會自動變多，不用改這頁的程式。收藏紀錄存在<b style="color:var(--chalk)">這台瀏覽器</b>裡，換裝置或清瀏覽器資料會不見。
+    卡池會自動變多，不用改這頁的程式。收藏紀錄存在<b style="color:var(--chalk)">資料庫</b>裡，換裝置也不會不見。
   </p>
 </section>
 
 <div id="app"></div>
 
+<script src="https://www.gstatic.com/firebasejs/10.13.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.13.0/firebase-database-compat.js"></script>
+<script src="firebase-config.js"></script>
 <script src="data/cards.js"></script>
 <script src="packs.js"></script>
 <script src="script.js"></script>

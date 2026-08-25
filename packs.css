@@ -15,6 +15,8 @@
 .statbar{padding:14px 22px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px;font-family:var(--mono);font-size:12px;color:var(--chalk-dim);}
 .statbar b{color:var(--chalk);font-family:var(--display);font-size:18px;}
 
+.errorbox{border-left:3px solid var(--score);background:rgba(255,77,46,.08);padding:12px 16px;border-radius:6px;font-size:13px;color:var(--score);margin-bottom:14px;}
+
 /* ---------- 卡面(依稀有度配色) ---------- */
 .pcard{
   width:132px;aspect-ratio:5/7;border-radius:12px;position:relative;overflow:hidden;
@@ -36,7 +38,7 @@
 .pcard__count{position:absolute;bottom:6px;right:8px;font-family:var(--mono);font-size:11px;color:var(--whistle);}
 
 .pcard.faceDown{background:repeating-linear-gradient(45deg,var(--floor-2),var(--floor-2) 8px,var(--ink) 8px,var(--ink) 16px);border-color:var(--line);}
-.pcard.faceDown .pcard__back{font-family:var(--display);font-size:15px;color:var(--chalk-dim);}
+.pcard__backimg{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;}
 .pcard.revealed{animation:cardReveal .5s cubic-bezier(.2,.9,.3,1.1);}
 @keyframes cardReveal{
   0%{transform:rotateY(90deg) scale(.9);opacity:.4;}
@@ -110,3 +112,24 @@
   object-fit:cover; z-index:0;
 }
 .pcard__name{ position:relative; z-index:1; }
+.pcard.zoomable{cursor:zoom-in;}
+
+/* ---------- 卡面放大檢視 ---------- */
+.imglightbox{
+  position:fixed; inset:0; z-index:999; cursor:zoom-out;
+  background:rgba(6,5,4,.88); backdrop-filter:blur(3px);
+  display:flex; flex-direction:column; align-items:center; justify-content:center; gap:14px;
+  padding:40px 20px; animation:lightboxIn .18s ease;
+}
+@keyframes lightboxIn{ from{opacity:0;} to{opacity:1;} }
+.imglightbox img{
+  max-width:min(90vw,480px); max-height:78vh; width:auto; height:auto;
+  border-radius:14px; box-shadow:0 30px 60px -20px rgba(0,0,0,.7);
+}
+.imglightbox__name{font-family:var(--display);font-size:20px;color:var(--chalk);}
+.imglightbox__close{
+  position:absolute; top:18px; right:22px; width:36px; height:36px; border-radius:50%;
+  background:rgba(255,255,255,.08); border:1px solid var(--line); color:var(--chalk);
+  font-size:16px; cursor:pointer;
+}
+.imglightbox__close:hover{border-color:var(--whistle);color:var(--whistle);}
