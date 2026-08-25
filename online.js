@@ -96,6 +96,7 @@
   let processedIntervalFor = null; // 避免同一局間休息重複處理
   let pileResetForSet = null;      // 避免同一局內重複把資源計數歸零
   let pendingFlip = null;          // 手牌飛到場上的動畫來源座標
+  let logOpen = false;             // 滿版對戰畫面的紀錄側欄開關
 
   let timerInterval = null;
   let timerDeadline = null;
@@ -706,21 +707,20 @@
     `;
   }
 
-  function metaStripHTML(key) {
+  // 牌組區／局數區／棄牌區 —— 疊在對戰墊印刷好的那三個格子正中央，只顯示張數
+  function matCountsHTML(key) {
+    const pub = room.public[key];
+    return `
+      <div class="matcount" data-zone="deck"><span class="matcount__n">${pub.deckCount}</span></div>
+      <div class="matcount" data-zone="set"><span class="matcount__n">${pub.setZoneCount}</span></div>
+      <div class="matcount" data-zone="discard"><span class="matcount__n">${pub.discardCount}</span></div>
+    `;
+  }
+
+  function matBadgeHTML(key) {
     const pub = room.public[key];
     const isMe = key === me.key;
-    const acting = room.stage === 'playing' && room.actingKey === key;
-    return `
-    <div class="bracket meta-strip ${isMe ? 'meta-strip--me' : 'meta-strip--opp'} ${acting ? 'acting' : ''}">
-      <div class="meta-strip__name">${slotLabel(key)}${isMe ? '（你）' : ''} ${acting ? '<span class="tag">行動中</span>' : ''}</div>
-      <div class="meta-strip__stats">
-        <span>牌組 <b>${pub.deckCount}</b></span>
-        <span>手牌 <b>${pub.handCount}</b></span>
-        <span>SET區 <b>${pub.setZoneCount}</b></span>
-        <span>棄牌 <b>${pub.discardCount}</b></span>
-        <span>局數 <b style="color:var(--score);">${pub.setsWon}</b></span>
-      </div>
-    </div>`;
+    return `<div class="matlayer__badge"><span class="matlayer__badge-inner">${slotLabel(key)}${isMe ? '（你）' : ''} · 手牌${pub.handCount} · 局數<b style="color:var(--score);">${pub.setsWon}</b></span></div>`;
   }
 
   function ballBarHTML() {
@@ -735,16 +735,23 @@
     return `<div class="modrow">技能手動加減值（展開卡片看技能文字，自己判斷是否符合條件）：<input type="number" id="modInput" value="0" step="1"></div>`;
   }
 
-  function actionWrap(title, cards, onclickFn, empty) {
+  // 永遠列出整副手牌讓玩家知道自己手上有什麼，不符合目前階段的牌用灰階呈現、點了沒反應，
+  // 不再像以前那樣直接把不能出的牌從畫面上濾掉。
+  function actionWrap(title, isValid, onclickFn) {
+    const cards = local.hand;
+    const anyValid = cards.some(isValid);
     return `
     <div class="bracket actionzone">
       <div class="actionzone__title">${title}</div>
       <div class="handfan">
-        ${cards.length ? handFanHTML(cards, (c, fanStyle) => handCardHTML(c, { onclick: onclickFn(c.uid), fanStyle })) : '<div class="zone__empty">手上沒有符合條件的角色卡</div>'}
+        ${cards.length ? handFanHTML(cards, (c, fanStyle) => {
+          const ok = isValid(c);
+          return handCardHTML(c, { onclick: ok ? onclickFn(c.uid) : '', disabled: !ok, fanStyle });
+        }) : '<div class="zone__empty">手上沒有牌</div>'}
       </div>
       ${modRow()}
       <div class="btnrow-wrap">
-        <button class="mini-btn mini-btn--danger" onclick="handleDeclareLost()">${empty ? '無牌可出，宣告落球' : '放棄，宣告落球'}</button>
+        <button class="mini-btn mini-btn--danger" onclick="handleDeclareLost()">${anyValid ? '放棄，宣告落球' : '無牌可出，宣告落球'}</button>
       </div>
     </div>`;
   }
@@ -756,8 +763,8 @@
     if (local.pendingPlay) return pendingSkillPanelHTML();
     const phase = room.phase;
     if (phase === 'SERVE_CHOOSE') {
-      const valid = local.hand.filter(c => c.type === 'character' && c.stats.serve != null);
-      return actionWrap('發球階段 — 選一張角色卡發球（不抽牌）', valid, uid => `handleCardTap(event,'${uid}')`, valid.length === 0);
+      const isValid = c => c.type === 'character' && c.stats.serve != null;
+      return actionWrap('發球階段 — 選一張角色卡發球（不抽牌）', isValid, uid => `handleCardTap(event,'${uid}')`);
     }
     if (phase === 'RESPOND') {
       const canBlock = !room.ball.mustReceiveOnly;
@@ -772,23 +779,27 @@
       </div>`;
     }
     if (phase === 'RECEIVE_PLAY') {
-      const valid = local.hand.filter(c => c.type === 'character' && c.stats.receive != null);
-      return actionWrap(`接球階段 — 需要接球值 ≥ ${room.ball.points}`, valid, uid => `handleCardTap(event,'${uid}')`, valid.length === 0);
+      const isValid = c => c.type === 'character' && c.stats.receive != null;
+      return actionWrap(`接球階段 — 需要接球值 ≥ ${room.ball.points}`, isValid, uid => `handleCardTap(event,'${uid}')`);
     }
     if (phase === 'BLOCK_PLAY') {
-      const valid = local.hand.filter(c => c.type === 'character' && c.stats.block != null);
+      const isValid = c => c.type === 'character' && c.stats.block != null;
       const picks = local.blockPicks;
       const total = picks.reduce((s, c) => s + c.stats.block, 0);
       return `
       <div class="bracket actionzone">
         <div class="actionzone__title">阻擋階段 — 需要合計阻擋值 ≥ ${room.ball.points}（先選主攔，最多再加2名副攔，同名不可重複）</div>
         <div class="handfan">
-          ${valid.length ? handFanHTML(valid, (c, fanStyle) => handCardHTML(c, {
-            selected: picks.some(x => x.uid === c.uid),
-            disabled: !picks.some(x => x.uid === c.uid) && picks.length >= 3,
-            onclick: `handleToggleBlock('${c.uid}')`,
-            fanStyle
-          })) : '<div class="zone__empty">手上沒有可上場阻擋的角色卡</div>'}
+          ${local.hand.length ? handFanHTML(local.hand, (c, fanStyle) => {
+            const picked = picks.some(x => x.uid === c.uid);
+            const blocked = !isValid(c) || (!picked && picks.length >= 3) || (!picked && picks.length > 0 && picks.some(x => x.name === c.name));
+            return handCardHTML(c, {
+              selected: picked,
+              disabled: blocked,
+              onclick: `handleToggleBlock('${c.uid}')`,
+              fanStyle
+            });
+          }) : '<div class="zone__empty">手上沒有牌</div>'}
         </div>
         <div style="margin-top:10px;font-family:var(--mono);font-size:13px;color:var(--chalk-dim);">
           已選：${picks.map(c => c.name).join('、') || '（尚未選擇）'}　合計阻擋值：<b style="color:var(--score);">${total}</b>
@@ -802,13 +813,13 @@
     }
     if (phase === 'TOSS_PLAY') {
       const exToss = room.excludeName ? room.excludeName.toss : null;
-      const valid = local.hand.filter(c => c.type === 'character' && c.stats.toss != null && c.name !== exToss);
-      return actionWrap(`舉球階段 — 不能跟接球區同名角色（${exToss || '—'}）`, valid, uid => `handleCardTap(event,'${uid}')`, valid.length === 0);
+      const isValid = c => c.type === 'character' && c.stats.toss != null && c.name !== exToss;
+      return actionWrap(`舉球階段 — 不能跟接球區同名角色（${exToss || '—'}）`, isValid, uid => `handleCardTap(event,'${uid}')`);
     }
     if (phase === 'ATTACK_PLAY') {
       const exAttack = room.excludeName ? room.excludeName.attack : null;
-      const valid = local.hand.filter(c => c.type === 'character' && c.stats.attack != null && c.name !== exAttack);
-      return actionWrap(`攻擊階段 — 不能跟舉球區同名角色（${exAttack || '—'}）`, valid, uid => `handleCardTap(event,'${uid}')`, valid.length === 0);
+      const isValid = c => c.type === 'character' && c.stats.attack != null && c.name !== exAttack;
+      return actionWrap(`攻擊階段 — 不能跟舉球區同名角色（${exAttack || '—'}）`, isValid, uid => `handleCardTap(event,'${uid}')`);
     }
     return '';
   }
@@ -821,7 +832,31 @@
     </div>`;
   }
 
+  // 對戰墊是固定 12:7 比例的印刷圖，兩張疊起來(對手+我方)高度常常會超過螢幕，
+  // 這裡量實際可用的寬/高，取「寬度撐滿」跟「高度撐滿」兩種算法中比較小的那個，
+  // 用 px 精準設定每張墊子的寬高，確保永遠完整顯示在螢幕內，不用捲動也不會被裁切。
+  const MAT_RATIO = 12 / 7;
+  function layoutMatBattle() {
+    const matEl = app.querySelector('.matbattle__mat');
+    const layers = app.querySelectorAll('.matlayer');
+    if (!matEl || !layers.length) return;
+    const netgap = app.querySelector('.matbattle__netgap');
+    const cw = matEl.clientWidth;
+    const ch = matEl.clientHeight - (netgap ? netgap.offsetHeight : 0);
+    const perMatH = ch / 2;
+    let w = cw, h = w / MAT_RATIO;
+    if (h > perMatH) { h = perMatH; w = h * MAT_RATIO; }
+    layers.forEach(el => { el.style.width = w + 'px'; el.style.height = h + 'px'; });
+  }
+  let matResizeBound = false;
+  function ensureMatResizeListener() {
+    if (matResizeBound) return;
+    matResizeBound = true;
+    window.addEventListener('resize', () => { if (screen === 'playing') layoutMatBattle(); });
+  }
+
   function render() {
+    document.body.classList.toggle('fs-battle', screen === 'playing');
     if (screen !== 'playing' && pendingFlip) pendingFlip = null;
     if (errorMsg) {
       app.innerHTML = `<div class="errorbox">${errorMsg}</div>` + landingHTML();
@@ -874,23 +909,39 @@
 
     if (screen === 'playing') {
       const oppKey = other(me.key);
+      const oppActing = room.actingKey === oppKey;
+      const meActing = room.actingKey === me.key;
       app.innerHTML = `
-      <div class="bracket matchbar">
-        <div class="matchbar__score">${slotLabel('A')} <b>${room.public.A.setsWon}</b> <span class="vs">SET</span> <b>${room.public.B.setsWon}</b> ${slotLabel('B')}</div>
-        <div class="matchbar__phase">第 ${room.setNumber} 局<small>目前行動：${slotLabel(room.actingKey)}</small></div>
-        ${timerHTML()}
-      </div>
-      ${metaStripHTML(oppKey)}
-      <div class="tablescene">
-        <div class="tablesurface">
-          <div class="tablerow tablerow--far">${zonesRowHTML(oppKey)}</div>
-          <div class="tablecenter">${ballBarHTML()}</div>
-          <div class="tablerow tablerow--near">${zonesRowHTML(me.key)}</div>
+      <div class="matbattle">
+        <div class="matbattle__hud">
+          <div class="hudpill">${slotLabel('A')} <b>${room.public.A.setsWon}</b>：<b>${room.public.B.setsWon}</b> ${slotLabel('B')}</div>
+          <div class="hudpill">第 ${room.setNumber} 局</div>
+          ${timerHTML()}
+          <button class="hudpill hudpill--log" onclick="handleToggleLog()">紀錄 ▸</button>
         </div>
+        <div class="matbattle__mat">
+          <div class="matlayer matlayer--opp ${oppActing ? 'acting' : ''}">
+            <img class="matlayer__img" src="assets/single_playmat_print.png" alt="">
+            ${zonesRowHTML(oppKey)}
+            ${matCountsHTML(oppKey)}
+            ${matBadgeHTML(oppKey)}
+          </div>
+          <div class="matbattle__netgap">${ballBarHTML()}</div>
+          <div class="matlayer matlayer--me ${meActing ? 'acting' : ''}">
+            <img class="matlayer__img" src="assets/single_playmat_print.png" alt="">
+            ${zonesRowHTML(me.key)}
+            ${matCountsHTML(me.key)}
+            ${matBadgeHTML(me.key)}
+          </div>
+        </div>
+        <div class="matbattle__dock">${actionZoneHTML()}</div>
       </div>
-      ${metaStripHTML(me.key)}
-      ${actionZoneHTML()}
-      ${logHTML()}`;
+      <div class="matbattle__logdrawer ${logOpen ? 'open' : ''}">
+        <button class="hudpill hudpill--log" onclick="handleToggleLog()">✕ 關閉</button>
+        ${logHTML()}
+      </div>`;
+      layoutMatBattle();
+      ensureMatResizeListener();
       if (pendingFlip) { runFlipAnimation(pendingFlip); pendingFlip = null; }
       return;
     }
@@ -974,6 +1025,7 @@
   window.handleCancelPending = function () { local.pendingPlay = null; render(); };
   window.handleDeclareLost = function () { declareLost(); };
   window.handlePlayAgain = function () { playAgain(); };
+  window.handleToggleLog = function () { logOpen = !logOpen; render(); };
 
   render();
 })();

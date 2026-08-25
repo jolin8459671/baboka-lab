@@ -5,7 +5,7 @@
 const CARDS = [
     {
         code: "HV-D01-001", name: "日向翔陽", type: "character", series: "D01 起始",
-        rarity: "Deck", position: "アタック", school: "烏野・1年",
+        rarity: "Deck", position: "ミドルブロッカー", school: "烏野・1年",
         stats: { serve: 2, block: 2, receive: 2, toss: 0, attack: 2 },
         zone: "攻擊區域",
         skill: "支付2點資源(犧牲下方2張卡),攻擊點數 +2(2→4)。"
@@ -25,11 +25,25 @@ const CARDS = [
         skill: "若對方進攻點數≤4,支付1點資源,抽1張卡。"
     },
     {
-        code: "HV-D01-006", name: "西谷夕", type: "character", series: "D01 起始",
+        code: "HV-D01-004", name: "山口忠", type: "character", series: "D01 起始",
+        rarity: "Deck", position: "ミドルブロッカー", school: "烏野・1年",
+        stats: { serve: 5, block: 3, receive: 3, toss: 0, attack: 1 },
+        zone: "阻擋區域",
+        skill: "無特殊技能。"
+    },
+    {
+        code: "HV-D01-005", name: "西谷夕", type: "character", series: "D01 起始",
         rarity: "Deck", position: "リベロ", school: "烏野・2年",
         stats: { serve: null, block: null, receive: 5, toss: 0, attack: 0 },
         zone: "接球區域",
         skill: "支付3點資源(犧牲下方3張卡),抽1張卡,並讓接球點數 +2(5→7)。"
+    },
+    {
+        code: "HV-D01-006", name: "田中龍之介", type: "character", series: "D01 起始",
+        rarity: "Deck", position: "ウイングスパイカー", school: "烏野・2年",
+        stats: { serve: 1, block: 2, receive: 2, toss: 1, attack: 3 },
+        zone: "攻擊區域",
+        skill: "無特殊技能。"
     },
     {
         code: "HV-D01-007", name: "緣下力", type: "character", series: "D01 起始",
@@ -37,6 +51,27 @@ const CARDS = [
         stats: { serve: 2, block: 1, receive: 2, toss: 0, attack: 3 },
         zone: "接球區域",
         skill: "丟棄1張手牌,接球點數 +3(2→5)。"
+    },
+    {
+        code: "HV-D01-008", name: "澤村大地", type: "character", series: "D01 起始",
+        rarity: "Deck", position: "ウイングスパイカー", school: "烏野・3年",
+        stats: { serve: 3, block: 1, receive: 5, toss: 0, attack: 2 },
+        zone: "接球區域",
+        skill: "無特殊技能。"
+    },
+    {
+        code: "HV-D01-009", name: "菅原孝支", type: "character", series: "D01 起始",
+        rarity: "Deck", position: "トス", school: "烏野・3年",
+        stats: { serve: 1, block: 1, receive: 2, toss: 2, attack: 3 },
+        zone: "攻擊區域",
+        skill: "無特殊技能。"
+    },
+    {
+        code: "HV-D01-010", name: "東峰旭", type: "character", series: "D01 起始",
+        rarity: "Deck", position: "ウイングスパイカー", school: "烏野・3年",
+        stats: { serve: 2, block: 2, receive: 4, toss: 0, attack: 3 },
+        zone: "攻擊區域",
+        skill: "無特殊技能。"
     },
     {
         code: "HV-P02-005", name: "西谷夕（PR版）", type: "character", series: "P02 宣傳卡",
