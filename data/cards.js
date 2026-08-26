@@ -3,6 +3,7 @@
 // rarity 為 Deck 指該卡是「起始套牌(スターターデッキ)專屬收錄卡」
 
 const CARDS = [
+    // #region D01 起始（共 14 張）
     {
         code: "HV-D01-001", name: "日向翔陽", type: "character", series: "D01 起始",
         rarity: "Deck", position: "ミドルブロッカー", school: "烏野・1年",
@@ -100,22 +101,6 @@ const CARDS = [
         image: "assets/cards/HV-D01-010.webp"
     },
     {
-        code: "HV-P02-005", name: "西谷夕（PR版）", type: "character", series: "P02 宣傳卡",
-        rarity: "S", position: "リベロ", school: "烏野・2年",
-        stats: { serve: null, block: null, receive: 5, toss: 0, attack: 0 },
-        zone: "接球區域",
-        skill: "限定條件：必須是透過「助けてもらう!!!」技能登場才能發動。條件符合後支付2點資源,接球點數 +2(5→7),並從棄牌區把〔木下久志〕最多1張撿回手牌。",
-        image: "assets/cards/HV-P02-005-S.webp"
-    },
-    {
-        code: "HV-P03-067", name: "牛島若利", type: "character", series: "P03 宣傳卡",
-        rarity: "R", position: "ウイングスパイカー", school: "白鳥澤・3年",
-        stats: { serve: 3, block: 0, receive: 2, toss: 0, attack: 3 },
-        zone: "接球區域",
-        skill: "技能一：支付2點資源,接球點數 +4(2→6)。技能二：若對方攻擊角色原始攻擊點數≤1,可犧牲場上另一名白鳥澤阻擋角色,讓對方這次進攻點數 -2。",
-        image: "assets/cards/HV-P03-067-R.webp"
-    },
-    {
         code: "HV-D01-011", name: "排球是!!!永遠向上仰望的運動", type: "event", series: "D01 起始",
         rarity: "Deck", category: "接球類", copies: 4,
         skill: "抽1張卡;選自己場上1名角色,接球點數 +1;若該角色接球點數≤4,再額外 +1(最多+2)。",
@@ -127,24 +112,9 @@ const CARDS = [
         skill: "抽1張卡,自己場上1名烏野角色攻擊點數 +1。組合技：若舉球角色為〔影山飛雄〕、攻擊角色為〔日向翔陽〕,下一個對手回合,對手最多只能登場1名阻擋角色。",
         image: "assets/cards/HV-D01-012.webp"
     },
-    {
-        code: "HV-P03-081", name: "球場裡到處都是情報", type: "event", series: "P03 宣傳卡",
-        rarity: "R", category: "阻擋／接球／攻擊（每回合限用1次）",
-        skill: "抽1張卡;若自己場上所有角色都是「疑似ユース」系列,選1名角色任選1項數值 +1;若自己事件棄牌堆疊≥8張,再抽1張卡。同回合內同名卡技能會被無效化。",
-        image: "assets/cards/HV-P03-081.webp"
-    },
-    {
-        code: "HV-P03-099", name: "…那你到底在做什麼？", type: "event", series: "P03 宣傳卡",
-        rarity: "N", category: "攻擊類（白鳥澤主題）",
-        skill: "抽1張卡,自己場上1名白鳥澤攻擊角色攻擊點數 +1;若選中角色是〔牛島若利〕,額外把對方事件區所有角色卡丟棄,若丟掉2張以上,牛島攻擊點數再 +1。",
-        image: "assets/cards/HV-P03-099-N.webp"
-    },
-    {
-        code: "HV-P02-096", name: "給我們的攻擊手讓路", type: "event", series: "P02 宣傳卡",
-        rarity: "R", category: "攻擊類（白鳥澤主題,每回合限用1次）",
-        skill: "抽1張卡,自己場上1名白鳥澤角色攻擊點數 +1。發動條件：舉球角色是〔白布賢二郎〕且攻擊角色原始攻擊點數為3。條件符合後,把攻擊區資源卡中的〔牛島若利〕撿出重新登場,並讓他攻擊點數再 +1。",
-        image: "assets/cards/HV-P02-096-R.webp"
-    },
+    // #endregion D01 起始
+
+    // #region D02 起始（共 14 張）
     {
         code: "HV-D02-001", name: "孤爪研磨", type: "character", series: "D02 起始",
         rarity: "Deck", position: "セッター", school: "音駒・2年",
@@ -253,6 +223,23 @@ const CARDS = [
         skill: "抽1張卡。接著看自己牌組最上面3張，從中選〔灰羽利耶夫〕或〔犬岡走〕最多1張公開加入手牌，沒被選中的卡以任意順序放回牌組最下面。",
         image: "assets/cards/HV-D02-012.webp"
     },
+    // #endregion D02 起始
+
+    // #region P02 宣傳卡（共 5 張）
+    {
+        code: "HV-P02-005", name: "西谷夕（PR版）", type: "character", series: "P02 宣傳卡",
+        rarity: "S", position: "リベロ", school: "烏野・2年",
+        stats: { serve: null, block: null, receive: 5, toss: 0, attack: 0 },
+        zone: "接球區域",
+        skill: "限定條件：必須是透過「助けてもらう!!!」技能登場才能發動。條件符合後支付2點資源,接球點數 +2(5→7),並從棄牌區把〔木下久志〕最多1張撿回手牌。",
+        image: "assets/cards/HV-P02-005-S.webp"
+    },
+    {
+        code: "HV-P02-096", name: "給我們的攻擊手讓路", type: "event", series: "P02 宣傳卡",
+        rarity: "R", category: "攻擊類（白鳥澤主題,每回合限用1次）",
+        skill: "抽1張卡,自己場上1名白鳥澤角色攻擊點數 +1。發動條件：舉球角色是〔白布賢二郎〕且攻擊角色原始攻擊點數為3。條件符合後,把攻擊區資源卡中的〔牛島若利〕撿出重新登場,並讓他攻擊點數再 +1。",
+        image: "assets/cards/HV-P02-096-R.webp"
+    },
     {
         code: "HV-P02-011", name: "成田一仁", type: "character", series: "P02 宣傳卡",
         rarity: "N", position: "ミドルブロッカー", school: "烏野・2年",
@@ -276,5 +263,29 @@ const CARDS = [
         school: "音駒", position: "應援團",
         skill: "【回合1次】抽1張卡，並讓自己場上1名「灰羽リエーフ」角色的1項數值 +1。【回合1次】這個回合中，無效化自己場上「與這張卡同名卡片」的技能。",
         image: "assets/cards/HV-P02-100.webp"
-    }
+    },
+    // #endregion P02 宣傳卡
+
+    // #region P03 宣傳卡（共 3 張）
+    {
+        code: "HV-P03-067", name: "牛島若利", type: "character", series: "P03 宣傳卡",
+        rarity: "R", position: "ウイングスパイカー", school: "白鳥澤・3年",
+        stats: { serve: 3, block: 0, receive: 2, toss: 0, attack: 3 },
+        zone: "接球區域",
+        skill: "技能一：支付2點資源,接球點數 +4(2→6)。技能二：若對方攻擊角色原始攻擊點數≤1,可犧牲場上另一名白鳥澤阻擋角色,讓對方這次進攻點數 -2。",
+        image: "assets/cards/HV-P03-067-R.webp"
+    },
+    {
+        code: "HV-P03-081", name: "球場裡到處都是情報", type: "event", series: "P03 宣傳卡",
+        rarity: "R", category: "阻擋／接球／攻擊（每回合限用1次）",
+        skill: "抽1張卡;若自己場上所有角色都是「疑似ユース」系列,選1名角色任選1項數值 +1;若自己事件棄牌堆疊≥8張,再抽1張卡。同回合內同名卡技能會被無效化。",
+        image: "assets/cards/HV-P03-081.webp"
+    },
+    {
+        code: "HV-P03-099", name: "…那你到底在做什麼？", type: "event", series: "P03 宣傳卡",
+        rarity: "N", category: "攻擊類（白鳥澤主題）",
+        skill: "抽1張卡,自己場上1名白鳥澤攻擊角色攻擊點數 +1;若選中角色是〔牛島若利〕,額外把對方事件區所有角色卡丟棄,若丟掉2張以上,牛島攻擊點數再 +1。",
+        image: "assets/cards/HV-P03-099-N.webp"
+    },
+    // #endregion P03 宣傳卡
 ];
