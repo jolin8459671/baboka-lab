@@ -3,7 +3,7 @@ const { chromium } = require('@playwright/test');
 
 const PAGES = [
   'index.html', 'about.html', 'rules.html', 'cards.html', 'playmat.html',
-  'play.html', 'play-online.html', 'packs.html',
+  'play-online.html', 'packs.html',
 ];
 
 async function checkPage(browser, page) {

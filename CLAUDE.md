@@ -26,9 +26,8 @@
 ```
 /index.html /about.html /cards.html /rules.html /playmat.html   ← 原本的靜態網站頁面
 /style.css /script.js                                            ← 網站原本的樣式/邏輯（含 cards.html 的卡牌資料庫搜尋/篩選）
-/data/cards.js                                                   ← 卡牌資料庫，網站/線上對戰/本機雙人/抽卡包共用同一份
-/play.html /play.js /play.css                                    ← 「本機雙人」雛型版：同一台裝置輪流操作，邏輯是完整的規則引擎但沒有連線
-/play-online.html /online.js /online.css                         ← 「線上對戰」正式版：兩人各自裝置連線，滿版對戰墊 UI
+/data/cards.js                                                   ← 卡牌資料庫，網站/線上對戰/抽卡包共用同一份
+/play-online.html /online.js /online.css                         ← 「線上對戰」正式版：兩人各自裝置連線，滿版對戰墊 UI（唯一的對戰入口，原本還有一個「本機雙人」同裝置輪流版本〔play.html/play.js/play.css〕，Jolin 覺得有線上對戰就夠了，已經整個刪掉，不要再重建）
 /packs.html /packs.js /packs.css                                 ← 「抽卡包」：單機互動，收藏存 Firebase
 /firebase-config.js                                               ← Jolin 已經申請好 Firebase 專案並填好金鑰，不要動這個檔案除非她主動要換專案
 /assets/cards/*.webp                                              ← 卡牌插圖（Jolin 自己準備的圖，非官方美術經處理過的版本，見下方說明）
@@ -45,11 +44,11 @@
 
 **卡牌插圖**：`data/cards.js` 現在**每一張卡都有 `image` 欄位**指向
 `assets/cards/*.webp`（Jolin 自己準備的圖片，不是直接用官方原圖，符合網站
-版權立場）。三個渲染卡面的地方都支援「有 `image` 就疊一張 `<img>` 蓋掉色塊
+版權立場）。兩個渲染卡面的地方都支援「有 `image` 就疊一張 `<img>` 蓋掉色塊
 背景，沒有就照舊顯示原創色塊+姓名字首佔位美術」：`online.js` 的
-`cardFaceHTML`、`packs.js` 的 `pcardHTML`、`play.js` 的
-`handCardHTML`/`zoneHTML`。`cards.html` 的卡牌資料庫頁（`script.js`）目前
-**沒有**接這個圖片邏輯，只顯示文字資訊，這是刻意維持的範圍，不是漏掉。
+`cardFaceHTML`、`packs.js` 的 `pcardHTML`。`cards.html` 的卡牌資料庫頁
+（`script.js`）目前**沒有**接這個圖片邏輯，只顯示文字資訊，這是刻意維持的
+範圍，不是漏掉。
 
 ---
 
@@ -74,8 +73,8 @@
   booster pool（`rarity !== 'Deck'` 的都會進去）。
 
 **`copies` / `variant` 欄位是這次新加的資料模型**：每張卡可以宣告
-`copies: N` 代表正式牌組裡有幾張；`buildDeck()`（`online.js`、`play.js`
-都有各自一份，邏輯相同）現在會優先讀這個值，**沒填才 fallback 用**
+`copies: N` 代表正式牌組裡有幾張；`buildDeck()`（在 `online.js` 裡）
+現在會優先讀這個值，**沒填才 fallback 用**
 `COPIES_PER_CARD = 3`（目前資料庫每張都填了，這個常數只是防呆備援，
 用不到）。`variant: "DP"` 標記同一張卡的平行/閃卡版本——**卡號
 (`code`) 故意跟原版相同**，這是照官方卡片檢索網站（takaratomy.co.jp）
@@ -186,7 +185,7 @@ Claude 發明的編號規則。
   這支確認沒壞
 - `scripts/packs-flow.js`：抽卡包完整流程（選包→撕包手勢→翻牌手勢→查看
   圖鑑），用合成的 `PointerEvent` 模擬滑動手勢
-- `scripts/site-check.js`：全站 8 個頁面逐一載入，抓 console error /
+- `scripts/site-check.js`：全站 7 個頁面逐一載入，抓 console error /
   pageerror / 破圖(404 image)，改完東西後的第一道防線
 - 跑之前記得先啟動 `scripts/serve.js`（背景執行），這些腳本都是打
   `localhost:4173`，不是開 `file://`
@@ -261,9 +260,8 @@ Claude 發明的編號規則。
 - **月島螢、黑尾鐵朗、灰羽利耶夫**這3張的技能沒自動化（分別涉及阻擋階段
   多選流程結算、影響局末結算、同時登場兩個區域，結構太複雜這次先跳過，
   還是用手動加減值輸入框處理）
-- **事件卡完全不能出牌**——所有事件卡目前整個引擎從最初的 `play.js`
-  雛型版開始就沒有把事件卡接進任何出牌流程，只能在手牌裡看到、看技能文字，
-  完全不能用
+- **事件卡完全不能出牌**——所有事件卡目前整個 `online.js` 引擎都沒有把
+  事件卡接進任何出牌流程，只能在手牌裡看到、看技能文字，完全不能用
 - 15秒倒數時間到之後的自動判落球——Jolin 明確要求先不要做
 - 補充包（N/R/S/頂/秘/極）資料還沒補，`packs.js` 的卡池目前只有 8 張
   P02/P03 宣傳卡
