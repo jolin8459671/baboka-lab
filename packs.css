@@ -65,6 +65,16 @@
 .dexcard-wrap .pcard{width:100%;}
 .dexcard-wrap .pcard__name{font-size:11px;}
 
+/* 起始套牌依隊伍分組 */
+.dexteam{margin-bottom:26px;}
+.dexteam:last-child{margin-bottom:0;}
+.dexteam__head{
+  display:flex;align-items:baseline;gap:10px;margin-bottom:12px;
+  padding-bottom:8px;border-bottom:1px solid var(--line);
+}
+.dexteam__name{font-family:var(--display);font-size:20px;color:var(--score);letter-spacing:.04em;}
+.dexteam__count{font-family:var(--mono);font-size:11px;color:var(--chalk-dim);}
+
 /* ---------- 選包轉盤 ---------- */
 .packcarousel{display:flex;justify-content:center;gap:20px;flex-wrap:wrap;padding:20px 0;}
 .packobj{width:120px;aspect-ratio:3/4;cursor:pointer;transition:transform .2s;}

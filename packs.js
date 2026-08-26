@@ -240,9 +240,28 @@
     </div>`;
   }
 
+  // 起始套牌依 series 分隊伍展示（D01/D02/以後的D03...），隊名從該組第一張卡的
+  // school 欄位取「・」前面那段（例如「烏野・1年」→「烏野」），不用另外維護隊名對照表，
+  // 之後 Jolin 補新的起始套牌隊伍進 data/cards.js，這裡會自動多長出一個分組。
+  function groupDeckBySeries(deckCards) {
+    const order = [];
+    const groups = {};
+    deckCards.forEach(c => {
+      if (!groups[c.series]) { groups[c.series] = []; order.push(c.series); }
+      groups[c.series].push(c);
+    });
+    return order.map(series => {
+      const cards = groups[series];
+      const schoolSample = (cards.find(c => c.school) || {}).school || '';
+      const teamName = schoolSample.split('・')[0].split('／')[0] || series;
+      return { series, teamName, cards };
+    });
+  }
+
   function dexHTML() {
     const deckCards = CARDS.filter(c => c.rarity === 'Deck');
     const boosterCards = BOOSTER_POOL;
+    const teamGroups = groupDeckBySeries(deckCards);
     return `
     <div class="bracket packresult" style="text-align:left;">
       <h2 style="text-align:center;">圖鑑</h2>
@@ -258,10 +277,18 @@
       </div>
     </div>
     <div class="bracket setup-card" style="padding:22px;">
-      <h3 style="font-family:var(--display);font-size:18px;margin:0 0 12px;color:var(--chalk-dim);">起始套牌</h3>
-      <div class="dexgrid">
-        ${deckCards.map(c => `<div class="dexcard-wrap">${pcardHTML(c, { showName: true })}</div>`).join('')}
-      </div>
+      <h3 style="font-family:var(--display);font-size:18px;margin:0 0 16px;color:var(--chalk-dim);">起始套牌（一定有，不用抽）</h3>
+      ${teamGroups.map(g => `
+        <div class="dexteam">
+          <div class="dexteam__head">
+            <span class="dexteam__name">${g.teamName}</span>
+            <span class="dexteam__count">${g.cards.length} 張</span>
+          </div>
+          <div class="dexgrid">
+            ${g.cards.map(c => `<div class="dexcard-wrap">${pcardHTML(c, { showName: true })}</div>`).join('')}
+          </div>
+        </div>
+      `).join('')}
     </div>`;
   }
 
