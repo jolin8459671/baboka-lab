@@ -258,7 +258,7 @@
       </div>
     </div>
     <div class="bracket setup-card" style="padding:22px;">
-      <h3 style="font-family:var(--display);font-size:18px;margin:0 0 12px;color:var(--chalk-dim);">起始套牌（一定有，不用抽）</h3>
+      <h3 style="font-family:var(--display);font-size:18px;margin:0 0 12px;color:var(--chalk-dim);">起始套牌</h3>
       <div class="dexgrid">
         ${deckCards.map(c => `<div class="dexcard-wrap">${pcardHTML(c, { showName: true })}</div>`).join('')}
       </div>
