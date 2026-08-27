@@ -17,9 +17,13 @@
   const SETS_TO_WIN = 3;
   const TURN_SECONDS = 15;
 
+// 戰鬥牌組池：只收起始套牌（D 開頭系列），且排除「紀念卡」（series 帶「紀念」）
+// 與個別標了 playable:false 的特例卡。之後補新的起始套牌，這裡多加一列即可。
+const inBattlePool = c => c.playable !== false && !c.series.includes('紀念');
 const POOLS = {
-    karasuno: { label: '烏野 (D01 起始)', cards: CARDS.filter(c => c.series.startsWith('D01') && c.playable !== false) },
-    nekoma:   { label: '音駒 (D02 起始)', cards: CARDS.filter(c => c.series.startsWith('D02') && c.playable !== false) },
+    karasuno: { label: '烏野 (D01 起始)', cards: CARDS.filter(c => c.series.startsWith('D01') && inBattlePool(c)) },
+    nekoma:   { label: '音駒 (D02 起始)', cards: CARDS.filter(c => c.series.startsWith('D02') && inBattlePool(c)) },
+    inarizaki:{ label: '稻荷崎 (D03 起始)', cards: CARDS.filter(c => c.series.startsWith('D03') && inBattlePool(c)) },
 };
 
   // ---------------------------------------------------------

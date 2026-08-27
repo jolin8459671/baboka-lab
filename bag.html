@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>卡牌背包 ｜ バボカ研究所</title>
+<link rel="stylesheet" href="style.css">
+<link rel="stylesheet" href="packs.css">
+<link rel="stylesheet" href="bag.css">
+</head>
+<body class="play-body">
+
+<nav class="nav">
+  <a href="index.html" class="nav__brand"><span class="dot"></span>バボカ研究所</a>
+  <button class="nav__toggle" id="navToggle">☰</button>
+  <div class="nav__links" id="navLinks">
+    <a href="index.html">首頁</a>
+    <a href="rules.html">玩法教學</a>
+    <a href="cards.html">卡牌資料庫</a>
+    <a href="playmat.html">桌墊下載</a>
+    <a href="play-online.html">線上對戰</a>
+    <a href="packs.html">抽卡包</a>
+    <a href="bag.html" class="active">卡牌背包</a>
+    <a href="about.html">關於</a>
+  </div>
+</nav>
+
+<section class="page-hero">
+  <div class="section__kicker">Card bag</div>
+  <h1>卡牌背包</h1>
+  <p>從抽卡包實際拿到的每一張卡都會進到這裡，同一張抽到幾張就疊幾張（右下角數字）。之後組牌組會從這份清單挑牌。收藏存在資料庫裡，換裝置也不會不見。</p>
+</section>
+
+<section class="section" style="padding-top:0;">
+  <div class="bracket statbar" id="bagstat">連線中…</div>
+
+  <div class="dbtools">
+    <input type="text" id="q" placeholder="搜尋卡名 / 卡號 / 技能關鍵字…">
+    <select id="fType">
+      <option value="">全部類型</option>
+      <option value="character">角色卡</option>
+      <option value="event">事件卡</option>
+    </select>
+    <select id="fSeries"><option value="">全部系列</option></select>
+    <select id="fTeam"><option value="">全部學校</option></select>
+    <select id="fRarity"><option value="">全部稀有度</option></select>
+    <select id="fSort">
+      <option value="series">依系列排序</option>
+      <option value="count">依張數排序</option>
+      <option value="rarity">依稀有度排序</option>
+    </select>
+  </div>
+
+  <div class="dexgrid" id="grid"></div>
+  <div class="emptystate" id="empty">背包裡還沒有符合條件的卡，先去<a href="packs.html" style="color:var(--score);">抽卡包</a>吧。</div>
+</section>
+
+<footer>
+  <div class="disclaimer">
+    本站為玩家自製之非官方粉絲網站，內容為社群整理之規則說明與卡牌文字翻譯，不含官方卡片圖像重製。
+  </div>
+  <div class="footer__bottom">バボカ研究所 · 玩家自製 · 非商業性質</div>
+</footer>
+
+<script src="https://www.gstatic.com/firebasejs/10.13.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.13.0/firebase-database-compat.js"></script>
+<script src="firebase-config.js"></script>
+<script src="data/cards.js"></script>
+<script src="bag.js"></script>
+<script src="script.js"></script>
+</body>
+</html>

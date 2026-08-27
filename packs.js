@@ -23,6 +23,16 @@
   const RARITY_WEIGHT = { N: 60, R: 27, S: 10, '頂': 2, '秘': 0.7, '極': 0.3 };
   const RARITY_ORDER = ['N', 'R', 'S', '頂', '秘', '極'];
 
+  // rarity 在 data/cards.js 裡存原始代碼；抽卡權重用「基本階」收斂，顯示用中文。
+  const RARITY_TIER = {
+    H: '秘', I: '頂', IP: '頂', K: '極', KP: '極',
+    '頂P': '頂', '秘P': '秘', '極P': '極',
+    NP: 'N', RP: 'R', SP: 'S', RA: 'R',
+  };
+  const RARITY_LABEL = { H: '秘', I: '頂', IP: '頂P', K: '極', KP: '極P' };
+  function tierOf(r) { return RARITY_TIER[r] || r; }
+  function rarityLabel(r) { return r === 'Deck' ? '起始' : (RARITY_LABEL[r] || r); }
+
   // ---------------------------------------------------------
   // 資料庫轉接層：跟 online.js 同一套寫法（有 window.__mockDB 就用
   // 它方便測試，否則用 Firebase compat SDK）
@@ -42,13 +52,29 @@
     };
   }
 
+  // 背包：跟圖鑑分開的另一份資料表。圖鑑記「這個卡號有沒有收過」（key = code），
+  // 背包記「每個版本各有幾張」（key = code::rarity，平行版分開算），之後組牌組用。
+  const BAG_PATH = 'bagCollection';
+
   const db = getDB();
-  let collection = {}; // { cardCode: count }，由 Firebase onValue 同步
+  let collection = {}; // { cardCode: count }，圖鑑用，由 Firebase onValue 同步
   let dbReady = false;
   let dbError = db ? null : '尚未連上資料庫，請確認 firebase-config.js 已填好金鑰。';
   let screen = 'home'; // home / select / opening / revealing / dex
   let currentPack = []; // 本次開的5張
   let revealedCount = 0;
+
+  // 背包寫入用伺服器端原子遞增（不需要本地鏡射，也不會有 race），
+  // 沒有 increment 可用時（例如測試 mock）就退回單純寫 1。
+  function bagIncrement(n) {
+    try { return firebase.database.ServerValue.increment(n); } catch (e) { return n; }
+  }
+  // 把「這次要進背包的卡」統計成 { "code::rarity": 張數 }
+  function tallyBag(cards) {
+    const t = {};
+    cards.forEach(c => { const k = c.code + '::' + c.rarity; t[k] = (t[k] || 0) + 1; });
+    return Object.fromEntries(Object.entries(t).map(([k, n]) => [k, bagIncrement(n)]));
+  }
 
   if (db) {
     db.onValue(DB_PATH, val => {
@@ -59,7 +85,7 @@
   }
 
   function weightedRandomRarity() {
-    const present = RARITY_ORDER.filter(r => BOOSTER_POOL.some(c => c.rarity === r));
+    const present = RARITY_ORDER.filter(r => BOOSTER_POOL.some(c => tierOf(c.rarity) === r));
     if (present.length === 0) return null;
     const total = present.reduce((s, r) => s + (RARITY_WEIGHT[r] || 1), 0);
     let roll = Math.random() * total;
@@ -73,7 +99,7 @@
   function drawOneCard() {
     const rarity = weightedRandomRarity();
     if (!rarity) return null;
-    const pool = BOOSTER_POOL.filter(c => c.rarity === rarity);
+    const pool = BOOSTER_POOL.filter(c => tierOf(c.rarity) === rarity);
     return pool[Math.floor(Math.random() * pool.length)];
   }
 
@@ -103,20 +129,25 @@
     if (idx !== revealedCount) return; // 只能按順序翻，不能跳著翻
     const card = currentPack[idx];
     collection[card.code] = (collection[card.code] || 0) + 1;
-    if (db) db.update(DB_PATH, { [card.code]: collection[card.code] });
+    if (db) {
+      db.update(DB_PATH, { [card.code]: collection[card.code] });
+      db.update(BAG_PATH, tallyBag([card]));
+    }
     revealedCount++;
     render();
   }
 
   function revealAll() {
     const changed = {};
-    currentPack.forEach((card, i) => {
-      if (i >= revealedCount) {
-        collection[card.code] = (collection[card.code] || 0) + 1;
-        changed[card.code] = collection[card.code];
-      }
+    const newCards = currentPack.slice(revealedCount);
+    newCards.forEach(card => {
+      collection[card.code] = (collection[card.code] || 0) + 1;
+      changed[card.code] = collection[card.code];
     });
-    if (db) db.update(DB_PATH, changed);
+    if (db) {
+      db.update(DB_PATH, changed);
+      db.update(BAG_PATH, tallyBag(newCards));
+    }
     revealedCount = currentPack.length;
     render();
   }
@@ -130,8 +161,8 @@
     if (opts.faceDown) {
       return `<div class="pcard faceDown"><img class="pcard__backimg" src="${CARD_BACK}" alt="卡背"></div>`;
     }
-    const rarityClass = card.rarity || 'N';
-    const glow = opts.revealed && isRareRarity(card.rarity) ? 'rare-glow' : '';
+    const rarityClass = tierOf(card.rarity) || 'N';
+    const glow = opts.revealed && isRareRarity(tierOf(card.rarity)) ? 'rare-glow' : '';
     const countBadge = opts.count != null ? `<div class="pcard__count">×${opts.count}</div>` : '';
     const showImg = card.image && !opts.locked;
     const imgHTML = showImg
@@ -140,7 +171,7 @@
     const zoomAttr = showImg ? `data-fullimg="${card.image}" data-fullname="${card.name || ''}"` : '';
     return `<div class="pcard pcard--${rarityClass} ${opts.revealed ? 'revealed' : ''} ${glow} ${opts.locked ? 'locked' : ''} ${showImg ? 'zoomable' : ''}" ${zoomAttr}>
       ${imgHTML}
-      <div class="pcard__rarity">${opts.locked ? '？' : (card.rarity === 'Deck' ? '起始' : card.rarity)}</div>
+      <div class="pcard__rarity">${opts.locked ? '？' : rarityLabel(card.rarity)}</div>
       <div class="pcard__mono" style="${(showImg || opts.locked) ? 'display:none;' : ''}">${card.name ? card.name[0] : ''}</div>
       ${opts.showName ? `<div class="pcard__name">${opts.locked ? '未取得' : card.name}</div>` : ''}
       ${countBadge}
@@ -159,7 +190,7 @@
     </div>
     <div class="bracket packresult">
       <h2>バボカ補充包</h2>
-      <p style="color:var(--chalk-dim);font-size:13px;margin:6px 0 0;">每包 ${PACK_SIZE} 張，稀有度機率：${RARITY_ORDER.filter(r => BOOSTER_POOL.some(c => c.rarity === r)).map(r => `${r} ${RARITY_WEIGHT[r]}%`).join('　')}（會依實際卡池自動重新正規化）</p>
+      <p style="color:var(--chalk-dim);font-size:13px;margin:6px 0 0;">每包 ${PACK_SIZE} 張，稀有度機率：${RARITY_ORDER.filter(r => BOOSTER_POOL.some(c => tierOf(c.rarity) === r)).map(r => `${r} ${RARITY_WEIGHT[r]}%`).join('　')}（會依實際卡池自動重新正規化）</p>
       <div class="btnrow-wrap" style="justify-content:center;">
         <button class="mini-btn mini-btn--primary" ${BOOSTER_POOL.length === 0 ? 'disabled' : ''} onclick="handleGoSelect()">去開卡包</button>
         <button class="mini-btn" onclick="handleShowDex()">查看圖鑑</button>
