@@ -59,7 +59,7 @@
           ${statPill('舉球', c.stats.toss)}
           ${statPill('攻擊', c.stats.attack)}
         </div>`;
-            metaLine = `登場區域：${c.zone}　｜　${c.school || ''}`;
+            metaLine = `登場區域：${c.zone || '無'}　｜　${c.school || ''}`;
         } else {
             metaLine = `類型：${c.category}`;
         }
