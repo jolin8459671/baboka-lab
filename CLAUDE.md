@@ -349,7 +349,7 @@ Jolin 沒有把 `assets/cards/*.webp` 圖檔納入 Project Knowledge（容量會
 
 - 我還有新增了一個規則也在此md檔內(在圖檔命名那裡)
 
--還有variant跟rarity
+- 還有variant跟rarity
   在cards.js裡, 如果一張牌有兩個等級
   就要寫兩次資訊而且在卡牌資料庫顯示兩次
   圖鑑那邊沒關係, 因為圖片本來就不同
