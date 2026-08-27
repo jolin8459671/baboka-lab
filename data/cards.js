@@ -1,6 +1,7 @@
 // 排球少年 TCG 卡牌資料庫 —— 純文字整理,無官方圖片
 // rarity 標示為「未確認」代表尚未從實體卡片上清楚辨識稀有度標記
 // rarity 為 Deck 指該卡是「起始套牌(スターターデッキ)專屬收錄卡」
+// H:秘, I:頂, IP:頂P, K:極, KP:極P
 
 const CARDS = [
     // #region D01 起始（共 14 張）
@@ -225,7 +226,135 @@ const CARDS = [
     },
     // #endregion D02 起始
 
+    // #region D03 起始（共 14 張）
+    {
+        code: "HV-D03-001", name: "宮侑", type: "character", series: "D03 起始",
+        rarity: "Deck", position: "セッター", school: "稻荷崎・2年",
+        stats: { serve: 2, block: 2, receive: 0, toss: 1, attack: 0 },
+        zone: "舉球區域", copies: 2,
+        skill: "支付2點資源(犧牲下方2張卡)，舉球點數 +1(1→2)，並從自己事件區把〔今天要做什麼？〕最多1張加入手牌；若有加入，從手牌選1張卡放到牌組最下面。",
+        image: "assets/cards/HV-D03-001.webp"
+    },
+    {
+        code: "HV-D03-001", name: "宮侑", type: "character", series: "D03 起始", variant: "DP",
+        rarity: "Deck", position: "セッター", school: "稻荷崎・2年",
+        stats: { serve: 2, block: 2, receive: 0, toss: 1, attack: 0 },
+        zone: "舉球區域", copies: 1,
+        skill: "支付2點資源(犧牲下方2張卡)，舉球點數 +1(1→2)，並從自己事件區把〔今天要做什麼？〕最多1張加入手牌；若有加入，從手牌選1張卡放到牌組最下面。",
+        image: "assets/cards/HV-D03-001-DP.webp"
+    },
+    {
+        code: "HV-D03-002", name: "宮治", type: "character", series: "D03 起始",
+        rarity: "Deck", position: "ウイングスパイカー", school: "稻荷崎・2年",
+        stats: { serve: 1, block: 1, receive: 1, toss: 1, attack: 2 },
+        zone: "攻擊區域", copies: 2,
+        skill: "若自己的舉球角色是〔宮侑〕,可從手牌選1張卡放到牌組最下面,攻擊點數 +2。",
+        image: "assets/cards/HV-D03-002.webp"
+    },
+    {
+        code: "HV-D03-002", name: "宮治", type: "character", series: "D03 起始", variant: "DP",
+        rarity: "Deck", position: "ウイングスパイカー", school: "稻荷崎・2年",
+        stats: { serve: 1, block: 1, receive: 1, toss: 1, attack: 2 },
+        zone: "攻擊區域", copies: 1,
+        skill: "若自己的舉球角色是〔宮侑〕,可從手牌選1張卡放到牌組最下面,攻擊點數 +2。",
+        image: "assets/cards/HV-D03-002-DP.webp"
+    },
+    {
+        code: "HV-D03-003", name: "宮侑", type: "character", series: "D03 起始",
+        rarity: "Deck", position: "セッター", school: "稻荷崎・2年",
+        stats: { serve: 5, block: 0, receive: 0, toss: 1, attack: 0 },
+        zone: "發球區域", copies: 2,
+        skill: "從手牌選1張事件卡放到事件區即可使用。抽1張卡,並從以下擇一發動:這張卡的發球點數 +1;或下一個對手回合中,對手每有1名舉球角色登場,就讓該角色舉球點數 -2。(用這個技能放置的事件卡,其技能無法使用)",
+        image: "assets/cards/HV-D03-003.webp"
+    },
+    {
+        code: "HV-D03-004", name: "宮侑", type: "character", series: "D03 起始",
+        rarity: "Deck", position: "セッター", school: "稻荷崎・2年",
+        stats: { serve: 4, block: 0, receive: 0, toss: 2, attack: 3 },
+        zone: "舉球區域", copies: 2,
+        skill: "無特殊技能。",
+        image: "assets/cards/HV-D03-004.webp"
+    },
+    {
+        code: "HV-D03-005", name: "宮治", type: "character", series: "D03 起始",
+        rarity: "Deck", position: "ウイングスパイカー", school: "稻荷崎・2年",
+        stats: { serve: 1, block: 3, receive: 0, toss: 2, attack: 2 },
+        zone: "阻擋區域", copies: 2,
+        skill: "無特殊技能。",
+        image: "assets/cards/HV-D03-005.webp"
+    },
+    {
+        code: "HV-D03-006", name: "北信介", type: "character", series: "D03 起始",
+        rarity: "Deck", position: "ウイングスパイカー", school: "稻荷崎・3年",
+        stats: { serve: 2, block: 0, receive: 5, toss: 1, attack: 0 },
+        zone: "接球區域", copies: 3,
+        skill: "無特殊技能。",
+        image: "assets/cards/HV-D03-006.webp"
+    },
+    {
+        code: "HV-D03-007", name: "角名倫太郎", type: "character", series: "D03 起始",
+        rarity: "Deck", position: "ミドルブロッカー", school: "稻荷崎・2年",
+        stats: { serve: 2, block: 3, receive: 3, toss: 0, attack: 3 },
+        zone: "阻擋區域", copies: 4,
+        skill: "無特殊技能。",
+        image: "assets/cards/HV-D03-007.webp"
+    },
+    {
+        code: "HV-D03-008", name: "尾白亞蘭", type: "character", series: "D03 起始",
+        rarity: "Deck", position: "ウイングスパイカー", school: "稻荷崎・3年",
+        stats: { serve: 4, block: 0, receive: 1, toss: 0, attack: 3 },
+        zone: "攻擊區域", copies: 4,
+        skill: "支付5點資源(犧牲下方5張卡),攻擊點數 +2。",
+        image: "assets/cards/HV-D03-008.webp"
+    },
+    {
+        code: "HV-D03-009", name: "銀島結", type: "character", series: "D03 起始",
+        rarity: "Deck", position: "ウイングスパイカー", school: "稻荷崎・2年",
+        stats: { serve: 2, block: 2, receive: 4, toss: 0, attack: 3 },
+        zone: "接球區域", copies: 4,
+        skill: "無特殊技能。",
+        image: "assets/cards/HV-D03-009.webp"
+    },
+    {
+        code: "HV-D03-010", name: "大耳練", type: "character", series: "D03 起始",
+        rarity: "Deck", position: "ミドルブロッカー", school: "稻荷崎・3年",
+        stats: { serve: 3, block: 3, receive: 2, toss: 0, attack: 3 },
+        zone: "阻擋區域", copies: 3,
+        skill: "無特殊技能。",
+        image: "assets/cards/HV-D03-010.webp"
+    },
+    {
+        code: "HV-D03-011", name: "赤木路成", type: "character", series: "D03 起始",
+        rarity: "Deck", position: "リベロ", school: "稻荷崎・3年",
+        stats: { serve: null, block: null, receive: 5, toss: 0, attack: 0 },
+        zone: "接球區域", copies: 2,
+        skill: "支付2點資源(犧牲下方2張卡),接球點數 +2。",
+        image: "assets/cards/HV-D03-011.webp"
+    },
+    {
+        code: "HV-D03-012", name: "這就是冠軍候補的樣子", type: "event", series: "D03 起始",
+        rarity: "Deck", category: "接球", copies: 4,
+        skill: "抽1張卡，自己1名稲荷崎角色的接球點數 +1。若從自己接球區支付4點資源(犧牲該區角色下方4張卡)，可再抽1張卡。",
+        image: "assets/cards/HV-D03-012.webp"
+    },
+    {
+        code: "HV-D03-013", name: "今天要做什麼？", type: "event", series: "D03 起始",
+        rarity: "Deck", category: "舉球／攻擊", copies: 4,
+        skill: "若自己的舉球角色是〔宮侑〕或〔宮治〕,才可使用此卡。抽1張卡,該角色舉球點數 +1。",
+        image: "assets/cards/HV-D03-013.webp"
+    },
+    // #endregion D03 起始
+
     // #region P01 補充包（共 1 張）
+    {
+    code: "HV-P01-001", name: "日向翔陽", type: "character", series: "P01 紀念卡",
+    rarity: "H", position: "ミドルブロッカー", school: "烏野・1年",
+    stats: { serve: 2, block: 3, receive: 4, toss: 0, attack: 2 },
+    zone: "接球區域", copies: 1,
+    skill: "無特殊技能。",
+    playable: false,
+    image: "assets/cards/HV-P01-001.webp"
+    },
     {
         code: "HV-P01-031", name: "芝山優生", type: "character", series: "P01 補充包",
         rarity: "N", position: "リベロ", school: "音駒・1年",

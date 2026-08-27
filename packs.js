@@ -277,7 +277,7 @@
       </div>
     </div>
     <div class="bracket setup-card" style="padding:22px;">
-      <h3 style="font-family:var(--display);font-size:18px;margin:0 0 16px;color:var(--chalk-dim);">起始套牌（一定有，不用抽）</h3>
+      <h3 style="font-family:var(--display);font-size:18px;margin:0 0 16px;color:var(--chalk-dim);">起始套牌</h3>
       ${teamGroups.map(g => `
         <div class="dexteam">
           <div class="dexteam__head">

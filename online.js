@@ -17,10 +17,10 @@
   const SETS_TO_WIN = 3;
   const TURN_SECONDS = 15;
 
-  const POOLS = {
-    karasuno: { label: '烏野 (D01 起始)', cards: CARDS.filter(c => c.series.startsWith('D01')) },
-    nekoma:   { label: '音駒 (D02 起始)', cards: CARDS.filter(c => c.series.startsWith('D02')) },
-  };
+const POOLS = {
+    karasuno: { label: '烏野 (D01 起始)', cards: CARDS.filter(c => c.series.startsWith('D01') && c.playable !== false) },
+    nekoma:   { label: '音駒 (D02 起始)', cards: CARDS.filter(c => c.series.startsWith('D02') && c.playable !== false) },
+};
 
   // ---------------------------------------------------------
   // 資料庫轉接層：有 window.__mockDB 就用它（測試用），
