@@ -232,7 +232,7 @@ const CARDS = [
     },
     // #endregion D02 起始
 
-    // #region D03 起始（共 15 筆：13 卡號 ＋ 2 張 DP；copies 加總 40，結構對稱於 D01/D02）
+    // #region D03 起始（共 15 張）
     {
         code: "HV-D03-001", name: "宮侑", type: "character", series: "D03 起始",
         rarity: "Deck", position: "セッター", school: "稻荷崎・2年",
@@ -763,7 +763,7 @@ const CARDS = [
         image: "assets/cards/HV-P01-038.webp"
     },
     {
-        code: "HV-P01-039", name: "松川一靜", type: "character", series: "P01 補充包",
+        code: "HV-P01-039", name: "渡親治", type: "character", series: "P01 補充包",
         rarity: "N", position: "リベロ", school: "青葉城西・2年",
         stats: { serve: null, block: null, receive: 5, toss: 1, attack: 0 },
         zone: "接球區域",
@@ -792,11 +792,356 @@ const CARDS = [
         skill: "無特殊技能。",
         image: "assets/cards/HV-P01-042.webp"
     },
+    {
+        code: "HV-P01-043", name: "木兔光太郎", type: "character", series: "P01 補充包",
+        rarity: "I", position: "ウイングスパイカー", school: "梟谷・3年",
+        stats: { serve: 4, block: 1, receive: 2, toss: 0, attack: 0 },
+        zone: "攻擊區域",
+        skill: "若這張卡是從手牌登場,且自己場上所有角色都是梟谷,且自己攻擊區資源卡數量為奇數,可使用此卡。攻擊點數 +5。",
+        image: "assets/cards/HV-P01-043-I.webp"
+    },
+    {
+        code: "HV-P01-043", name: "木兔光太郎", type: "character", series: "P01 補充包",
+        rarity: "IP", position: "ウイングスパイカー", school: "梟谷・3年",
+        stats: { serve: 4, block: 1, receive: 2, toss: 0, attack: 0 },
+        zone: "攻擊區域",
+        skill: "若這張卡是從手牌登場,且自己場上所有角色都是梟谷,且自己攻擊區資源卡數量為奇數,可使用此卡。攻擊點數 +5。",
+        image: "assets/cards/HV-P01-043-IP.webp"
+    },
+    {
+        code: "HV-P01-044", name: "木兔光太郎", type: "character", series: "P01 補充包",
+        rarity: "R", position: "ウイングスパイカー", school: "梟谷・3年",
+        stats: { serve: 5, block: 2, receive: 2, toss: 0, attack: 3 },
+        skill: "無特殊技能。",
+        image: "assets/cards/HV-P01-044.webp"
+    },
+    {
+        code: "HV-P01-045", name: "赤葦京治", type: "character", series: "P01 補充包",
+        rarity: "S", position: "セッター", school: "梟谷・3年",
+        stats: { serve: 2, block: 1, receive: 0, toss: 1, attack: 2 },
+        zone: "舉球區域",
+        skill: "從自己舉球區和攻擊區合計支付4點資源(犧牲下方共4張卡)即可使用。舉球點數 +2,並從自己棄牌區選最多1張〔木兔光太郎〕加入手牌。",
+        image: "assets/cards/HV-P01-045-S.webp"
+    },
+    {
+        code: "HV-P01-045", name: "赤葦京治", type: "character", series: "P01 補充包",
+        rarity: "SP", position: "セッター", school: "梟谷・3年",
+        stats: { serve: 2, block: 1, receive: 0, toss: 1, attack: 2 },
+        zone: "舉球區域",
+        skill: "從自己舉球區和攻擊區合計支付4點資源(犧牲下方共4張卡)即可使用。舉球點數 +2,並從自己棄牌區選最多1張〔木兔光太郎〕加入手牌。",
+        image: "assets/cards/HV-P01-045-SP.webp"
+    },
+    {
+        code: "HV-P01-046", name: "赤葦京治", type: "character", series: "P01 補充包",
+        rarity: "R", position: "セッター", school: "梟谷・3年",
+        stats: { serve: 1, block: 2, receive: 3, toss: 2, attack: 1 },
+        skill: "無特殊技能。",
+        image: "assets/cards/HV-P01-046.webp"
+    },
+    {
+        code: "HV-P01-047", name: "木葉秋紀", type: "character", series: "P01 補充包",
+        rarity: "R", position: "ウイングスパイカー", school: "梟谷・3年",
+        stats: { serve: 1, block: 0, receive: 5, toss: 0, attack: 0 },
+        zone: "攻擊區域",
+        skill: "當這張攻擊角色上方登場了梟谷角色時,可從自己手牌丟棄1張卡發動。該角色攻擊點數 +1。",
+        image: "assets/cards/HV-P01-047.webp"
+    },
+    {
+        code: "HV-P01-048", name: "木葉秋紀", type: "character", series: "P01 補充包",
+        rarity: "N", position: "ウイングスパイカー", school: "梟谷・3年",
+        stats: { serve: 1, block: 2, receive: 2, toss: 1, attack: 3 },
+        skill: "無特殊技能。",
+        image: "assets/cards/HV-P01-048-N.webp"
+    },
+    {
+        code: "HV-P01-048", name: "木葉秋紀", type: "character", series: "P01 補充包",
+        rarity: "NP", position: "ウイングスパイカー", school: "梟谷・3年",
+        stats: { serve: 1, block: 2, receive: 2, toss: 1, attack: 3 },
+        skill: "無特殊技能。",
+        image: "assets/cards/HV-P01-048-NP.webp"
+    },
+    {
+        code: "HV-P01-049", name: "猿代大和", type: "character", series: "P01 補充包",
+        rarity: "N", position: "ウイングスパイカー", school: "梟谷・3年",
+        stats: { serve: 1, block: 3, receive: 0, toss: 1, attack: 3 },
+        skill: "無特殊技能。",
+        image: "assets/cards/HV-P01-049.webp"
+    },
+    {
+        code: "HV-P01-050", name: "小見春樹", type: "character", series: "P01 補充包",
+        rarity: "N", position: "リベロ", school: "梟谷・3年",
+        stats: { serve: null, block: null, receive: 6, toss: 0, attack: 0 },
+        skill: "無特殊技能。",
+        image: "assets/cards/HV-P01-050.webp"
+    },
+    {
+        code: "HV-P01-051", name: "鷲尾辰生", type: "character", series: "P01 補充包",
+        rarity: "N", position: "ミドルブロッカー", school: "梟谷・3年",
+        stats: { serve: 3, block: 3, receive: 1, toss: 0, attack: 0 },
+        zone: "阻擋區域",
+        skill: "若對手進攻點數≥4,丟棄自己牌組最上面1張卡即可使用。若丟棄的卡是梟谷,觸發〔單觸3〕(對手進攻點數 -3,立刻結束阻擋階段,直接進入自己抽牌階段)。",
+        image: "assets/cards/HV-P01-051.webp"
+    },
+    {
+        code: "HV-P01-052", name: "尾長涉", type: "character", series: "P01 補充包",
+        rarity: "N", position: "ミドルブロッカー", school: "梟谷・1年",
+        stats: { serve: 2, block: 3, receive: 3, toss: 0, attack: 3 },
+        skill: "無特殊技能。",
+        image: "assets/cards/HV-P01-052.webp"
+    },
+    {
+        code: "HV-P01-053", name: "池尻隼人", type: "character", series: "P01 補充包",
+        rarity: "N", position: "ウイングスパイカー", school: "常波・3年",
+        stats: { serve: 1, block: 2, receive: 5, toss: 0, attack: 2 },
+        skill: "無特殊技能。",
+        image: "assets/cards/HV-P01-053.webp"
+    },
+    {
+        code: "HV-P01-054", name: "青根高伸", type: "character", series: "P01 補充包",
+        rarity: "N", position: "ミドルブロッカー", school: "伊達工・3年",
+        stats: { serve: 1, block: 2, receive: 1, toss: 0, attack: 3 },
+        zone: "阻擋區域",
+        skill: "支付3點資源(犧牲下方3張卡),阻擋點數 +5。",
+        image: "assets/cards/HV-P01-054-N.webp"
+    },
+    {
+        code: "HV-P01-055", name: "二口堅治", type: "character", series: "P01 補充包",
+        rarity: "N", position: "ウイングスパイカー", school: "伊達工・3年",
+        stats: { serve: 5, block: 3, receive: 0, toss: 0, attack: 3 },
+        skill: "無特殊技能。",
+        image: "assets/cards/HV-P01-055-N.webp"
+    },
+    {
+        code: "HV-P01-055", name: "二口堅治", type: "character", series: "P01 補充包",
+        rarity: "NP", position: "ウイングスパイカー", school: "伊達工・3年",
+        stats: { serve: 5, block: 3, receive: 0, toss: 0, attack: 3 },
+        skill: "無特殊技能。",
+        image: "assets/cards/HV-P01-055-NP.webp"
+    },
+    {
+        code: "HV-P01-056", name: "牛島若利", type: "character", series: "P01 補充包",
+        rarity: "S", position: "ウイングスパイカー", school: "白鳥澤・3年",
+        stats: { serve: 4, block: 0, receive: 3, toss: 0, attack: 2 },
+        zone: "發球區域／攻擊區域",
+        skill: "從自己手牌選1張事件卡放到事件區即可使用。抽1張卡,這張卡任1項數值 +2。",
+        image: "assets/cards/HV-P01-056-S.webp"
+    },
+    {
+        code: "HV-P01-057", name: "天童覺", type: "character", series: "P01 補充包",
+        rarity: "N", position: "ミドルブロッカー", school: "白鳥澤・3年",
+        stats: { serve: 1, block: 3, receive: 0, toss: 0, attack: 2 },
+        zone: "阻擋區域",
+        skill: "下一個對手回合中,對手每透過抽牌以外的方式把卡加入手牌,自己就抽1張卡。",
+        image: "assets/cards/HV-P01-057.webp"
+    },
+    {
+        code: "HV-P01-058", name: "五色工", type: "character", series: "P01 補充包",
+        rarity: "N", position: "ウイングスパイカー", school: "白鳥澤・1年",
+        stats: { serve: 5, block: 2, receive: 2, toss: 0, attack: 3 },
+        skill: "無特殊技能。",
+        image: "assets/cards/HV-P01-058.webp"
+    },
+    {
+        code: "HV-P01-059", name: "十和田良樹", type: "character", series: "P01 補充包",
+        rarity: "N", position: "ウイングスパイカー", school: "扇南・2年",
+        stats: { serve: 3, block: 1, receive: 5, toss: 0, attack: 2 },
+        skill: "無特殊技能。",
+        image: "assets/cards/HV-P01-059.webp"
+    },
+    {
+        code: "HV-P01-060", name: "百澤雄大", type: "character", series: "P01 補充包",
+        rarity: "N", position: "ウイングスパイカー", school: "角川・1年",
+        stats: { serve: 1, block: 3, receive: 1, toss: 0, attack: 2 },
+        zone: "阻擋區域",
+        skill: "若對手進攻點數≥4,可使用此卡。觸發〔單觸2〕(對手進攻點數 -2,立刻結束阻擋階段,直接進入自己抽牌階段)。",
+        image: "assets/cards/HV-P01-060.webp"
+    },
+    {
+        code: "HV-P01-061", name: "照島遊見", type: "character", series: "P01 補充包",
+        rarity: "N", position: "ウイングスパイカー", school: "條善寺・2年",
+        stats: { serve: 2, block: 2, receive: 1, toss: 1, attack: 3 },
+        skill: "無特殊技能。",
+        image: "assets/cards/HV-P01-061.webp"
+    },
+    {
+        code: "HV-P01-062", name: "中島猛", type: "character", series: "P01 補充包",
+        rarity: "N", position: "ウイングスパイカー", school: "和久谷南・3年",
+        stats: { serve: 1, block: 2, receive: 5, toss: 0, attack: 2 },
+        skill: "無特殊技能。",
+        image: "assets/cards/HV-P01-062.webp"
+    },
+    {
+        code: "HV-P01-063", name: "宮侑", type: "character", series: "P01 補充包",
+        rarity: "N", position: "セッター", school: "稻荷崎・2年",
+        stats: { serve: 5, block: 1, receive: 1, toss: 2, attack: 1 },
+        skill: "無特殊技能。",
+        image: "assets/cards/HV-P01-063-N.webp"
+    },
+    {
+        code: "HV-P01-063", name: "宮侑", type: "character", series: "P01 補充包",
+        rarity: "NP", position: "セッター", school: "稻荷崎・2年",
+        stats: { serve: 5, block: 1, receive: 1, toss: 2, attack: 1 },
+        skill: "無特殊技能。",
+        image: "assets/cards/HV-P01-063-NP.webp"
+    },
+    {
+        code: "HV-P01-064", name: "宮治", type: "character", series: "P01 補充包",
+        rarity: "N", position: "ウイングスパイカー", school: "稻荷崎・2年",
+        stats: { serve: 2, block: 2, receive: 4, toss: 0, attack: 3 },
+        skill: "無特殊技能。",
+        image: "assets/cards/HV-P01-064-N.webp"
+    },
+    {
+        code: "HV-P01-064", name: "宮治", type: "character", series: "P01 補充包",
+        rarity: "NP", position: "ウイングスパイカー", school: "稻荷崎・2年",
+        stats: { serve: 2, block: 2, receive: 4, toss: 0, attack: 3 },
+        skill: "無特殊技能。",
+        image: "assets/cards/HV-P01-064-NP.webp"
+    },
+    {
+        code: "HV-P01-065", name: "北信介", type: "character", series: "P01 補充包",
+        rarity: "N", position: "ウイングスパイカー", school: "稻荷崎・3年",
+        stats: { serve: 2, block: 1, receive: 2, toss: 0, attack: 3 },
+        zone: "接球區域",
+        skill: "若對手事件區中,可於舉球或攻擊時機使用的卡合計≥5張,接球點數 +6。",
+        image: "assets/cards/HV-P01-065.webp"
+    },
+    {
+        code: "HV-P01-066", name: "星海光來", type: "character", series: "P01 補充包",
+        rarity: "S", position: "ウイングスパイカー", school: "鷗台・2年",
+        stats: { serve: 3, block: 2, receive: 1, toss: 0, attack: 2 },
+        zone: "攻擊區域",
+        skill: "若自己場上所有角色都是鷗台,或自己場上有4名以上不同所屬的角色,支付3點資源(犧牲下方3張卡)即可使用。攻擊點數 +3,並從對手事件區丟棄最多2張卡;若丟棄後對手事件區剩餘卡數≤2張,再額外攻擊點數 +1。",
+        image: "assets/cards/HV-P01-066-S.webp"
+    },
+    {
+        code: "HV-P01-066", name: "星海光來", type: "character", series: "P01 補充包",
+        rarity: "SP", position: "ウイングスパイカー", school: "鷗台・2年",
+        stats: { serve: 3, block: 2, receive: 1, toss: 0, attack: 2 },
+        zone: "攻擊區域",
+        skill: "若自己場上所有角色都是鷗台,或自己場上有4名以上不同所屬的角色,支付3點資源(犧牲下方3張卡)即可使用。攻擊點數 +3,並從對手事件區丟棄最多2張卡;若丟棄後對手事件區剩餘卡數≤2張,再額外攻擊點數 +1。",
+        image: "assets/cards/HV-P01-066-SP.webp"
+    },
+    {
+        code: "HV-P01-067", name: "晝神幸郎", type: "character", series: "P01 補充包",
+        rarity: "R", position: "ミドルブロッカー", school: "鷗台・2年",
+        stats: { serve: 5, block: 3, receive: 2, toss: 0, attack: 2 },
+        skill: "無特殊技能。",
+        image: "assets/cards/HV-P01-067.webp"
+    },
+    {
+        code: "HV-P01-068", name: "佐久早聖臣", type: "character", series: "P01 補充包",
+        rarity: "S", position: "ウイングスパイカー", school: "井闥山・2年",
+        stats: { serve: 4, block: 0, receive: 3, toss: 0, attack: 2 },
+        zone: "攻擊區域",
+        skill: "若自己手牌≤3張,且自己場上有4名以上不同所屬的角色,可使用此卡。攻擊點數 +2,並觸發〔封鎖出局2〕(下一個對手回合中,若對手登場原始阻擋點數≤2的阻擋角色,對手直接落敗)。",
+        image: "assets/cards/HV-P01-068.webp"
+    },
+    {
+        code: "HV-P01-069", name: "越後榮", type: "character", series: "P01 補充包",
+        rarity: "N", position: "セッター", school: "樁原・3年",
+        stats: { serve: 1, block: 2, receive: 3, toss: 2, attack: 1 },
+        skill: "無特殊技能。",
+        image: "assets/cards/HV-P01-069.webp"
+    },
+    {
+        code: "HV-P01-070", name: "白峰周", type: "character", series: "P01 補充包",
+        rarity: "N", position: "セッター", school: "早流川工業・3年",
+        stats: { serve: 2, block: 0, receive: 4, toss: 2, attack: 1 },
+        skill: "無特殊技能。",
+        image: "assets/cards/HV-P01-070.webp"
+    },
+    {
+        code: "HV-P01-071", name: "大將優", type: "character", series: "P01 補充包",
+        rarity: "R", position: "ウイングスパイカー", school: "戶美・3年",
+        stats: { serve: 1, block: 1, receive: 5, toss: 0, attack: 3 },
+        skill: "無特殊技能。",
+        image: "assets/cards/HV-P01-071-R.webp"
+    },
+    {
+        code: "HV-P01-071", name: "大將優", type: "character", series: "P01 補充包",
+        rarity: "RP", position: "ウイングスパイカー", school: "戶美・3年",
+        stats: { serve: 1, block: 1, receive: 5, toss: 0, attack: 3 },
+        skill: "無特殊技能。",
+        image: "assets/cards/HV-P01-071-RP.webp"
+    },
+    {
+        code: "HV-P01-072", name: "日向・孤爪", type: "character", series: "P01 宣傳卡",
+        rarity: "N", position: "ミドルブロッカー／セッター（雙面聯名卡）",
+        school: "烏野・1年（日向翔陽）／音駒・2年（孤爪研磨）",
+        stats: { serve: 1, block: 0, receive: 0, toss: 1, attack: 3 },
+        skill: "登場時,可將這張卡的卡名從〔日向・孤爪〕改為〔日向翔陽〕或〔孤爪研磨〕其中一個(該回合結束前持續有效)。這張卡在計算場上角色人數時,算作1人。",
+        image: "assets/cards/HV-P01-072.webp"
+    },
+    {
+        code: "HV-P01-073", name: "月島・黑尾", type: "character", series: "P01 宣傳卡",
+        rarity: "N", position: "ミドルブロッカー（雙面聯名卡）",
+        school: "烏野・1年（月島螢）／音駒・3年（黑尾鐵朗）",
+        stats: { serve: 2, block: 3, receive: 0, toss: 0, attack: 2 },
+        skill: "登場時,可將這張卡的卡名從〔月島・黑尾〕改為〔月島螢〕或〔黑尾鐵朗〕其中一個(該回合結束前持續有效)。這張卡在計算場上角色人數時,算作1人。",
+        image: "assets/cards/HV-P01-073.webp"
+    },
     // #endregion P01
 
-    // #region P02 宣傳卡（共 55 張）
+    // #region P02 （共 55 張）
     {
-        code: "HV-P02-005", name: "西谷夕（PR版）", type: "character", series: "P02 宣傳卡",
+        code: "HV-P02-001", name: "日向翔陽", type: "character", series: "P02 補充包",
+        rarity: "S", position: "ミドルブロッカー", school: "烏野・1年",
+        stats: { serve: 2, block: 2, receive: 0, toss: 0, attack: 3 },
+        zone: "接球區域",
+        skill: "若雙方SET牌區合計≤1張,支付3點資源(犧牲下方3張卡)即可使用。接球點數 +6,並從自己棄牌區選最多1張烏野角色卡加入手牌。",
+        image: "assets/cards/HV-P02-001.webp"
+    },
+    {
+        code: "HV-P02-002", name: "影山飛雄", type: "character", series: "P02 補充包",
+        rarity: "S", position: "セッター", school: "烏野・1年",
+        stats: { serve: 4, block: 1, receive: 0, toss: 1, attack: 0 },
+        zone: "舉球區域",
+        skill: "從自己手牌丟棄1張卡,並支付2點資源(犧牲下方2張卡)即可使用。舉球點數 +2,並從自己棄牌區選1張〔田中龍之介〕加入手牌。",
+        image: "assets/cards/HV-P02-002-S.webp"
+    },
+    {
+        code: "HV-P02-002", name: "影山飛雄", type: "character", series: "P02 補充包",
+        rarity: "SP", position: "セッター", school: "烏野・1年",
+        stats: { serve: 4, block: 1, receive: 0, toss: 1, attack: 0 },
+        zone: "舉球區域",
+        skill: "從自己手牌丟棄1張卡,並支付2點資源(犧牲下方2張卡)即可使用。舉球點數 +2,並從自己棄牌區選1張〔田中龍之介〕加入手牌。",
+        image: "assets/cards/HV-P02-002-SP.webp"
+    },
+    {
+        code: "HV-P02-003", name: "月島螢", type: "character", series: "P02 補充包",
+        rarity: "I", position: "ミドルブロッカー", school: "烏野・1年",
+        stats: { serve: 1, block: 2, receive: 3, toss: 0, attack: 2 },
+        zone: "阻擋區域",
+        skill: "若對手事件區卡數≥2張,從自己手牌選1張事件卡放到事件區即可使用。抽1張卡,阻擋點數 +6。",
+        image: "assets/cards/HV-P02-003-I.webp"
+    },
+    {
+        code: "HV-P02-003", name: "月島螢", type: "character", series: "P02 補充包",
+        rarity: "IP", position: "ミドルブロッカー", school: "烏野・1年",
+        stats: { serve: 1, block: 2, receive: 3, toss: 0, attack: 2 },
+        zone: "阻擋區域",
+        skill: "若對手事件區卡數≥2張,從自己手牌選1張事件卡放到事件區即可使用。抽1張卡,阻擋點數 +6。",
+        image: "assets/cards/HV-P02-003-IP.webp"
+    },
+    {
+        code: "HV-P02-004", name: "山口忠", type: "character", series: "P02 宣傳卡",
+        rarity: "I", position: "ミドルブロッカー", school: "烏野・1年",
+        stats: { serve: 2, block: 3, receive: 0, toss: 0, attack: 2 },
+        zone: "發球區域",
+        skill: "若這張卡是疊在烏野角色上方登場的,對手可以選擇從手牌放1張事件卡到事件區;若對手沒有這麼做,下一個對手回合中,對手每把1張卡加入手牌,自己就抽1張卡。",
+        image: "assets/cards/HV-P02-004-I.webp"
+    },
+    {
+        code: "HV-P02-004", name: "山口忠", type: "character", series: "P02 宣傳卡",
+        rarity: "IP", position: "ミドルブロッカー", school: "烏野・1年",
+        stats: { serve: 2, block: 3, receive: 0, toss: 0, attack: 2 },
+        zone: "發球區域",
+        skill: "若這張卡是疊在烏野角色上方登場的,對手可以選擇從手牌放1張事件卡到事件區;若對手沒有這麼做,下一個對手回合中,對手每把1張卡加入手牌,自己就抽1張卡。",
+        image: "assets/cards/HV-P02-004-IP.webp"
+    },
+    {
+        code: "HV-P02-005", name: "西谷夕", type: "character", series: "P02 宣傳卡",
         rarity: "S", position: "リベロ", school: "烏野・2年",
         stats: { serve: null, block: null, receive: 5, toss: 0, attack: 0 },
         zone: "接球區域",
@@ -804,10 +1149,41 @@ const CARDS = [
         image: "assets/cards/HV-P02-005-S.webp"
     },
     {
+        code: "HV-P02-005", name: "西谷夕", type: "character", series: "P02 宣傳卡",
+        rarity: "SP", position: "リベロ", school: "烏野・2年",
+        stats: { serve: null, block: null, receive: 5, toss: 0, attack: 0 },
+        zone: "接球區域",
+        skill: "限定條件：必須是透過〔助けてもらう!!!〕技能登場才能發動。條件符合後支付2點資源，接球點數 +2（5→7），並從棄牌區把〔木下久志〕最多1張撿回手牌。",
+        image: "assets/cards/HV-P02-005-SP.webp"
+    },
+    {
+        code: "HV-P02-006", name: "西谷夕", type: "character", series: "P02 宣傳卡",
+        rarity: "R", position: "リベロ", school: "烏野・2年",
+        stats: { serve: null, block: null, receive: 4, toss: 0, attack: 0 },
+        zone: "接球區域",
+        skill: "若對手事件區中,可於發球時機使用的卡≥3張,抽1張卡,接球點數 +3。",
+        image: "assets/cards/HV-P02-006.webp"
+    },
+    {
+        code: "HV-P02-007", name: "田中龍之介", type: "character", series: "P02 宣傳卡",
+        rarity: "S", position: "ウイングスパイカー", school: "烏野・2年",
+        stats: { serve: 3, block: 2, receive: 2, toss: 0, attack: 1 },
+        zone: "攻擊區域",
+        skill: "當自己的〔超インナークロス!!!〕被打出時,若這張卡是攻擊角色,支付3點資源(犧牲下方3張卡)即可使用。攻擊點數 +4,並讓下一個對手回合中,對手每有1名接球角色登場,就讓該角色接球點數 -2。",
+        image: "assets/cards/HV-P02-007-S.webp"
+    },
+    {
+        code: "HV-P02-007", name: "田中龍之介", type: "character", series: "P02 宣傳卡",
+        rarity: "SP", position: "ウイングスパイカー", school: "烏野・2年",
+        stats: { serve: 3, block: 2, receive: 2, toss: 0, attack: 1 },
+        zone: "攻擊區域",
+        skill: "當自己的〔超インナークロス!!!〕被打出時,若這張卡是攻擊角色,支付3點資源(犧牲下方3張卡)即可使用。攻擊點數 +4,並讓下一個對手回合中,對手每有1名接球角色登場,就讓該角色接球點數 -2。",
+        image: "assets/cards/HV-P02-007-SP.webp"
+    },
+    {
         code: "HV-P02-008", name: "田中龍之介", type: "character", series: "P02 宣傳卡",
         rarity: "N", position: "ウイングスパイカー", school: "烏野・2年",
         stats: { serve: 4, block: 1, receive: 4, toss: 0, attack: 3 },
-        zone: "攻擊區域",
         skill: "無特殊技能。",
         image: "assets/cards/HV-P02-008.webp"
     },
@@ -815,9 +1191,22 @@ const CARDS = [
         code: "HV-P02-009", name: "緣下力", type: "character", series: "P02 宣傳卡",
         rarity: "N", position: "ウイングスパイカー", school: "烏野・2年",
         stats: { serve: 2, block: 2, receive: 4, toss: 0, attack: 3 },
-        zone: "攻擊區域",
         skill: "無特殊技能。",
         image: "assets/cards/HV-P02-009.webp"
+    },
+    {
+        code: "HV-P02-010", name: "木下久志", type: "character", series: "P02 宣傳卡",
+        rarity: "N", position: "ウイングスパイカー", school: "烏野・2年",
+        stats: { serve: 4, block: 0, receive: 1, toss: 0, attack: 3 },
+        skill: "當自己接球區登場了〔西谷夕〕時,若這張卡是發球角色,可丟棄這張卡發動。自己1名〔西谷夕〕角色接球點數 +1。",
+        image: "assets/cards/HV-P02-010-N.webp"
+    },
+    {
+        code: "HV-P02-010", name: "木下久志", type: "character", series: "P02 宣傳卡",
+        rarity: "NP", position: "ウイングスパイカー", school: "烏野・2年",
+        stats: { serve: 4, block: 0, receive: 1, toss: 0, attack: 3 },
+        skill: "當自己接球區登場了〔西谷夕〕時,若這張卡是發球角色,可丟棄這張卡發動。自己1名〔西谷夕〕角色接球點數 +1。",
+        image: "assets/cards/HV-P02-010-NP.webp"
     },
     {
         code: "HV-P02-011", name: "成田一仁", type: "character", series: "P02 宣傳卡",
@@ -836,12 +1225,71 @@ const CARDS = [
         image: "assets/cards/HV-P02-012.webp"
     },
     {
+        code: "HV-P02-013", name: "菅原孝支", type: "character", series: "P02 宣傳卡",
+        rarity: "R", position: "セッター", school: "烏野・3年",
+        stats: { serve: 3, block: 2, receive: 2, toss: 2, attack: 0 },
+        skill: "無特殊技能。",
+        image: "assets/cards/HV-P02-013.webp"
+    },
+    {
+        code: "HV-P02-014", name: "東峰旭", type: "character", series: "P02 宣傳卡",
+        rarity: "R", position: "ウイングスパイカー", school: "烏野・3年",
+        stats: { serve: 4, block: 0, receive: 0, toss: 0, attack: 3 },
+        zone: "發球區域",
+        skill: "若自己事件區中烏野的事件卡≥4張,發球點數 +2;若≥6張,再額外發球點數 +1。",
+        image: "assets/cards/HV-P02-014.webp"
+    },
+    {
+        code: "HV-P02-015", name: "宮侑", type: "character", series: "P02 紀念卡",
+        rarity: "H", position: "セッター", school: "稻荷崎・2年",
+        stats: { serve: 3, block: 1, receive: 2, toss: 2, attack: 2 },
+        skill: "無特殊技能。",
+        image: "assets/cards/HV-P02-015-H.webp"
+    },
+    {
+        code: "HV-P02-016", name: "宮侑", type: "character", series: "P02 宣傳卡",
+        rarity: "I", position: "セッター", school: "稻荷崎・2年",
+        stats: { serve: 5, block: 0, receive: 0, toss: 1, attack: 0 },
+        zone: "舉球區域",
+        skill: "支付3點資源(犧牲下方3張卡)即可使用。抽1張卡,舉球點數 +2;此外,若這張卡是透過〔正中要害〕的技能登場的,下一個對手回合中,無效化對手〔單觸N〕與〔接球階段・手札〕類型的技能。",
+        image: "assets/cards/HV-P02-016-I.webp"
+    },
+    {
+        code: "HV-P02-016", name: "宮侑", type: "character", series: "P02 宣傳卡",
+        rarity: "IP", position: "セッター", school: "稻荷崎・2年",
+        stats: { serve: 5, block: 0, receive: 0, toss: 1, attack: 0 },
+        zone: "舉球區域",
+        skill: "支付3點資源(犧牲下方3張卡)即可使用。抽1張卡,舉球點數 +2;此外,若這張卡是透過〔正中要害〕的技能登場的,下一個對手回合中,無效化對手〔單觸N〕與〔接球階段・手札〕類型的技能。",
+        image: "assets/cards/HV-P02-016-IP.webp"
+    },
+    {
+        code: "HV-P02-017", name: "宮侑", type: "character", series: "P02 宣傳卡",
+        rarity: "R", position: "セッター", school: "稻荷崎・2年",
+        stats: { serve: 4, block: 0, receive: 0, toss: 1, attack: 1 },
+        zone: "舉球區域",
+        skill: "支付3點資源(犧牲下方3張卡)即可使用。若自己棄牌區稲荷崎角色卡名不重複的合計≥6種,舉球點數 +2,並從自己棄牌區選最多1張稲荷崎的邊翼攻擊手或中間阻攔手加入手牌。",
+        image: "assets/cards/HV-P02-017.webp"
+    },
+    {
         code: "HV-P02-018", name: "宮侑", type: "character", series: "P02 宣傳卡",
         rarity: "N", position: "セッター", school: "稻荷崎・2年",
         stats: { serve: 2, block: 1, receive: 1, toss: 2, attack: 3 },
-        zone: "攻擊區域",
         skill: "無特殊技能。",
         image: "assets/cards/HV-P02-018-N.webp"
+    },
+    {
+        code: "HV-P02-018", name: "宮侑", type: "character", series: "P02 宣傳卡",
+        rarity: "NP", position: "セッター", school: "稻荷崎・2年",
+        stats: { serve: 2, block: 1, receive: 1, toss: 2, attack: 3 },
+        skill: "無特殊技能。",
+        image: "assets/cards/HV-P02-018-NP.webp"
+    },
+    {
+        code: "HV-P02-019", name: "宮治", type: "character", series: "P02 紀念卡",
+        rarity: "H", position: "ウイングスパイカー", school: "稻荷崎・2年",
+        stats: { serve: 2, block: 1, receive: 3, toss: 1, attack: 3 },
+        skill: "無特殊技能。",
+        image: "assets/cards/HV-P02-019-H.webp"
     },
     {
         code: "HV-P02-020", name: "宮治", type: "character", series: "P02 宣傳卡",
@@ -852,6 +1300,14 @@ const CARDS = [
         image: "assets/cards/HV-P02-020-I.webp"
     },
     {
+        code: "HV-P02-020", name: "宮治", type: "character", series: "P02 宣傳卡",
+        rarity: "IP", position: "ウイングスパイカー", school: "稻荷崎・2年",
+        stats: { serve: 3, block: 1, receive: 3, toss: 0, attack: 2 },
+        zone: "攻擊區域",
+        skill: "支付3點資源，攻擊點數 +3；若這張卡是透過〔どんぴしゃり〕技能登場的，再額外 +1，並讓下一個對手回合中，對手手牌最多只能讓2名阻擋角色登場。",
+        image: "assets/cards/HV-P02-020-IP.webp"
+    },
+    {
         code: "HV-P02-021", name: "宮治", type: "character", series: "P02 宣傳卡",
         rarity: "R", position: "ウイングスパイカー", school: "稻荷崎・2年",
         stats: { serve: 3, block: 2, receive: 1, toss: 0, attack: 2 },
@@ -860,12 +1316,26 @@ const CARDS = [
         image: "assets/cards/HV-P02-021-R.webp"
     },
     {
+        code: "HV-P02-021", name: "宮治", type: "character", series: "P02 宣傳卡",
+        rarity: "RP", position: "ウイングスパイカー", school: "稻荷崎・2年",
+        stats: { serve: 3, block: 2, receive: 1, toss: 0, attack: 2 },
+        zone: "攻擊區域",
+        skill: "自己手牌≤2張時，攻擊點數 +2。",
+        image: "assets/cards/HV-P02-021-RP.webp"
+    },
+    {
         code: "HV-P02-022", name: "宮治", type: "character", series: "P02 宣傳卡",
         rarity: "N", position: "ウイングスパイカー", school: "稻荷崎・2年",
         stats: { serve: 1, block: 1, receive: 5, toss: 0, attack: 3 },
-        zone: "接球區域",
         skill: "無特殊技能。",
         image: "assets/cards/HV-P02-022.webp"
+    },
+    {
+        code: "HV-P02-023", name: "北信介", type: "character", series: "P02 紀念卡",
+        rarity: "H", position: "ウイングスパイカー", school: "稻荷崎・3年",
+        stats: { serve: 1, block: 0, receive: 5, toss: 1, attack: 1 },
+        skill: "無特殊技能。",
+        image: "assets/cards/HV-P02-023-H.webp"
     },
     {
         code: "HV-P02-024", name: "北信介", type: "character", series: "P02 宣傳卡",
@@ -876,6 +1346,52 @@ const CARDS = [
         image: "assets/cards/HV-P02-024-S.webp"
     },
     {
+        code: "HV-P02-024", name: "北信介", type: "character", series: "P02 宣傳卡",
+        rarity: "SP", position: "ウイングスパイカー", school: "稻荷崎・3年",
+        stats: { serve: 1, block: 0, receive: 5, toss: 0, attack: 0 },
+        zone: "接球區域",
+        skill: "丟棄1張手牌，支付3點資源，接球點數 +1，並從自己事件區把1張稻荷崎的卡撿回手牌。",
+        image: "assets/cards/HV-P02-024-SP.webp"
+    },
+    {
+        code: "HV-P02-025", name: "北信介", type: "character", series: "P02 宣傳卡",
+        rarity: "R", position: "ウイングスパイカー", school: "稻荷崎・3年",
+        stats: { serve: 1, block: 0, receive: 5, toss: 0, attack: 0 },
+        zone: "接球區域",
+        skill: "支付2點資源(犧牲下方2張卡)即可使用。抽1張卡,並從自己手牌丟棄1張卡。",
+        image: "assets/cards/HV-P02-025.webp"
+    },
+    {
+        code: "HV-P02-026", name: "角名倫太郎", type: "character", series: "P02 紀念卡",
+        rarity: "H", position: "ミドルブロッカー", school: "稻荷崎・2年",
+        stats: { serve: 3, block: 3, receive: 2, toss: 0, attack: 3 },
+        skill: "無特殊技能。",
+        image: "assets/cards/HV-P02-026-H.webp"
+    },
+    {
+        code: "HV-P02-027", name: "角名倫太郎", type: "character", series: "P02 宣傳卡",
+        rarity: "S", position: "ミドルブロッカー", school: "稻荷崎・2年",
+        stats: { serve: 2, block: 2, receive: 2, toss: 0, attack: 2 },
+        zone: "攻擊區域",
+        skill: "若自己棄牌區稲荷崎角色卡名不重複的合計≥6種,將這張卡橫放(側置)即可使用。攻擊點數 +2,並讓下一個對手回合中,對手的中間阻攔手阻擋點數視為無效(等同0)。",
+        image: "assets/cards/HV-P02-027-S.webp"
+    },
+    {
+        code: "HV-P02-027", name: "角名倫太郎", type: "character", series: "P02 宣傳卡",
+        rarity: "SP", position: "ミドルブロッカー", school: "稻荷崎・2年",
+        stats: { serve: 2, block: 2, receive: 2, toss: 0, attack: 2 },
+        zone: "攻擊區域",
+        skill: "若自己棄牌區稲荷崎角色卡名不重複的合計≥6種,將這張卡橫放(側置)即可使用。攻擊點數 +2,並讓下一個對手回合中,對手的中間阻攔手阻擋點數視為無效(等同0)。",
+        image: "assets/cards/HV-P02-027-SP.webp"
+    },
+    {
+        code: "HV-P02-028", name: "角名倫太郎", type: "character", series: "P02 宣傳卡",
+        rarity: "R", position: "ミドルブロッカー", school: "稻荷崎・2年",
+        stats: { serve: 2, block: 2, receive: 4, toss: 0, attack: 3 },
+        skill: "無特殊技能。",
+        image: "assets/cards/HV-P02-028.webp"
+    },
+    {
         code: "HV-P02-029", name: "尾白亞蘭", type: "character", series: "P02 宣傳卡",
         rarity: "R", position: "ウイングスパイカー", school: "稻荷崎・3年",
         stats: { serve: 5, block: 0, receive: 2, toss: 0, attack: 2 },
@@ -884,10 +1400,17 @@ const CARDS = [
         image: "assets/cards/HV-P02-029-R.webp"
     },
     {
+        code: "HV-P02-029", name: "尾白亞蘭", type: "character", series: "P02 宣傳卡",
+        rarity: "RP", position: "ウイングスパイカー", school: "稻荷崎・3年",
+        stats: { serve: 5, block: 0, receive: 2, toss: 0, attack: 2 },
+        zone: "攻擊區域",
+        skill: "支付3點資源；若自己棄牌區裡卡名不同的稻荷崎角色卡合計≥6種，攻擊點數 +3，並讓下一個對手回合中，對手接球角色技能失效。",
+        image: "assets/cards/HV-P02-029-RP.webp"
+    },
+    {
         code: "HV-P02-030", name: "尾白亞蘭", type: "character", series: "P02 宣傳卡",
         rarity: "N", position: "ウイングスパイカー", school: "稻荷崎・3年",
         stats: { serve: 5, block: 0, receive: 4, toss: 0, attack: 3 },
-        zone: "攻擊區域",
         skill: "無特殊技能。",
         image: "assets/cards/HV-P02-030.webp"
     },
@@ -903,7 +1426,6 @@ const CARDS = [
         code: "HV-P02-032", name: "銀島結", type: "character", series: "P02 宣傳卡",
         rarity: "N", position: "ウイングスパイカー", school: "稻荷崎・2年",
         stats: { serve: 1, block: 3, receive: 5, toss: 0, attack: 0 },
-        zone: "接球區域",
         skill: "無特殊技能。",
         image: "assets/cards/HV-P02-032.webp"
     },
@@ -911,7 +1433,6 @@ const CARDS = [
         code: "HV-P02-033", name: "大耳練", type: "character", series: "P02 宣傳卡",
         rarity: "N", position: "ミドルブロッカー", school: "稻荷崎・3年",
         stats: { serve: 2, block: 3, receive: 3, toss: 0, attack: 3 },
-        zone: "阻擋區域",
         skill: "無特殊技能。",
         image: "assets/cards/HV-P02-033.webp"
     },
@@ -919,7 +1440,6 @@ const CARDS = [
         code: "HV-P02-034", name: "赤木路成", type: "character", series: "P02 宣傳卡",
         rarity: "N", position: "リベロ", school: "稻荷崎・3年",
         stats: { serve: null, block: null, receive: 6, toss: 0, attack: 0 },
-        zone: "接球區域",
         skill: "無特殊技能。",
         image: "assets/cards/HV-P02-034.webp"
     },
@@ -932,12 +1452,66 @@ const CARDS = [
         image: "assets/cards/HV-P02-035.webp"
     },
     {
+        code: "HV-P02-036", name: "青根高伸", type: "character", series: "P02 宣傳卡",
+        rarity: "I", position: "ミドルブロッカー", school: "伊達工業・2年",
+        stats: { serve: 1, block: 2, receive: 1, toss: 0, attack: 3 },
+        zone: "阻擋區域",
+        skill: "若自己阻擋區有3名伊達工業角色,支付2點資源(犧牲下方2張卡)即可使用。這回合內,只要阻擋成功,就觸發〔絕殺鎖定7〕(這回合結束時,自己的進攻點數會被強制設定為7)。",
+        image: "assets/cards/HV-P02-036-I.webp"
+    },
+    {
+        code: "HV-P02-036", name: "青根高伸", type: "character", series: "P02 宣傳卡",
+        rarity: "IP", position: "ミドルブロッカー", school: "伊達工業・2年",
+        stats: { serve: 1, block: 2, receive: 1, toss: 0, attack: 3 },
+        zone: "阻擋區域",
+        skill: "若自己阻擋區有3名伊達工業角色,支付2點資源(犧牲下方2張卡)即可使用。這回合內,只要阻擋成功,就觸發〔絕殺鎖定7〕(這回合結束時,自己的進攻點數會被強制設定為7)。",
+        image: "assets/cards/HV-P02-036-IP.webp"
+    },
+    {
+        code: "HV-P02-037", name: "青根高伸", type: "character", series: "P02 宣傳卡",
+        rarity: "S", position: "ミドルブロッカー", school: "伊達工業・2年",
+        stats: { serve: 2, block: 2, receive: 2, toss: 0, attack: 2 },
+        zone: "阻擋區域",
+        skill: "若這張卡是從手牌以副攔角色身分登場的,可將這張卡放到自己牌組最下面發動。從自己棄牌區選1張〔青根高伸〕以副攔角色身分登場,並將其阻擋點數設為3。",
+        image: "assets/cards/HV-P02-037.webp"
+    },
+    {
         code: "HV-P02-038", name: "二口堅治", type: "character", series: "P02 宣傳卡",
         rarity: "I", position: "ウイングスパイカー", school: "伊達工業・2年",
         stats: { serve: 1, block: 2, receive: 4, toss: 0, attack: 0 },
         zone: "阻擋區域",
         skill: "這回合內只要阻擋成功，就觸發〔絕殺鎖定4〕；若這張卡是副攔身份，下一個對手回合中，對手每有1名接球角色登場，就使該角色接球點數 -1。",
         image: "assets/cards/HV-P02-038-I.webp"
+    },
+    {
+        code: "HV-P02-038", name: "二口堅治", type: "character", series: "P02 宣傳卡",
+        rarity: "IP", position: "ウイングスパイカー", school: "伊達工業・2年",
+        stats: { serve: 1, block: 2, receive: 4, toss: 0, attack: 0 },
+        zone: "阻擋區域",
+        skill: "這回合內只要阻擋成功，就觸發〔絕殺鎖定4〕；若這張卡是副攔身份，下一個對手回合中，對手每有1名接球角色登場，就使該角色接球點數 -1。",
+        image: "assets/cards/HV-P02-038-IP.webp"
+    },
+    {
+        code: "HV-P02-039", name: "二口堅治", type: "character", series: "P02 宣傳卡",
+        rarity: "S", position: "ウイングスパイカー", school: "伊達工業・2年",
+        stats: { serve: 1, block: 2, receive: 4, toss: 0, attack: 0 },
+        zone: "攻擊區域",
+        skill: "若自己的舉球角色是伊達工業的S位置(舉球員),下一個對手回合中,若對手阻擋的防禦點數≤6,對手直接阻擋失敗。",
+        image: "assets/cards/HV-P02-039.webp"
+    },
+    {
+        code: "HV-P02-040", name: "黃金川", type: "character", series: "P02 宣傳卡",
+        rarity: "R", position: "セッター", school: "伊達工業・1年",
+        stats: { serve: 2, block: 3, receive: 2, toss: 1, attack: 1 },
+        skill: "無特殊技能。",
+        image: "assets/cards/HV-P02-040-R.webp"
+    },
+    {
+        code: "HV-P02-040", name: "黃金川", type: "character", series: "P02 宣傳卡",
+        rarity: "RP", position: "セッター", school: "伊達工業・1年",
+        stats: { serve: 2, block: 3, receive: 2, toss: 1, attack: 1 },
+        skill: "無特殊技能。",
+        image: "assets/cards/HV-P02-040-RP.webp"
     },
     {
         code: "HV-P02-041", name: "作並浩輔", type: "character", series: "P02 宣傳卡",
@@ -959,7 +1533,6 @@ const CARDS = [
         code: "HV-P02-043", name: "茂庭要", type: "character", series: "P02 宣傳卡",
         rarity: "N", position: "セッター", school: "伊達工業・3年",
         stats: { serve: 2, block: 3, receive: 1, toss: 2, attack: 0 },
-        zone: "舉球區域",
         skill: "無特殊技能。",
         image: "assets/cards/HV-P02-043.webp"
     },
@@ -975,9 +1548,31 @@ const CARDS = [
         code: "HV-P02-045", name: "小原豊", type: "character", series: "P02 宣傳卡",
         rarity: "N", position: "ウイングスパイカー", school: "伊達工業・2年",
         stats: { serve: 1, block: 3, receive: 5, toss: 0, attack: 0 },
-        zone: "接球區域",
         skill: "無特殊技能。",
         image: "assets/cards/HV-P02-045.webp"
+    },
+    {
+        code: "HV-P02-046", name: "牛島若利", type: "character", series: "P02 宣傳卡",
+        rarity: "I", position: "ウイングスパイカー", school: "白鳥澤・3年",
+        stats: { serve: 3, block: 1, receive: 3, toss: 0, attack: 2 },
+        zone: "攻擊區域",
+        skill: "若自己的舉球角色是白鳥澤的S位置(舉球員),支付3點資源(犧牲下方3張卡)即可使用。攻擊點數 +3,並丟棄對手接球區最多2張資源卡。",
+        image: "assets/cards/HV-P02-046-I.webp"
+    },
+    {
+        code: "HV-P02-046", name: "牛島若利", type: "character", series: "P02 宣傳卡",
+        rarity: "IP", position: "ウイングスパイカー", school: "白鳥澤・3年",
+        stats: { serve: 3, block: 1, receive: 3, toss: 0, attack: 2 },
+        zone: "攻擊區域",
+        skill: "若自己的舉球角色是白鳥澤的S位置(舉球員),支付3點資源(犧牲下方3張卡)即可使用。攻擊點數 +3,並丟棄對手接球區最多2張資源卡。",
+        image: "assets/cards/HV-P02-046-IP.webp"
+    },
+    {
+        code: "HV-P02-047", name: "牛島若利", type: "character", series: "P02 宣傳卡",
+        rarity: "R", position: "ウイングスパイカー", school: "白鳥澤・3年",
+        stats: { serve: 1, block: 1, receive: 5, toss: 0, attack: 3 },
+        skill: "無特殊技能。",
+        image: "assets/cards/HV-P02-047.webp"
     },
     {
         code: "HV-P02-048", name: "天童覺", type: "character", series: "P02 宣傳卡",
@@ -986,6 +1581,14 @@ const CARDS = [
         zone: "阻擋區域",
         skill: "擲一次硬幣；正面，阻擋點數 +4；反面，自己牌組最上面3張丟棄。",
         image: "assets/cards/HV-P02-048-S.webp"
+    },
+    {
+        code: "HV-P02-048", name: "天童覺", type: "character", series: "P02 宣傳卡",
+        rarity: "SP", position: "ミドルブロッカー", school: "白鳥澤・3年",
+        stats: { serve: 1, block: 2, receive: 1, toss: 0, attack: 3 },
+        zone: "阻擋區域",
+        skill: "擲一次硬幣；正面，阻擋點數 +4；反面，自己牌組最上面3張丟棄。",
+        image: "assets/cards/HV-P02-048-SP.webp"
     },
     {
         code: "HV-P02-052", name: "大平獅音", type: "character", series: "P02 宣傳卡",
