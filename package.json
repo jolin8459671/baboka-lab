@@ -2,7 +2,7 @@
   "name": "baboka-lab",
   "private": true,
   "version": "1.0.0",
-  "description": "バボカ研究所 / バボカ!! BREAK online - 測試用工具設定，網站本體是純靜態 HTML/JS",
+  "description": "バボカ研究所 - 測試用工具設定，網站本體是純靜態 HTML/JS",
   "scripts": {
     "serve": "node scripts/serve.js"
   },

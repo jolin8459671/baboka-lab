@@ -1,5 +1,5 @@
 // 通用截圖小工具：node scripts/screenshot.js <path> [output.png] [width] [height]
-// 例: node scripts/screenshot.js play-online.html out.png 1280 900
+// 例: node scripts/screenshot.js cards.html out.png 1280 900
 const { chromium } = require('@playwright/test');
 const path = require('path');
 

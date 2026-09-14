@@ -261,23 +261,66 @@ footer{
 }
 .dbtools input:focus,.dbtools select:focus{outline:1px solid var(--score);}
 
-.cardgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:18px;}
-.ccard{padding:22px;}
-.ccard__top{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:10px;gap:10px;}
-.ccard__code{font-family:var(--mono);font-size:11px;color:var(--chalk-dim);}
-.ccard__rarity{
-  font-family:var(--mono);font-size:11px;font-weight:700;
-  padding:2px 8px;border-radius:20px;border:1px solid var(--whistle);color:var(--whistle);
-  white-space:nowrap;
+.cardgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:20px;}
+.ccard{padding:0;overflow:hidden;display:flex;flex-direction:column;transition:border-color .15s ease;}
+
+/* 稀有度配色（跟以前抽卡包頁同一套色票），只用邊框強調色，不加發光避免整頁卡片一起花 */
+.ccard--N{border-color:#5c5844;}
+.ccard--R{border-color:#2e6ea6;}
+.ccard--S{border-color:#8a4fd6;}
+.ccard--頂{border-color:var(--whistle);}
+.ccard--秘{border-color:#ff4d9e;}
+.ccard--極{border-color:#bdbdbd;}
+.ccard--Deck{border-color:var(--line);}
+
+.ccard__imgwrap{position:relative;aspect-ratio:3/4;background:var(--floor-2);overflow:hidden;}
+.ccard__imgwrap.zoomable{cursor:zoom-in;}
+.ccard__img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .3s ease;}
+.ccard__imgwrap.zoomable:hover .ccard__img{transform:scale(1.04);}
+.ccard__noimg{
+  width:100%;height:100%;display:flex;align-items:center;justify-content:center;
+  font-family:var(--display);font-size:56px;color:var(--chalk-dim);
 }
+.ccard__raritybadge{
+  position:absolute;top:10px;right:10px;
+  font-family:var(--mono);font-size:11px;font-weight:700;
+  padding:3px 9px;border-radius:20px;background:rgba(21,23,15,.82);
+  border:1px solid var(--whistle);color:var(--whistle);white-space:nowrap;
+}
+
+.ccard__body{padding:18px 20px 20px;flex:1;display:flex;flex-direction:column;}
+.ccard__top{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:8px;gap:10px;}
+.ccard__code{font-family:var(--mono);font-size:11px;color:var(--chalk-dim);cursor:pointer;}
+.ccard__code:hover{color:var(--chalk);}
 .ccard h3{font-family:var(--display);font-size:22px;margin:2px 0 4px;}
-.ccard__type{font-family:var(--mono);font-size:11px;color:var(--score);letter-spacing:.06em;margin-bottom:12px;}
+.ccard__type{font-family:var(--mono);font-size:10.5px;color:var(--score);letter-spacing:.05em;white-space:nowrap;text-align:right;}
+.ccard__meta{font-family:var(--mono);font-size:11px;color:var(--chalk-dim);margin-bottom:12px;}
 .statsrow{display:flex;gap:14px;flex-wrap:wrap;margin-bottom:14px;font-family:var(--mono);font-size:12px;}
 .statsrow span b{color:var(--chalk);display:block;font-size:16px;font-family:var(--display);}
 .statsrow span{color:var(--chalk-dim);}
-.ccard__skill{font-size:13.5px;color:var(--chalk-dim);border-top:1px dashed var(--line);padding-top:12px;}
+.ccard__skill{font-size:13.5px;color:var(--chalk-dim);border-top:1px dashed var(--line);padding-top:12px;margin-top:auto;}
 .ccard__skill b{color:var(--chalk);}
 .emptystate{display:none;text-align:center;padding:60px 20px;color:var(--chalk-dim);font-family:var(--mono);font-size:13px;}
+
+/* ---------- 點圖放大 lightbox（卡牌資料庫用） ---------- */
+.imglightbox{
+  position:fixed;inset:0;z-index:999;cursor:zoom-out;
+  background:rgba(6,5,4,.88);backdrop-filter:blur(3px);
+  display:flex;flex-direction:column;align-items:center;justify-content:center;gap:14px;
+  padding:40px 20px;animation:lightboxIn .18s ease;
+}
+@keyframes lightboxIn{from{opacity:0;}to{opacity:1;}}
+.imglightbox img{
+  max-width:min(90vw,480px);max-height:78vh;width:auto;height:auto;
+  border-radius:14px;box-shadow:0 30px 60px -20px rgba(0,0,0,.7);
+}
+.imglightbox__name{font-family:var(--display);font-size:20px;color:var(--chalk);}
+.imglightbox__close{
+  position:absolute;top:18px;right:22px;width:36px;height:36px;border-radius:50%;
+  background:rgba(255,255,255,.08);border:1px solid var(--line);color:var(--chalk);
+  font-size:16px;cursor:pointer;
+}
+.imglightbox__close:hover{border-color:var(--whistle);color:var(--whistle);}
 
 /* ---------- 桌墊下載頁 ---------- */
 .matcard{padding:0;overflow:hidden;}

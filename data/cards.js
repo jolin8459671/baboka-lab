@@ -797,7 +797,7 @@ const CARDS = [
         rarity: "I", position: "ウイングスパイカー", school: "梟谷・3年",
         stats: { serve: 4, block: 1, receive: 2, toss: 0, attack: 0 },
         zone: "攻擊區域",
-        skill: "若這張卡是從手牌登場,且自己場上所有角色都是梟谷,且自己攻擊區資源卡數量為奇數,可使用此卡。攻擊點數 +5。",
+        skill: "若這張卡是從手牌登場，且自己場上所有角色都是梟谷，且自己攻擊區資源卡數量為奇數，可使用此卡。攻擊點數 +5。",
         image: "assets/cards/HV-P01-043-I.webp"
     },
     {
@@ -805,7 +805,7 @@ const CARDS = [
         rarity: "IP", position: "ウイングスパイカー", school: "梟谷・3年",
         stats: { serve: 4, block: 1, receive: 2, toss: 0, attack: 0 },
         zone: "攻擊區域",
-        skill: "若這張卡是從手牌登場,且自己場上所有角色都是梟谷,且自己攻擊區資源卡數量為奇數,可使用此卡。攻擊點數 +5。",
+        skill: "若這張卡是從手牌登場，且自己場上所有角色都是梟谷，且自己攻擊區資源卡數量為奇數，可使用此卡。攻擊點數 +5。",
         image: "assets/cards/HV-P01-043-IP.webp"
     },
     {
@@ -820,7 +820,7 @@ const CARDS = [
         rarity: "S", position: "セッター", school: "梟谷・3年",
         stats: { serve: 2, block: 1, receive: 0, toss: 1, attack: 2 },
         zone: "舉球區域",
-        skill: "從自己舉球區和攻擊區合計支付4點資源(犧牲下方共4張卡)即可使用。舉球點數 +2,並從自己棄牌區選最多1張〔木兔光太郎〕加入手牌。",
+        skill: "從自己舉球區和攻擊區合計支付4點資源（犧牲下方共4張卡）即可使用。舉球點數 +2，並從自己棄牌區選最多1張〔木兔光太郎〕加入手牌。",
         image: "assets/cards/HV-P01-045-S.webp"
     },
     {
@@ -828,7 +828,7 @@ const CARDS = [
         rarity: "SP", position: "セッター", school: "梟谷・3年",
         stats: { serve: 2, block: 1, receive: 0, toss: 1, attack: 2 },
         zone: "舉球區域",
-        skill: "從自己舉球區和攻擊區合計支付4點資源(犧牲下方共4張卡)即可使用。舉球點數 +2,並從自己棄牌區選最多1張〔木兔光太郎〕加入手牌。",
+        skill: "從自己舉球區和攻擊區合計支付4點資源（犧牲下方共4張卡）即可使用。舉球點數 +2，並從自己棄牌區選最多1張〔木兔光太郎〕加入手牌。",
         image: "assets/cards/HV-P01-045-SP.webp"
     },
     {
@@ -843,7 +843,7 @@ const CARDS = [
         rarity: "R", position: "ウイングスパイカー", school: "梟谷・3年",
         stats: { serve: 1, block: 0, receive: 5, toss: 0, attack: 0 },
         zone: "攻擊區域",
-        skill: "當這張攻擊角色上方登場了梟谷角色時,可從自己手牌丟棄1張卡發動。該角色攻擊點數 +1。",
+        skill: "當這張攻擊角色上方登場了梟谷角色時，可從自己手牌丟棄1張卡發動。該角色攻擊點數 +1。",
         image: "assets/cards/HV-P01-047.webp"
     },
     {
@@ -879,7 +879,7 @@ const CARDS = [
         rarity: "N", position: "ミドルブロッカー", school: "梟谷・3年",
         stats: { serve: 3, block: 3, receive: 1, toss: 0, attack: 0 },
         zone: "阻擋區域",
-        skill: "若對手進攻點數≥4,丟棄自己牌組最上面1張卡即可使用。若丟棄的卡是梟谷,觸發〔單觸3〕(對手進攻點數 -3,立刻結束阻擋階段,直接進入自己抽牌階段)。",
+        skill: "若對手進攻點數≥4，丟棄自己牌組最上面1張卡即可使用。若丟棄的卡是梟谷，觸發〔單觸3〕（對手進攻點數 -3，立刻結束阻擋階段，直接進入自己抽牌階段）。",
         image: "assets/cards/HV-P01-051.webp"
     },
     {
@@ -901,7 +901,7 @@ const CARDS = [
         rarity: "N", position: "ミドルブロッカー", school: "伊達工・3年",
         stats: { serve: 1, block: 2, receive: 1, toss: 0, attack: 3 },
         zone: "阻擋區域",
-        skill: "支付3點資源(犧牲下方3張卡),阻擋點數 +5。",
+        skill: "支付3點資源（犧牲下方3張卡），阻擋點數 +5。",
         image: "assets/cards/HV-P01-054-N.webp"
     },
     {
@@ -923,7 +923,7 @@ const CARDS = [
         rarity: "S", position: "ウイングスパイカー", school: "白鳥澤・3年",
         stats: { serve: 4, block: 0, receive: 3, toss: 0, attack: 2 },
         zone: "發球區域／攻擊區域",
-        skill: "從自己手牌選1張事件卡放到事件區即可使用。抽1張卡,這張卡任1項數值 +2。",
+        skill: "從自己手牌選1張事件卡放到事件區即可使用。抽1張卡，這張卡任1項數值 +2。",
         image: "assets/cards/HV-P01-056-S.webp"
     },
     {
@@ -931,7 +931,7 @@ const CARDS = [
         rarity: "N", position: "ミドルブロッカー", school: "白鳥澤・3年",
         stats: { serve: 1, block: 3, receive: 0, toss: 0, attack: 2 },
         zone: "阻擋區域",
-        skill: "下一個對手回合中,對手每透過抽牌以外的方式把卡加入手牌,自己就抽1張卡。",
+        skill: "下一個對手回合中，對手每透過抽牌以外的方式把卡加入手牌，自己就抽1張卡。",
         image: "assets/cards/HV-P01-057.webp"
     },
     {
@@ -953,7 +953,7 @@ const CARDS = [
         rarity: "N", position: "ウイングスパイカー", school: "角川・1年",
         stats: { serve: 1, block: 3, receive: 1, toss: 0, attack: 2 },
         zone: "阻擋區域",
-        skill: "若對手進攻點數≥4,可使用此卡。觸發〔單觸2〕(對手進攻點數 -2,立刻結束阻擋階段,直接進入自己抽牌階段)。",
+        skill: "若對手進攻點數≥4，可使用此卡。觸發〔單觸2〕（對手進攻點數 -2，立刻結束阻擋階段，直接進入自己抽牌階段）。",
         image: "assets/cards/HV-P01-060.webp"
     },
     {
@@ -1003,7 +1003,7 @@ const CARDS = [
         rarity: "N", position: "ウイングスパイカー", school: "稻荷崎・3年",
         stats: { serve: 2, block: 1, receive: 2, toss: 0, attack: 3 },
         zone: "接球區域",
-        skill: "若對手事件區中,可於舉球或攻擊時機使用的卡合計≥5張,接球點數 +6。",
+        skill: "若對手事件區中，可於舉球或攻擊時機使用的卡合計≥5張，接球點數 +6。",
         image: "assets/cards/HV-P01-065.webp"
     },
     {
@@ -1011,7 +1011,7 @@ const CARDS = [
         rarity: "S", position: "ウイングスパイカー", school: "鷗台・2年",
         stats: { serve: 3, block: 2, receive: 1, toss: 0, attack: 2 },
         zone: "攻擊區域",
-        skill: "若自己場上所有角色都是鷗台,或自己場上有4名以上不同所屬的角色,支付3點資源(犧牲下方3張卡)即可使用。攻擊點數 +3,並從對手事件區丟棄最多2張卡;若丟棄後對手事件區剩餘卡數≤2張,再額外攻擊點數 +1。",
+        skill: "若自己場上所有角色都是鷗台，或自己場上有4名以上不同所屬的角色，支付3點資源（犧牲下方3張卡）即可使用。攻擊點數 +3，並從對手事件區丟棄最多2張卡；若丟棄後對手事件區剩餘卡數≤2張，再額外攻擊點數 +1。",
         image: "assets/cards/HV-P01-066-S.webp"
     },
     {
@@ -1019,7 +1019,7 @@ const CARDS = [
         rarity: "SP", position: "ウイングスパイカー", school: "鷗台・2年",
         stats: { serve: 3, block: 2, receive: 1, toss: 0, attack: 2 },
         zone: "攻擊區域",
-        skill: "若自己場上所有角色都是鷗台,或自己場上有4名以上不同所屬的角色,支付3點資源(犧牲下方3張卡)即可使用。攻擊點數 +3,並從對手事件區丟棄最多2張卡;若丟棄後對手事件區剩餘卡數≤2張,再額外攻擊點數 +1。",
+        skill: "若自己場上所有角色都是鷗台，或自己場上有4名以上不同所屬的角色，支付3點資源（犧牲下方3張卡）即可使用。攻擊點數 +3，並從對手事件區丟棄最多2張卡；若丟棄後對手事件區剩餘卡數≤2張，再額外攻擊點數 +1。",
         image: "assets/cards/HV-P01-066-SP.webp"
     },
     {
@@ -1034,7 +1034,7 @@ const CARDS = [
         rarity: "S", position: "ウイングスパイカー", school: "井闥山・2年",
         stats: { serve: 4, block: 0, receive: 3, toss: 0, attack: 2 },
         zone: "攻擊區域",
-        skill: "若自己手牌≤3張,且自己場上有4名以上不同所屬的角色,可使用此卡。攻擊點數 +2,並觸發〔封鎖出局2〕(下一個對手回合中,若對手登場原始阻擋點數≤2的阻擋角色,對手直接落敗)。",
+        skill: "若自己手牌≤3張，且自己場上有4名以上不同所屬的角色，可使用此卡。攻擊點數 +2，並觸發〔封鎖出局2〕（下一個對手回合中，若對手登場原始阻擋點數≤2的阻擋角色，對手直接落敗）。",
         image: "assets/cards/HV-P01-068.webp"
     },
     {
@@ -1070,7 +1070,7 @@ const CARDS = [
         rarity: "N", position: "ミドルブロッカー／セッター（雙面聯名卡）",
         school: "烏野・1年（日向翔陽）／音駒・2年（孤爪研磨）",
         stats: { serve: 1, block: 0, receive: 0, toss: 1, attack: 3 },
-        skill: "登場時,可將這張卡的卡名從〔日向・孤爪〕改為〔日向翔陽〕或〔孤爪研磨〕其中一個(該回合結束前持續有效)。這張卡在計算場上角色人數時,算作1人。",
+        skill: "登場時，可將這張卡的卡名從〔日向・孤爪〕改為〔日向翔陽〕或〔孤爪研磨〕其中一個（該回合結束前持續有效）。這張卡在計算場上角色人數時，算作1人。",
         image: "assets/cards/HV-P01-072.webp"
     },
     {
@@ -1078,7 +1078,7 @@ const CARDS = [
         rarity: "N", position: "ミドルブロッカー（雙面聯名卡）",
         school: "烏野・1年（月島螢）／音駒・3年（黑尾鐵朗）",
         stats: { serve: 2, block: 3, receive: 0, toss: 0, attack: 2 },
-        skill: "登場時,可將這張卡的卡名從〔月島・黑尾〕改為〔月島螢〕或〔黑尾鐵朗〕其中一個(該回合結束前持續有效)。這張卡在計算場上角色人數時,算作1人。",
+        skill: "登場時，可將這張卡的卡名從〔月島・黑尾〕改為〔月島螢〕或〔黑尾鐵朗〕其中一個（該回合結束前持續有效）。這張卡在計算場上角色人數時，算作1人。",
         image: "assets/cards/HV-P01-073.webp"
     },
     // #endregion P01
@@ -1089,7 +1089,7 @@ const CARDS = [
         rarity: "S", position: "ミドルブロッカー", school: "烏野・1年",
         stats: { serve: 2, block: 2, receive: 0, toss: 0, attack: 3 },
         zone: "接球區域",
-        skill: "若雙方SET牌區合計≤1張,支付3點資源(犧牲下方3張卡)即可使用。接球點數 +6,並從自己棄牌區選最多1張烏野角色卡加入手牌。",
+        skill: "若雙方SET牌區合計≤1張，支付3點資源（犧牲下方3張卡）即可使用。接球點數 +6，並從自己棄牌區選最多1張烏野角色卡加入手牌。",
         image: "assets/cards/HV-P02-001.webp"
     },
     {
@@ -1097,7 +1097,7 @@ const CARDS = [
         rarity: "S", position: "セッター", school: "烏野・1年",
         stats: { serve: 4, block: 1, receive: 0, toss: 1, attack: 0 },
         zone: "舉球區域",
-        skill: "從自己手牌丟棄1張卡,並支付2點資源(犧牲下方2張卡)即可使用。舉球點數 +2,並從自己棄牌區選1張〔田中龍之介〕加入手牌。",
+        skill: "從自己手牌丟棄1張卡，並支付2點資源（犧牲下方2張卡）即可使用。舉球點數 +2，並從自己棄牌區選1張〔田中龍之介〕加入手牌。",
         image: "assets/cards/HV-P02-002-S.webp"
     },
     {
@@ -1105,7 +1105,7 @@ const CARDS = [
         rarity: "SP", position: "セッター", school: "烏野・1年",
         stats: { serve: 4, block: 1, receive: 0, toss: 1, attack: 0 },
         zone: "舉球區域",
-        skill: "從自己手牌丟棄1張卡,並支付2點資源(犧牲下方2張卡)即可使用。舉球點數 +2,並從自己棄牌區選1張〔田中龍之介〕加入手牌。",
+        skill: "從自己手牌丟棄1張卡，並支付2點資源（犧牲下方2張卡）即可使用。舉球點數 +2，並從自己棄牌區選1張〔田中龍之介〕加入手牌。",
         image: "assets/cards/HV-P02-002-SP.webp"
     },
     {
@@ -1113,7 +1113,7 @@ const CARDS = [
         rarity: "I", position: "ミドルブロッカー", school: "烏野・1年",
         stats: { serve: 1, block: 2, receive: 3, toss: 0, attack: 2 },
         zone: "阻擋區域",
-        skill: "若對手事件區卡數≥2張,從自己手牌選1張事件卡放到事件區即可使用。抽1張卡,阻擋點數 +6。",
+        skill: "若對手事件區卡數≥2張，從自己手牌選1張事件卡放到事件區即可使用。抽1張卡，阻擋點數 +6。",
         image: "assets/cards/HV-P02-003-I.webp"
     },
     {
@@ -1121,7 +1121,7 @@ const CARDS = [
         rarity: "IP", position: "ミドルブロッカー", school: "烏野・1年",
         stats: { serve: 1, block: 2, receive: 3, toss: 0, attack: 2 },
         zone: "阻擋區域",
-        skill: "若對手事件區卡數≥2張,從自己手牌選1張事件卡放到事件區即可使用。抽1張卡,阻擋點數 +6。",
+        skill: "若對手事件區卡數≥2張，從自己手牌選1張事件卡放到事件區即可使用。抽1張卡，阻擋點數 +6。",
         image: "assets/cards/HV-P02-003-IP.webp"
     },
     {
@@ -1129,7 +1129,7 @@ const CARDS = [
         rarity: "I", position: "ミドルブロッカー", school: "烏野・1年",
         stats: { serve: 2, block: 3, receive: 0, toss: 0, attack: 2 },
         zone: "發球區域",
-        skill: "若這張卡是疊在烏野角色上方登場的,對手可以選擇從手牌放1張事件卡到事件區;若對手沒有這麼做,下一個對手回合中,對手每把1張卡加入手牌,自己就抽1張卡。",
+        skill: "若這張卡是疊在烏野角色上方登場的，對手可以選擇從手牌放1張事件卡到事件區；若對手沒有這麼做，下一個對手回合中，對手每把1張卡加入手牌，自己就抽1張卡。",
         image: "assets/cards/HV-P02-004-I.webp"
     },
     {
@@ -1137,7 +1137,7 @@ const CARDS = [
         rarity: "IP", position: "ミドルブロッカー", school: "烏野・1年",
         stats: { serve: 2, block: 3, receive: 0, toss: 0, attack: 2 },
         zone: "發球區域",
-        skill: "若這張卡是疊在烏野角色上方登場的,對手可以選擇從手牌放1張事件卡到事件區;若對手沒有這麼做,下一個對手回合中,對手每把1張卡加入手牌,自己就抽1張卡。",
+        skill: "若這張卡是疊在烏野角色上方登場的，對手可以選擇從手牌放1張事件卡到事件區；若對手沒有這麼做，下一個對手回合中，對手每把1張卡加入手牌，自己就抽1張卡。",
         image: "assets/cards/HV-P02-004-IP.webp"
     },
     {
@@ -1161,7 +1161,7 @@ const CARDS = [
         rarity: "R", position: "リベロ", school: "烏野・2年",
         stats: { serve: null, block: null, receive: 4, toss: 0, attack: 0 },
         zone: "接球區域",
-        skill: "若對手事件區中,可於發球時機使用的卡≥3張,抽1張卡,接球點數 +3。",
+        skill: "若對手事件區中，可於發球時機使用的卡≥3張，抽1張卡，接球點數 +3。",
         image: "assets/cards/HV-P02-006.webp"
     },
     {
@@ -1169,7 +1169,7 @@ const CARDS = [
         rarity: "S", position: "ウイングスパイカー", school: "烏野・2年",
         stats: { serve: 3, block: 2, receive: 2, toss: 0, attack: 1 },
         zone: "攻擊區域",
-        skill: "當自己的〔超インナークロス!!!〕被打出時,若這張卡是攻擊角色,支付3點資源(犧牲下方3張卡)即可使用。攻擊點數 +4,並讓下一個對手回合中,對手每有1名接球角色登場,就讓該角色接球點數 -2。",
+        skill: "當自己的〔超インナークロス!!!〕被打出時，若這張卡是攻擊角色，支付3點資源（犧牲下方3張卡）即可使用。攻擊點數 +4，並讓下一個對手回合中，對手每有1名接球角色登場，就讓該角色接球點數 -2。",
         image: "assets/cards/HV-P02-007-S.webp"
     },
     {
@@ -1177,7 +1177,7 @@ const CARDS = [
         rarity: "SP", position: "ウイングスパイカー", school: "烏野・2年",
         stats: { serve: 3, block: 2, receive: 2, toss: 0, attack: 1 },
         zone: "攻擊區域",
-        skill: "當自己的〔超インナークロス!!!〕被打出時,若這張卡是攻擊角色,支付3點資源(犧牲下方3張卡)即可使用。攻擊點數 +4,並讓下一個對手回合中,對手每有1名接球角色登場,就讓該角色接球點數 -2。",
+        skill: "當自己的〔超インナークロス!!!〕被打出時，若這張卡是攻擊角色，支付3點資源（犧牲下方3張卡）即可使用。攻擊點數 +4，並讓下一個對手回合中，對手每有1名接球角色登場，就讓該角色接球點數 -2。",
         image: "assets/cards/HV-P02-007-SP.webp"
     },
     {
@@ -1198,14 +1198,14 @@ const CARDS = [
         code: "HV-P02-010", name: "木下久志", type: "character", series: "P02 宣傳卡",
         rarity: "N", position: "ウイングスパイカー", school: "烏野・2年",
         stats: { serve: 4, block: 0, receive: 1, toss: 0, attack: 3 },
-        skill: "當自己接球區登場了〔西谷夕〕時,若這張卡是發球角色,可丟棄這張卡發動。自己1名〔西谷夕〕角色接球點數 +1。",
+        skill: "當自己接球區登場了〔西谷夕〕時，若這張卡是發球角色，可丟棄這張卡發動。自己1名〔西谷夕〕角色接球點數 +1。",
         image: "assets/cards/HV-P02-010-N.webp"
     },
     {
         code: "HV-P02-010", name: "木下久志", type: "character", series: "P02 宣傳卡",
         rarity: "NP", position: "ウイングスパイカー", school: "烏野・2年",
         stats: { serve: 4, block: 0, receive: 1, toss: 0, attack: 3 },
-        skill: "當自己接球區登場了〔西谷夕〕時,若這張卡是發球角色,可丟棄這張卡發動。自己1名〔西谷夕〕角色接球點數 +1。",
+        skill: "當自己接球區登場了〔西谷夕〕時，若這張卡是發球角色，可丟棄這張卡發動。自己1名〔西谷夕〕角色接球點數 +1。",
         image: "assets/cards/HV-P02-010-NP.webp"
     },
     {
@@ -1236,7 +1236,7 @@ const CARDS = [
         rarity: "R", position: "ウイングスパイカー", school: "烏野・3年",
         stats: { serve: 4, block: 0, receive: 0, toss: 0, attack: 3 },
         zone: "發球區域",
-        skill: "若自己事件區中烏野的事件卡≥4張,發球點數 +2;若≥6張,再額外發球點數 +1。",
+        skill: "若自己事件區中烏野的事件卡≥4張，發球點數 +2；若≥6張，再額外發球點數 +1。",
         image: "assets/cards/HV-P02-014.webp"
     },
     {
@@ -1251,7 +1251,7 @@ const CARDS = [
         rarity: "I", position: "セッター", school: "稻荷崎・2年",
         stats: { serve: 5, block: 0, receive: 0, toss: 1, attack: 0 },
         zone: "舉球區域",
-        skill: "支付3點資源(犧牲下方3張卡)即可使用。抽1張卡,舉球點數 +2;此外,若這張卡是透過〔正中要害〕的技能登場的,下一個對手回合中,無效化對手〔單觸N〕與〔接球階段・手札〕類型的技能。",
+        skill: "支付3點資源（犧牲下方3張卡）即可使用。抽1張卡，舉球點數 +2；此外，若這張卡是透過〔正中要害〕的技能登場的，下一個對手回合中，無效化對手〔單觸N〕與〔接球階段・手札〕類型的技能。",
         image: "assets/cards/HV-P02-016-I.webp"
     },
     {
@@ -1259,7 +1259,7 @@ const CARDS = [
         rarity: "IP", position: "セッター", school: "稻荷崎・2年",
         stats: { serve: 5, block: 0, receive: 0, toss: 1, attack: 0 },
         zone: "舉球區域",
-        skill: "支付3點資源(犧牲下方3張卡)即可使用。抽1張卡,舉球點數 +2;此外,若這張卡是透過〔正中要害〕的技能登場的,下一個對手回合中,無效化對手〔單觸N〕與〔接球階段・手札〕類型的技能。",
+        skill: "支付3點資源（犧牲下方3張卡）即可使用。抽1張卡，舉球點數 +2；此外，若這張卡是透過〔正中要害〕的技能登場的，下一個對手回合中，無效化對手〔單觸N〕與〔接球階段・手札〕類型的技能。",
         image: "assets/cards/HV-P02-016-IP.webp"
     },
     {
@@ -1267,7 +1267,7 @@ const CARDS = [
         rarity: "R", position: "セッター", school: "稻荷崎・2年",
         stats: { serve: 4, block: 0, receive: 0, toss: 1, attack: 1 },
         zone: "舉球區域",
-        skill: "支付3點資源(犧牲下方3張卡)即可使用。若自己棄牌區稲荷崎角色卡名不重複的合計≥6種,舉球點數 +2,並從自己棄牌區選最多1張稲荷崎的邊翼攻擊手或中間阻攔手加入手牌。",
+        skill: "支付3點資源（犧牲下方3張卡）即可使用。若自己棄牌區稻荷崎角色卡名不重複的合計≥6種，舉球點數 +2，並從自己棄牌區選最多1張稻荷崎的邊翼攻擊手或中間阻攔手加入手牌。",
         image: "assets/cards/HV-P02-017.webp"
     },
     {
@@ -1358,7 +1358,7 @@ const CARDS = [
         rarity: "R", position: "ウイングスパイカー", school: "稻荷崎・3年",
         stats: { serve: 1, block: 0, receive: 5, toss: 0, attack: 0 },
         zone: "接球區域",
-        skill: "支付2點資源(犧牲下方2張卡)即可使用。抽1張卡,並從自己手牌丟棄1張卡。",
+        skill: "支付2點資源（犧牲下方2張卡）即可使用。抽1張卡，並從自己手牌丟棄1張卡。",
         image: "assets/cards/HV-P02-025.webp"
     },
     {
@@ -1373,7 +1373,7 @@ const CARDS = [
         rarity: "S", position: "ミドルブロッカー", school: "稻荷崎・2年",
         stats: { serve: 2, block: 2, receive: 2, toss: 0, attack: 2 },
         zone: "攻擊區域",
-        skill: "若自己棄牌區稲荷崎角色卡名不重複的合計≥6種,將這張卡橫放(側置)即可使用。攻擊點數 +2,並讓下一個對手回合中,對手的中間阻攔手阻擋點數視為無效(等同0)。",
+        skill: "若自己棄牌區稻荷崎角色卡名不重複的合計≥6種，將這張卡橫放（側置）即可使用。攻擊點數 +2，並讓下一個對手回合中，對手的中間阻攔手阻擋點數視為無效（等同0）。",
         image: "assets/cards/HV-P02-027-S.webp"
     },
     {
@@ -1381,7 +1381,7 @@ const CARDS = [
         rarity: "SP", position: "ミドルブロッカー", school: "稻荷崎・2年",
         stats: { serve: 2, block: 2, receive: 2, toss: 0, attack: 2 },
         zone: "攻擊區域",
-        skill: "若自己棄牌區稲荷崎角色卡名不重複的合計≥6種,將這張卡橫放(側置)即可使用。攻擊點數 +2,並讓下一個對手回合中,對手的中間阻攔手阻擋點數視為無效(等同0)。",
+        skill: "若自己棄牌區稻荷崎角色卡名不重複的合計≥6種，將這張卡橫放（側置）即可使用。攻擊點數 +2，並讓下一個對手回合中，對手的中間阻攔手阻擋點數視為無效（等同0）。",
         image: "assets/cards/HV-P02-027-SP.webp"
     },
     {
@@ -1456,7 +1456,7 @@ const CARDS = [
         rarity: "I", position: "ミドルブロッカー", school: "伊達工業・2年",
         stats: { serve: 1, block: 2, receive: 1, toss: 0, attack: 3 },
         zone: "阻擋區域",
-        skill: "若自己阻擋區有3名伊達工業角色,支付2點資源(犧牲下方2張卡)即可使用。這回合內,只要阻擋成功,就觸發〔絕殺鎖定7〕(這回合結束時,自己的進攻點數會被強制設定為7)。",
+        skill: "若自己阻擋區有3名伊達工業角色，支付2點資源（犧牲下方2張卡）即可使用。這回合內，只要阻擋成功，就觸發〔絕殺鎖定7〕（這回合結束時，自己的進攻點數會被強制設定為7）。",
         image: "assets/cards/HV-P02-036-I.webp"
     },
     {
@@ -1464,7 +1464,7 @@ const CARDS = [
         rarity: "IP", position: "ミドルブロッカー", school: "伊達工業・2年",
         stats: { serve: 1, block: 2, receive: 1, toss: 0, attack: 3 },
         zone: "阻擋區域",
-        skill: "若自己阻擋區有3名伊達工業角色,支付2點資源(犧牲下方2張卡)即可使用。這回合內,只要阻擋成功,就觸發〔絕殺鎖定7〕(這回合結束時,自己的進攻點數會被強制設定為7)。",
+        skill: "若自己阻擋區有3名伊達工業角色，支付2點資源（犧牲下方2張卡）即可使用。這回合內，只要阻擋成功，就觸發〔絕殺鎖定7〕（這回合結束時，自己的進攻點數會被強制設定為7）。",
         image: "assets/cards/HV-P02-036-IP.webp"
     },
     {
@@ -1472,7 +1472,7 @@ const CARDS = [
         rarity: "S", position: "ミドルブロッカー", school: "伊達工業・2年",
         stats: { serve: 2, block: 2, receive: 2, toss: 0, attack: 2 },
         zone: "阻擋區域",
-        skill: "若這張卡是從手牌以副攔角色身分登場的,可將這張卡放到自己牌組最下面發動。從自己棄牌區選1張〔青根高伸〕以副攔角色身分登場,並將其阻擋點數設為3。",
+        skill: "若這張卡是從手牌以副攔角色身分登場的，可將這張卡放到自己牌組最下面發動。從自己棄牌區選1張〔青根高伸〕以副攔角色身分登場，並將其阻擋點數設為3。",
         image: "assets/cards/HV-P02-037.webp"
     },
     {
@@ -1496,7 +1496,7 @@ const CARDS = [
         rarity: "S", position: "ウイングスパイカー", school: "伊達工業・2年",
         stats: { serve: 1, block: 2, receive: 4, toss: 0, attack: 0 },
         zone: "攻擊區域",
-        skill: "若自己的舉球角色是伊達工業的S位置(舉球員),下一個對手回合中,若對手阻擋的防禦點數≤6,對手直接阻擋失敗。",
+        skill: "若自己的舉球角色是伊達工業的S位置（舉球員），下一個對手回合中，若對手阻擋的防禦點數≤6，對手直接阻擋失敗。",
         image: "assets/cards/HV-P02-039.webp"
     },
     {
@@ -1556,7 +1556,7 @@ const CARDS = [
         rarity: "I", position: "ウイングスパイカー", school: "白鳥澤・3年",
         stats: { serve: 3, block: 1, receive: 3, toss: 0, attack: 2 },
         zone: "攻擊區域",
-        skill: "若自己的舉球角色是白鳥澤的S位置(舉球員),支付3點資源(犧牲下方3張卡)即可使用。攻擊點數 +3,並丟棄對手接球區最多2張資源卡。",
+        skill: "若自己的舉球角色是白鳥澤的S位置（舉球員），支付3點資源（犧牲下方3張卡）即可使用。攻擊點數 +3，並丟棄對手接球區最多2張資源卡。",
         image: "assets/cards/HV-P02-046-I.webp"
     },
     {
@@ -1564,7 +1564,7 @@ const CARDS = [
         rarity: "IP", position: "ウイングスパイカー", school: "白鳥澤・3年",
         stats: { serve: 3, block: 1, receive: 3, toss: 0, attack: 2 },
         zone: "攻擊區域",
-        skill: "若自己的舉球角色是白鳥澤的S位置(舉球員),支付3點資源(犧牲下方3張卡)即可使用。攻擊點數 +3,並丟棄對手接球區最多2張資源卡。",
+        skill: "若自己的舉球角色是白鳥澤的S位置（舉球員），支付3點資源（犧牲下方3張卡）即可使用。攻擊點數 +3，並丟棄對手接球區最多2張資源卡。",
         image: "assets/cards/HV-P02-046-IP.webp"
     },
     {
