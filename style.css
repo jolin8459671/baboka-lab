@@ -248,7 +248,8 @@ footer{
 /* ---------- 卡牌資料庫 ---------- */
 .dbtools{
   display:flex;gap:12px;flex-wrap:wrap;margin:26px 0 34px;
-  position:sticky;top:78px;z-index:30;
+  position:sticky;top:83px;z-index:30; /* 導覽列(.nav)實際渲染高度量出來約82.4px，這裡抓83px貼齊。
+  之前抓78px太小，sticky吸頂時會被導覽列的半透明模糊背景蓋到一小條，看起來像搜尋框左上角被咬到一角 */
   background:var(--ink);padding:14px 0;
 }
 .dbtools input[type=text]{
