@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://jolin8459671.github.io/baboka-lab/sitemap.xml

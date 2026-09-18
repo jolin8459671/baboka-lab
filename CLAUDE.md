@@ -50,6 +50,7 @@
 /assets/cards/*.webp                                             ← 卡牌插圖（Jolin 自己重新畫/排版的原創圖，不是官方卡面截圖／掃描），back.webp 現在沒有頁面在用（原本是抽卡包卡背，抽卡包拿掉後留著沒差）
 /assets/*_playmat*.{svg,png}                                     ← 桌墊下載頁用的原創桌墊設計圖
 /scripts/*.js /package.json                                      ← Playwright 測試工具鏈，見下方「測試方式」章節
+/robots.txt /sitemap.xml                                         ← SEO 用，2026/09 補的，見下方「SEO / 讓 Google 找得到」章節
 ```
 
 ## 視覺設計語言
@@ -177,6 +178,33 @@ D 起始套牌不會有多版本後綴**）：
 這些規則細節目前只用在 `rules.html` 的教學文字裡，網站本身沒有任何地方會
 「執行」這套規則（沒有對戰引擎了）。如果 Jolin 拿官方規則書來核對，改的
 地方主要是 `rules.html` 的文字內容。
+
+---
+
+## SEO / 讓 Google 找得到（2026/09 補的）
+
+網站掛在 GitHub Pages（`https://jolin8459671.github.io/baboka-lab/`），GitHub
+Pages 本身**沒有技術上擋搜尋引擎**，搜尋不到單純是因為站台新、沒有 sitemap
+引導爬蟲、也沒有主動跟 Google 提交過。已經做的：
+
+- `robots.txt`：允許全站爬取，指向 sitemap
+- `sitemap.xml`：列出全部 5 個頁面
+- 5 個頁面都加了 `<meta name="description">`、Open Graph（`og:title`
+  `og:description` `og:url` `og:image` 等）、`<link rel="canonical">`。
+  `og:image` 目前共用 `assets/single_playmat_print.png`（原創桌墊圖，
+  沒有版權疑慮），之後想換更有代表性的圖再改
+
+**還需要 Jolin 自己做的**（帳號綁定行為，Claude 不能代做）：
+1. 去 [Google Search Console](https://search.google.com/search-console) 用
+   自己的 Google 帳號新增資源（輸入 `https://jolin8459671.github.io/baboka-lab/`）
+2. 驗證網站所有權（GSC 通常會給一段 HTML meta tag 貼進 `<head>`，或用
+   Google Analytics／既有 DNS 驗證，選 meta tag 最簡單）
+3. 在 GSC 裡提交 `sitemap.xml` 的網址
+4. 之後有新內容更新，GSC 有個「要求建立索引」的按鈕可以手動催爬蟲
+
+即使做完這些，Google 真的收錄／出現在搜尋結果通常還要幾天到幾週，而且小型
+個人網站沒有外部連結（backlink）的話，排名不會太前面——這是流量/知名度的
+問題，不是網站有 bug。
 
 ---
 
