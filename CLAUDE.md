@@ -193,6 +193,14 @@ Pages 本身**沒有技術上擋搜尋引擎**，搜尋不到單純是因為站�
   `og:description` `og:url` `og:image` 等）、`<link rel="canonical">`。
   `og:image` 目前共用 `assets/single_playmat_print.png`（原創桌墊圖，
   沒有版權疑慮），之後想換更有代表性的圖再改
+- `index.html` 加了 JSON-LD（`@type: WebSite`，含 `name`/`url`/`description`），
+  用來加強 Google 搜尋結果最上面那行「網站名稱」標籤的判斷依據。**這個標籤
+  Google 更新很慢**（比標題/描述慢很多），之前實測過 Google 一度把這行顯示成
+  「GitHub Pages documentation」這種通用名稱而不是「バボカ研究所」，加 JSON-LD
+  是為了給更明確的訊號，但沒辦法保證 Google 多快會真的採用
+- `robots.txt`/`sitemap.xml` 已確認上線可正常擷取（200、內容正確）；2026/09
+  底實測「排球少年 TCG 中文資料庫」這組關鍵字已經能在 Google 搜尋結果找到
+  網站本身（不只是 GitHub 程式碼頁），代表已經被正式收錄
 
 **還需要 Jolin 自己做的**（帳號綁定行為，Claude 不能代做）：
 1. 去 [Google Search Console](https://search.google.com/search-console) 用
